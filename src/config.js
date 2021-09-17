@@ -6,6 +6,11 @@ if (process.env.NODE_ENV === "development") {
     contractAddress: "0xE19F38e0fA7B005E8E62E837B0D79C8558fAd8E0",
     gxApi: "http://localhost:5001/gxcert-21233/asia-northeast1/gxcertMain",
     host: "http://localhost:3000/#",
+    network: {
+      host: "https://matic-mumbai.chainstacklabs.com",
+      chainId: 80001,
+      networkName: "Matic Mumbai"
+    },
   };
 } else if (process.env.NODE_ENV === "production") {
   //TODO: Change here
