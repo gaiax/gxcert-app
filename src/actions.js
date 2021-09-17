@@ -1436,7 +1436,7 @@ const addTo = () => async (dispatch, getState) => {
     return;
   }
   profile.address = to;
-  usersToIssue.push(profile);
+  usersToIssue.unshift(profile);
   console.log(usersToIssue);
   dispatch({
     type: "ADD_TO",
