@@ -1,5 +1,6 @@
 import Torus from "@toruslabs/torus-embed";
 import Web3 from "web3";
+import config from "./config";
 
 class TorusClient {
   constructor() {
@@ -9,12 +10,7 @@ class TorusClient {
     await this.torus.init({
       buildEnv: "production",
       enableLogging: true,
-      network: {
-        host: "https://rpc-mainnet.maticvigil.com",
-        chainId: 137,
-        networkId: 137,
-        networkName: "matic-mainnet"
-      },
+      network: config.network,
       showTorusButton: true,
       enabledVerifiers: {
         google: true,

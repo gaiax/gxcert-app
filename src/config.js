@@ -11,9 +11,15 @@ if (process.env.NODE_ENV === "development") {
   //TODO: Change here
   config = {
     web3Host: "https://rpc-mainnet.maticvigil.com",
-    contractAddress: "0x1ACd77F5AAc3DC24d57F7270b2839B82eFAfc47C",
+    contractAddress: "0xD1cf302e4E7859f1346D8A1BA0e031A8fFc3f13c",
     gxApi: "https://asia-northeast1-gxcert-21233.cloudfunctions.net/gxcertMain",
     host: "https://gaiax.github.io/gxcert-app/#",
+    network: {
+      host: "https://rpc-mainnet.maticvigil.com",
+      chainId: 137,
+      networkId: 137,
+      networkName: "matic-mainnet"
+    },
   }
 }
 

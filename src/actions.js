@@ -800,7 +800,7 @@ const sign = () => async (dispatch, getState) => {
           clearInterval(timer);
           resolve();
         }
-      }, 6000);
+      }, 21000);
     });
   })();
   await fetchCertificatesInIssuer()(dispatch, getState);
@@ -887,7 +887,7 @@ const registerProfile = () => async (dispatch, getState) => {
           clearInterval(timer);
           resolve();
         }
-      }, 6000);
+      }, 21000);
     });
   })();
   dispatch({
@@ -957,7 +957,7 @@ const registerGroup = () => async (dispatch, getState) => {
           clearInterval(timer);
           resolve();
         }
-      }, 6000);
+      }, 21000);
     });
   })();
   const group = await gxCert.getGroup(groupIds[groupIds.length - 1]);
@@ -1051,7 +1051,7 @@ const updateProfile = () => async (dispatch, getState) => {
           clearInterval(timer);
           resolve();
         }
-      }, 6000);
+      }, 21000);
     });
   })();
 
@@ -1135,7 +1135,7 @@ const updateGroup = () => async (dispatch, getState) => {
           clearInterval(timer);
           resolve();
         }
-      }, 6000);
+      }, 21000);
     });
   })();
 
@@ -1195,6 +1195,7 @@ const issue = (certId) => async (dispatch, getState) => {
     });
     return;
   }
+  console.log(signed);
   try {
     await gxCert.createUserCerts(signed);
   } catch(err) {
@@ -1242,7 +1243,7 @@ const issue = (certId) => async (dispatch, getState) => {
           clearInterval(timer);
           resolve();
         }
-      }, 6000);
+      }, 21000);
     });
   })();
   await fetchCertificatesInIssuer()(dispatch, getState);
