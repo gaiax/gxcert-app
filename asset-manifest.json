@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/gxcert-app/static/css/main.4ca57858.chunk.css",
-    "main.js": "/gxcert-app/static/js/main.e2a05b26.chunk.js",
-    "main.js.map": "/gxcert-app/static/js/main.e2a05b26.chunk.js.map",
+    "main.js": "/gxcert-app/static/js/main.9ef5935d.chunk.js",
+    "main.js.map": "/gxcert-app/static/js/main.9ef5935d.chunk.js.map",
     "runtime-main.js": "/gxcert-app/static/js/runtime-main.454a3e8b.js",
     "runtime-main.js.map": "/gxcert-app/static/js/runtime-main.454a3e8b.js.map",
     "static/css/2.ab75b8d7.chunk.css": "/gxcert-app/static/css/2.ab75b8d7.chunk.css",
@@ -21,6 +21,6 @@
     "static/css/2.ab75b8d7.chunk.css",
     "static/js/2.4405bb61.chunk.js",
     "static/css/main.4ca57858.chunk.css",
-    "static/js/main.e2a05b26.chunk.js"
+    "static/js/main.9ef5935d.chunk.js"
   ]
 }
