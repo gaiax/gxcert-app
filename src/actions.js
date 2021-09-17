@@ -792,7 +792,6 @@ const sign = () => async (dispatch, getState) => {
           certificates = await gxCert.getGroupCerts(certificate.groupId);
         } catch(err) {
           console.error(err);
-          alert("Failed to fetch certificates.");
           return;
         }
         const state = getState().state;
@@ -1273,11 +1272,39 @@ const inviteMember = () => async (dispatch, getState) => {
     alert("Email is not registered.");
     return;
   }
+  let profile;
+  try {
+    profile = await gxCert.getProfile(address);
+  } catch(err) {
+    console.error(err);
+    alert("そのユーザーは登録されていません");
+    return;
+  }
+  profile.address = address;
+  let group = state.groupInSidebar;
+  group.members.push(profile);
+  dispatch({
+    type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+    payload: group,
+  });
   let signedMember;
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
   try {
     signedMember = await gxCert.signMemberAddressForInviting(address, { address: signerAddress });
   } catch(err) {
     console.error(err);
+    group.members.pop();
+    dispatch({
+      type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+      payload: group,
+    });
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     alert("Failed to sign for invitation.");
     return;
   }
@@ -1286,18 +1313,37 @@ const inviteMember = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     alert("Failed to send invitation.");
+    group.members.pop();
+    dispatch({
+      type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+      payload: group,
+    });
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     return;
   }
-  let group;
-  try {
-    group = await gxCert.getGroup(groupId);
-  } catch(err) {
-    console.error(err);
-    return;
-  }
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        let _group;
+        try {
+          _group = await gxCert.getGroup(group.groupId);
+        } catch(err) {
+          console.error(err);
+          return;
+        }
+        if (group.members.length <= _group.members.length) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 21000);
+    });
+  })();
   dispatch({
-    type: "FETCHED_GROUP",
-    payload: group,
+    type: "LOADING",
+    payload: false,
   });
 }
 
