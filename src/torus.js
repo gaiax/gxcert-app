@@ -10,7 +10,7 @@ class TorusClient {
       buildEnv: "production",
       enableLogging: true,
       network: {
-        host: "https://matic-mumbai.chainstacklabs.com",
+        host: "https://rpc-mainnet.maticvigil.com",
         chainId: 80001,
         networkName: "Mumbai Testnet"
       },
