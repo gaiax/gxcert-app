@@ -11,8 +11,9 @@ class TorusClient {
       enableLogging: true,
       network: {
         host: "https://rpc-mainnet.maticvigil.com",
-        chainId: 80001,
-        networkName: "Mumbai Testnet"
+        chainId: 137,
+        networkId: 137,
+        networkName: "matic-mainnet"
       },
       showTorusButton: true,
       enabledVerifiers: {
