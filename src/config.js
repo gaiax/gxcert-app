@@ -3,7 +3,7 @@ let config;
 if (process.env.NODE_ENV === "development") {
   config = {
     web3Host: "https://matic-mumbai.chainstacklabs.com",
-    contractAddress: "0xE19F38e0fA7B005E8E62E837B0D79C8558fAd8E0",
+    contractAddress: "0x759Fdf53c6820ADDf7BEaE7440707E94A6d2A5A9",
     gxApi: "https://asia-northeast1-gxcert-21233.cloudfunctions.net/gxcert",
     host: "http://localhost:3000/#",
     network: {
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === "development") {
   //TODO: Change here
   config = {
     web3Host: "https://rpc-mainnet.maticvigil.com",
-    contractAddress: "0xD1cf302e4E7859f1346D8A1BA0e031A8fFc3f13c",
+    contractAddress: "0x52E8143E76d0612280286db3D7B3b432d8D6798C",
     gxApi: "https://asia-northeast1-gxcert-21233.cloudfunctions.net/gxcertMain",
     host: "https://gaiax.github.io/gxcert-app/#",
     network: {
