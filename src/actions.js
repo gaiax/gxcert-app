@@ -839,7 +839,7 @@ const registerGroup = () => async (dispatch, getState) => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
         try {
-          groupIds = await gxCert.getGroupIds(gxCert.address);
+          groupIds = await gxCert.client.getGroupIds(gxCert.address);
         } catch(err) {
           console.error(err);
           resolve();
@@ -853,7 +853,16 @@ const registerGroup = () => async (dispatch, getState) => {
       }, 21000);
     });
   })();
-  const group = await gxCert.getGroup(groupIds[groupIds.length - 1]);
+  const group = await gxCert.getGroup(
+    groupIds[groupIds.length - 1],
+    dispatch,
+    [
+      {
+        type: "group",
+        refresh: false,
+      }
+    ]
+  );
   dispatch({
     type: "ON_CHANGE_GROUP_IN_SIDEBAR",
     payload: group,
@@ -932,7 +941,20 @@ const updateProfile = () => async (dispatch, getState) => {
       const timer = setInterval(async () => {
         let profile;
         try {
-          profile = await gxCert.getProfile(gxCert.address);
+          profile = await gxCert.getProfile(
+            gxCert.address,
+            dispatch,
+            [
+              {
+                type: "profile",
+                refresh: true,
+              },
+              {
+                type: "profileImage",
+                refresh: false,
+              }
+            ]
+          );
         } catch(err) {
           console.error(err);
           resolve();
@@ -1018,7 +1040,16 @@ const updateGroup = () => async (dispatch, getState) => {
       const timer = setInterval(async () => {
         let group;
         try {
-          group = await gxCert.getGroup(groupId);
+          group = await gxCert.getGroup(
+            groupId,
+            dispatch,
+            [
+              {
+                type: "group",
+                refresh: true,
+              }
+            ]
+          );
         } catch(err) {
           console.error(err);
           resolve();
