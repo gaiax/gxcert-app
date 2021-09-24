@@ -371,7 +371,8 @@ const fetchGroupInShow = (groupId) => async (dispatch, getState) => {
           type: "group",
           refresh: true,
         }
-      ]
+      ],
+      1
     );
   } catch(err) {
     console.error(err);
@@ -772,7 +773,7 @@ const registerProfile = () => async (dispatch, getState) => {
             },
             {
               type: "profileImage",
-              refresh: true,
+              refresh: false,
             }
           ]
         );
@@ -960,8 +961,6 @@ const updateProfile = () => async (dispatch, getState) => {
           resolve();
           return;
         }
-        console.log(profile);
-        console.log(newProfile);
         if (profile.name === newProfile.name && profile.email === newProfile.email && profile.icon === newProfile.icon) {
           clearInterval(timer);
           resolve();
@@ -1157,7 +1156,16 @@ const issue = (certId) => async (dispatch, getState) => {
       const timer = setInterval(async () => {
         let userCerts;
         try {
-          userCerts = await gxCert.getIssuedUserCerts(certId);
+          userCerts = await gxCert.getIssuedUserCerts(
+            certId,
+            dispatch,
+            [
+              {
+                type: "userCerts",
+                refresh: true,
+              },
+            ]
+          );
         } catch(err) {
           console.error(err);
           resolve();
@@ -1199,7 +1207,20 @@ const inviteMember = () => async (dispatch, getState) => {
   }
   let profile;
   try {
-    profile = await gxCert.getProfile(address);
+    profile = await gxCert.getProfile(
+      address,
+      dispatch,
+      [
+        {
+          type: "profile",
+          refresh: true,
+        },
+        {
+          type: "profileImage",
+          refresh: false,
+        }
+      ]
+    );
   } catch(err) {
     console.error(err);
     alert("そのユーザーは登録されていません");
@@ -1254,7 +1275,16 @@ const inviteMember = () => async (dispatch, getState) => {
       const timer = setInterval(async () => {
         let _group;
         try {
-          _group = await gxCert.getGroup(group.groupId);
+          _group = await gxCert.getGroup(
+            group.groupId,
+            dispatch,
+            [
+              {
+                type: "group",
+                refresh: true,
+              }
+            ]
+          );
         } catch(err) {
           console.error(err);
           return;
@@ -1312,7 +1342,16 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
   const address = gxCert.address;
   let groups;
   try {
-    groups = await gxCert.getGroups(address);
+    groups = await gxCert.getGroups(
+      address,
+      dispatch,
+      [
+        {
+          type: "group",
+          refresh: true,
+        }
+      ]
+    );
   } catch(err) {
     console.error(err);
     alert("Failed to fetch your groups");
@@ -1322,40 +1361,39 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
   for (const group of groups) {
     const groupId = group.groupId;
     try {
-      certificates = certificates.concat(await gxCert.getGroupCerts(groupId));
+      certificates = certificates.concat(
+        await gxCert.getGroupCerts(
+          groupId,
+          dispatch,
+          [
+            {
+              type: "certificate",
+              refresh: false,
+            },
+            {
+              type: "certificateImage",
+              refresh: false,
+            },
+            {
+              type: "userCert",
+              refresh: true,
+            },
+            {
+              type: "profile",
+              refresh: false,
+            }
+          ]
+        )
+      );
     } catch(err) {
       console.error(err);
       continue;
     }
   }
-  for (let i = 0; i < certificates.length; i++) {
-    certificates[i].userCerts = [];
-  }
   dispatch({
     type: "FETCHED_CERTIFICATES_IN_ISSUER",
     payload: certificates,
   });
-  for (let i = 0; i < certificates.length; i++) {
-    const userCerts = await gxCert.getIssuedUserCerts(certificates[i].id);
-    certificates[i].userCerts = userCerts;
-    dispatch({
-      type: "FETCHED_CERTIFICATES_IN_ISSUER",
-      payload: certificates,
-    });
-    for (let j = 0; j < userCerts.length; j++) {
-      const profile = await gxCert.getProfile(userCerts[j].to);
-      certificates[i].userCerts[j].profile = profile;
-    }
-    getImageOnIpfsOrCache(certificates[i].image, dispatch, getState).then(imageUrl => {
-      certificates[i].imageUrl = imageUrl;
-      dispatch({
-        type: "FETCHED_CERTIFICATES_IN_ISSUER",
-        payload: certificates,
-      });
-    }).catch(err => {
-      console.error(err);
-    });
-  }
 }
 
 const onChangeToList = (values) => async (dispatch) => {
@@ -1376,7 +1414,7 @@ const signOut = () => async (dispatch) => {
 const addTo = () => async (dispatch, getState) => {
   let gxCert;
   try {
-    gxCert = await getGxCertWithoutLogin();
+    gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
     alert("発行先の登録に失敗しました");
@@ -1400,7 +1438,21 @@ const addTo = () => async (dispatch, getState) => {
   }
   let profile;
   try {
-    profile = await gxCert.getProfile(to);
+    profile = await gxCert.getProfile(
+      to,
+      dispatch,
+      [
+        {
+          type: "profile",
+          refresh: true,
+        },
+        {
+          type: "profileImage",
+          refresh: false,
+        },
+      ],
+      1
+    );
   } catch(err) {
     console.error(err);
     alert("発行先の登録に失敗しました");
@@ -1408,24 +1460,9 @@ const addTo = () => async (dispatch, getState) => {
   }
   profile.address = to;
   usersToIssue.unshift(profile);
-  console.log(usersToIssue);
   dispatch({
     type: "ADD_TO",
     payload: usersToIssue,
-  });
-  getImageOnIpfsOrCache(profile.icon, dispatch, getState).then(imageUrl => {
-    const usersToIssue = getState().state.usersToIssue;
-    for (let i = 0; i < usersToIssue.length; i++) {
-      if (usersToIssue[i].address === profile.address) {
-        usersToIssue[i].imageUrl = imageUrl;
-      }
-      dispatch({
-        type: "ADD_TO",
-        payload: usersToIssue,
-      });
-    }
-  }).catch(err => {
-    console.error(err);
   });
 }
 
