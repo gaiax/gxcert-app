@@ -7889,7 +7889,7 @@
   "version" "1.3.0"
 
 "gxcert-cache-manager@github:gaiax/gxcert-cache-manager":
-  "resolved" "git+ssh://git@github.com/gaiax/gxcert-cache-manager.git#fc209e54100ad56a44fba16bd376d4f005fec7ab"
+  "resolved" "git+ssh://git@github.com/gaiax/gxcert-cache-manager.git#c4754093d333a4afd3e3a912f36534d587eb1261"
   "version" "1.0.0"
   dependencies:
     "ipfs-http-client" "^52.0.5"
