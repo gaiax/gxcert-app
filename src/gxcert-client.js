@@ -1,6 +1,10 @@
 import GxCertClient from "gxcert-lib";
 import Web3 from "web3";
 import torusClient from "./torus";
+import {
+  GxCertCacheManager,
+  REFRESH_DEPTH,
+} from "gxcert-cache-manager";
 
 import config from "./config";
 
@@ -8,12 +12,8 @@ import config from "./config";
 let gxCertWithoutLogin = new GxCertClient(new Web3(config.web3Host), config.contractAddress);
 let gxCert;
 
-async function getGxCertWithoutLogin() {
-  if (!gxCertWithoutLogin.isInitialized()) {
-    await gxCertWithoutLogin.init();
-  }
-  return gxCertWithoutLogin;
-}
+let cacheManager = new GxCertCacheManager([null, gxCertWithoutLogin]);
+
 async function getGxCert() {
   let web3;
   try {
@@ -43,10 +43,12 @@ async function getGxCert() {
   if (!gxCert.address) {
     await gxCert.getMyAddress();
   }
-  return gxCert;
+  cacheManager.setMainClient(gxCert);
+  return cacheManager;
 }
 
 export {
   getGxCert,
-  getGxCertWithoutLogin,
+  REFRESH_DEPTH,
+
 };
