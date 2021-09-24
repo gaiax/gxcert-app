@@ -1,4 +1,4 @@
-import { getGxCert, REFRESH_DEPTH } from "./gxcert-client";
+import { getGxCert } from "./gxcert-client";
 import { getImageOnIpfs, createImageUrlFromUint8Array } from "./util/ipfs";
 import torusClient from "./torus";
 import history from "./history";
@@ -659,7 +659,20 @@ const sign = () => async (dispatch, getState) => {
       const timer = setInterval(async () => {
         let certificates;
         try {
-          certificates = await gxCert.getGroupCerts(certificate.groupId);
+          certificates = await gxCert.getGroupCerts(
+            certificate.groupId,
+            dispatch,
+            [
+              {
+                type: "certificate",
+                refresh: true,
+              },
+              {
+                type: "certificateImage",
+                refresh: false,
+              }
+            ]
+          );
         } catch(err) {
           console.error(err);
           return;
@@ -749,9 +762,20 @@ const registerProfile = () => async (dispatch, getState) => {
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        profile = await gxCert.getProfile(gxCert.address);
-        console.log(profile);
-        console.log(newProfile);
+        profile = await gxCert.getProfile(
+          gxCert.address,
+          dispatch,
+          [
+            {
+              type: "profile",
+              refresh: true,
+            },
+            {
+              type: "profileImage",
+              refresh: true,
+            }
+          ]
+        );
         if (profile.name === newProfile.name && profile.email === newProfile.email && profile.icon === newProfile.icon) {
           clearInterval(timer);
           resolve();
@@ -1416,7 +1440,6 @@ export {
   fetchCertificates,
   fetchGroupsInSidebar,
   fetchGroupInShow,
-  fetchGroupInEdit,
   fetchCertificatesInIssuer,
   registerGroup,
   registerProfile,
