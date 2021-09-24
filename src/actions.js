@@ -325,7 +325,7 @@ const fetchGroupsInSidebar = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  const address = gxCert.address;
+  const address = gxCert.address();
   let groups;
   try {
     groups = await gxCert.getGroups(
@@ -433,19 +433,19 @@ const signIn = () => async (dispatch) => {
     alert("Please log with Google");
     return;
   }
-  if (!gxCert.address) {
+  if (!gxCert.address()) {
     console.log("Failed to login.");
     return;
   }
-  console.log(gxCert.address);
+  console.log(gxCert.address());
   dispatch({
     type: "LOGGED_IN",
-    payload: gxCert.address,
+    payload: gxCert.address(),
   });
   let profile;
   try {
     profile = await gxCert.getProfile(
-      gxCert.address,
+      gxCert.address(),
       dispatch,
       [
         {
@@ -520,7 +520,7 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
-  const address = gxCert.address;
+  const address = gxCert.address();
   let certificates = [];
   const group = state.groupInSidebar;
   const groupId = group.groupId;
@@ -633,7 +633,7 @@ const sign = () => async (dispatch, getState) => {
   }
   let signed = null;
   try {
-    signed = await gxCert.signCertificate(certificate, { address: gxCert.address });
+    signed = await gxCert.signCertificate(certificate, { address: gxCert.address() });
   } catch(err) {
     console.error(err);
     alert("Failed to sign the certificate.");
@@ -764,7 +764,7 @@ const registerProfile = () => async (dispatch, getState) => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
         profile = await gxCert.getProfile(
-          gxCert.address,
+          gxCert.address(),
           dispatch,
           [
             {
@@ -840,7 +840,20 @@ const registerGroup = () => async (dispatch, getState) => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
         try {
-          groupIds = await gxCert.client.getGroupIds(gxCert.address);
+          groupIds = await gxCert.getGroups(
+            gxCert.address(),
+            dispatch,
+            [
+              {
+                type: "groupId",
+                refresh: true,
+              },
+              {
+                type: "group",
+                refresh: false,
+              },
+            ]
+          );
         } catch(err) {
           console.error(err);
           resolve();
@@ -906,7 +919,7 @@ const updateProfile = () => async (dispatch, getState) => {
     icon = await gxCert.uploadImageToIpfs(image);
   }
 
-  const address = gxCert.address;
+  const address = gxCert.address();
 
   const newProfile = {
     name,
@@ -943,7 +956,7 @@ const updateProfile = () => async (dispatch, getState) => {
         let profile;
         try {
           profile = await gxCert.getProfile(
-            gxCert.address,
+            gxCert.address(),
             dispatch,
             [
               {
@@ -1013,7 +1026,7 @@ const updateGroup = () => async (dispatch, getState) => {
 
   let signedGroup;
   try {
-    signedGroup = await gxCert.signGroup(newGroup, { address: gxCert.address });
+    signedGroup = await gxCert.signGroup(newGroup, { address: gxCert.address() });
   } catch(err) {
     console.error(err);
     dispatch({
@@ -1311,7 +1324,7 @@ const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
-  const signedAddress = await gxCert.signMemberAddressForDisabling(address, { address: gxCert.address });
+  const signedAddress = await gxCert.signMemberAddressForDisabling(address, { address: gxCert.address() });
   try {
     await gxCert.disableGroupMember(groupId, signedAddress);
   } catch(err) {
@@ -1328,7 +1341,7 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  const signedUserCert = await gxCert.signUserCertForInvalidation(userCertId, { address: gxCert.address });
+  const signedUserCert = await gxCert.signUserCertForInvalidation(userCertId, { address: gxCert.address() });
   console.log(signedUserCert);
   try {
     await gxCert.invalidateUserCert(signedUserCert);
@@ -1339,7 +1352,7 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
   await wait();
 
   const state = getState().state;
-  const address = gxCert.address;
+  const address = gxCert.address();
   let groups;
   try {
     groups = await gxCert.getGroups(
