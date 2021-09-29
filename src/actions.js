@@ -1249,7 +1249,7 @@ const issue = (certId) => async (dispatch, getState) => {
             dispatch,
             [
               {
-                type: "userCerts",
+                type: "userCert",
                 refresh: true,
               },
             ]
@@ -1400,9 +1400,9 @@ const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
-  const signedAddress = await gxCert.signMemberAddressForDisabling(address, { address: gxCert.address() });
+  const signedAddress = await gxCert.client.signMemberAddressForDisabling(address, { address: gxCert.address() });
   try {
-    await gxCert.disableGroupMember(groupId, signedAddress);
+    await gxCert.client.disableGroupMember(groupId, signedAddress);
   } catch(err) {
     console.error(err);
     return;
@@ -1417,7 +1417,7 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  const signedUserCert = await gxCert.signUserCertForInvalidation(userCertId, { address: gxCert.address() });
+  const signedUserCert = await gxCert.client.signUserCertForInvalidation(userCertId, { address: gxCert.address() });
   console.log(signedUserCert);
   try {
     await gxCert.client.invalidateUserCert(signedUserCert);
@@ -1435,6 +1435,10 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
       address,
       dispatch,
       [
+        {
+          type: "groupId",
+          refresh: true,
+        },
         {
           type: "group",
           refresh: true,
@@ -1462,8 +1466,7 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
             {
               type: "certificateImage",
               refresh: false,
-              wait: false,
-              dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
+              wait: true,
             },
             {
               type: "userCert",
