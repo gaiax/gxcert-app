@@ -811,7 +811,7 @@ const registerProfile = () => async (dispatch, getState) => {
   }
   let signedProfile;
   try {
-    signedProfile = await gxCert.signProfile(newProfile, { 
+    signedProfile = await gxCert.client.signProfile(newProfile, { 
       address,
     });
   } catch(err) {
@@ -824,7 +824,7 @@ const registerProfile = () => async (dispatch, getState) => {
     return;
   }
   try {
-    await gxCert.createProfile(address, signedProfile);
+    await gxCert.client.createProfile(address, signedProfile);
   } catch(err) {
     console.error(err);
     alert("Failed to register profile.");
@@ -996,7 +996,7 @@ const updateProfile = () => async (dispatch, getState) => {
   console.log(newProfile);
   let signedProfile;
   try {
-    signedProfile = await gxCert.signProfileForUpdating(newProfile, { address });
+    signedProfile = await gxCert.client.signProfileForUpdating(newProfile, { address });
   } catch(err) {
     console.error(err);
     dispatch({
@@ -1007,7 +1007,7 @@ const updateProfile = () => async (dispatch, getState) => {
     return;
   }
   try {
-    await gxCert.updateProfile(signedProfile);
+    await gxCert.client.updateProfile(signedProfile);
   } catch(err) {
     console.error(err);
     alert("Failed to update your profile.");
@@ -1094,7 +1094,7 @@ const updateGroup = () => async (dispatch, getState) => {
 
   let signedGroup;
   try {
-    signedGroup = await gxCert.signGroup(newGroup, { address: gxCert.address() });
+    signedGroup = await gxCert.client.signGroup(newGroup, { address: gxCert.address() });
   } catch(err) {
     console.error(err);
     dispatch({
@@ -1105,7 +1105,7 @@ const updateGroup = () => async (dispatch, getState) => {
     return;
   }
   try {
-    await gxCert.updateGroup(signedGroup);
+    await gxCert.client.updateGroup(signedGroup);
   } catch(err) {
     console.error(err);
     alert("Failed to update group.");
@@ -1337,7 +1337,7 @@ const inviteMember = () => async (dispatch, getState) => {
     return;
   }
   try {
-    await gxCert.inviteMemberToGroup(groupId, signedMember);
+    await gxCert.client.inviteMemberToGroup(groupId, signedMember);
   } catch(err) {
     console.error(err);
     alert("Failed to send invitation.");
@@ -1413,7 +1413,7 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
   const signedUserCert = await gxCert.signUserCertForInvalidation(userCertId, { address: gxCert.address() });
   console.log(signedUserCert);
   try {
-    await gxCert.invalidateUserCert(signedUserCert);
+    await gxCert.client.invalidateUserCert(signedUserCert);
   } catch(err) {
     console.error(err);
     return;
