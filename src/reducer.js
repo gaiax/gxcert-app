@@ -97,11 +97,6 @@ export default function Reducer(state=initialState, action) {
         certificateInIssue: action.payload,
       });
     case "FETCHED_CERTIFICATES":
-      if (action.payload === null) {
-        return Object.assign({}, state, {
-          certificates: null,
-        });
-      }
       return Object.assign({}, state, {
         certificates: action.payload,
       });

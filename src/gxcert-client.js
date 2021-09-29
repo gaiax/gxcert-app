@@ -14,36 +14,40 @@ let gxCert;
 
 let cacheManager = new GxCertCacheManager([null, gxCertWithoutLogin]);
 
-async function getGxCert() {
+async function getGxCert(login) {
   let web3;
-  try {
-    await torusClient.init();
-  } catch(err) {
-    console.error(err);
-  }
-  try {
-    web3 = await torusClient.login();
-  } catch(err) {
-    console.error(err);
-    throw new Error("Please log in using torus.");
-  }
-  console.log(web3);
-  if (web3) {
+  if (login !== false) {
     try {
-      gxCert = new GxCertClient(web3, config.contractAddress, config.gxApi);
-      await gxCert.init();
+      await torusClient.init();
     } catch(err) {
       console.error(err);
+    }
+    try {
+      web3 = await torusClient.login();
+    } catch(err) {
+      console.error(err);
+      throw new Error("Please log in using torus.");
+    }
+    console.log(web3);
+    if (web3) {
+      try {
+        gxCert = new GxCertClient(web3, config.contractAddress, config.gxApi);
+        await gxCert.init();
+      } catch(err) {
+        console.error(err);
+        throw new Error("gxCert is not initialized.");
+      }
+    }
+    if (!gxCert) {
       throw new Error("gxCert is not initialized.");
     }
+    if (!gxCert.address) {
+      await gxCert.getMyAddress();
+    }
+    cacheManager.setMainClient(gxCert);
+  } else {
+    await cacheManager.clients[1].init();
   }
-  if (!gxCert) {
-    throw new Error("gxCert is not initialized.");
-  }
-  if (!gxCert.address) {
-    await gxCert.getMyAddress();
-  }
-  cacheManager.setMainClient(gxCert);
   return cacheManager;
 }
 

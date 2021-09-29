@@ -199,13 +199,16 @@ const fetchCertificateInIssue = (certId) => async (dispatch) => {
       dispatch, 
       [
         {
+          type: "certificate",
+          refresh: false,
+        },
+        {
           type: "certificateImage",
           refresh: false,
           wait: false,
           dispatchType: "FETCHED_CERTIFICATE_IN_ISSUE",
         }
-      ], 
-      1
+      ]
     );
   } catch(err) {
     console.error(err);
@@ -224,7 +227,7 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
   });
   let gxCert;
   try {
-    gxCert = await getGxCert();
+    gxCert = await getGxCert(false);
   } catch(err) {
     console.error(err);
     return;
@@ -236,14 +239,23 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
       dispatch, 
       [
         {
+          type: "userCert",
+          refresh: false,
+        },
+        {
           type: "certificate", 
           refresh: false,
         },
         {
           type: "certificateImage",
           refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATE",
+          wait: true,
+          //wait: false,
+          //dispatchType: "FETCHED_CERTIFICATE",
+        },
+        {
+          type: "group",
+          refresh: false,
         }
       ], 
       1
@@ -300,8 +312,9 @@ const fetchCertificates = () => async (dispatch, getState) => {
         {
           type: "certificateImage",
           refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATES",
+          wait: true,
+          //wait: false,
+          //dispatchType: "FETCHED_CERTIFICATES",
         },
         {
           type: "group",
@@ -314,8 +327,9 @@ const fetchCertificates = () => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATES",
+          wait: true,
+          //wait: false,
+          //dispatchType: "FETCHED_CERTIFICATES",
         },
       ]
     );
@@ -323,6 +337,7 @@ const fetchCertificates = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
+  console.log(userCerts);
   dispatch({
     type: "FETCHED_CERTIFICATES",
     payload: userCerts,
@@ -344,6 +359,10 @@ const fetchGroupsInSidebar = () => async (dispatch, getState) => {
       address,
       dispatch,
       [
+        {
+          type: "groupId",
+          refresh: true,
+        },
         {
           type: "group",
           refresh: true,
@@ -591,7 +610,7 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
           dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
         },
         {
-          type: "issuedUserCert",
+          type: "userCert",
           refresh: true,
         },
         {
@@ -661,7 +680,7 @@ const sign = () => async (dispatch, getState) => {
   }
   let imageCid;
   try {
-    imageCid = await gxCert.uploadImageToIpfs(image);
+    imageCid = await gxCert.client.uploadImageToIpfs(image);
   } catch(err) {
     console.error(err);
     alert("Failed to post the image to IPFS.");
@@ -678,7 +697,7 @@ const sign = () => async (dispatch, getState) => {
     image: imageCid,
     groupId: state.groupInSidebar.groupId,
   }
-  if (!gxCert.isCertificate(certificate)) {
+  if (!gxCert.client.isCertificate(certificate)) {
     alert("Invalid Certificate.");
     dispatch({
       type: "LOADING",
@@ -688,7 +707,7 @@ const sign = () => async (dispatch, getState) => {
   }
   let signed = null;
   try {
-    signed = await gxCert.signCertificate(certificate, { address: gxCert.address() });
+    signed = await gxCert.client.signCertificate(certificate, { address: gxCert.address() });
   } catch(err) {
     console.error(err);
     alert("Failed to sign the certificate.");
@@ -699,7 +718,7 @@ const sign = () => async (dispatch, getState) => {
     return;
   }
   try {
-    await gxCert.createCert(signed);
+    await gxCert.client.createCert(signed);
   } catch(err) {
     console.error(err);
     alert("Failed to post the signed certificate.");
@@ -775,7 +794,7 @@ const registerProfile = () => async (dispatch, getState) => {
 
   let icon;
   try {
-    icon = await gxCert.uploadImageToIpfs(iconImage);
+    icon = await gxCert.client.uploadImageToIpfs(iconImage);
   } catch(err) {
     console.error(err);
     alert("Failed to upload image to IPFS."); 
@@ -881,7 +900,7 @@ const registerGroup = () => async (dispatch, getState) => {
   const groupAddress = state.groupAddress;
   const groupPhone = state.groupPhone;
   try {
-    await gxCert.createGroup(groupName, groupAddress, groupPhone, from);
+    await gxCert.client.createGroup(groupName, groupAddress, groupPhone, from);
   } catch(err) {
     console.error(err);
     alert("Failed to create group.");
@@ -892,12 +911,12 @@ const registerGroup = () => async (dispatch, getState) => {
     return;
   }
   const prevLength = state.groupsInSidebar.length;
-  let groupIds;
+  let groups;
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
         try {
-          groupIds = await gxCert.getGroups(
+          groups = await gxCert.getGroups(
             gxCert.address(),
             dispatch,
             [
@@ -917,23 +936,14 @@ const registerGroup = () => async (dispatch, getState) => {
           return;
         }
         const state = getState().state;
-        if (prevLength < groupIds.length) {
+        if (prevLength < groups.length) {
           clearInterval(timer);
           resolve();
         }
       }, 21000);
     });
   })();
-  const group = await gxCert.getGroup(
-    groupIds[groupIds.length - 1],
-    dispatch,
-    [
-      {
-        type: "group",
-        refresh: false,
-      }
-    ]
-  );
+  const group = groups[groups.length - 1];
   dispatch({
     type: "ON_CHANGE_GROUP_IN_SIDEBAR",
     payload: group,
@@ -973,7 +983,7 @@ const updateProfile = () => async (dispatch, getState) => {
       icon = "";
     }
   } else {
-    icon = await gxCert.uploadImageToIpfs(image);
+    icon = await gxCert.client.uploadImageToIpfs(image);
   }
 
   const address = gxCert.address();
@@ -1179,7 +1189,7 @@ const issue = (certId) => async (dispatch, getState) => {
   });
   let signed;
   try {
-    signed = await gxCert.signUserCertificates(certId, from, tos, { address: from });
+    signed = await gxCert.client.signUserCertificates(certId, from, tos, { address: from });
   } catch(err) {
     console.error(err);
     alert("Failed to sign the certificate.");
@@ -1191,7 +1201,7 @@ const issue = (certId) => async (dispatch, getState) => {
   }
   console.log(signed);
   try {
-    await gxCert.createUserCerts(signed);
+    await gxCert.client.createUserCerts(signed);
   } catch(err) {
     console.error(err);
     alert("Failed to issue the certificate.");
@@ -1523,10 +1533,9 @@ const addTo = () => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
-          wait: false,
+          wait: true,
         },
-      ],
-      1
+      ]
     );
   } catch(err) {
     console.error(err);

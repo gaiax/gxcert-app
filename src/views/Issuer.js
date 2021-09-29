@@ -12,6 +12,7 @@ class Issuer extends React.Component {
   componentDidMount() {
   }
   render() {
+    console.log(this.props);
     return (
       <div className="issuer">
         <Sidebar
@@ -41,7 +42,7 @@ class Issuer extends React.Component {
                         <p className="issuer-certificates-list-cell-title">
                           {certificate.title} 
                         </p>
-                        <Link to={"/issue/" + certificate.id}>
+                        <Link to={"/issue/" + certificate.certId}>
                           <div className="issuer-certificates-list-cell-issue">発行</div>
                         </Link>
                       </div>
@@ -58,7 +59,7 @@ class Issuer extends React.Component {
                   {certificate.title}
                 </p>
                 <div className="issuer-certificate-list">
-                  { certificate.userCerts.map((userCert, index) => {
+                  { certificate.userCerts ? certificate.userCerts.map((userCert, index) => {
                     return (
                       <div className="certificates-list-cell">
                         <img src={userCert.profile ? userCert.profile.imageUrl : placeholder} className="issuer-certificate-list-cell-icon"/>
@@ -73,7 +74,7 @@ class Issuer extends React.Component {
                         <div className="issuer-certificate-list-cell-invalidate" onClick={() => this.props.invalidateUserCert(userCert.userCertId)}>取消</div>
                       </div>
                     );
-                  }) }
+                  }) : "" }
                 </div>
               </div>
             );
