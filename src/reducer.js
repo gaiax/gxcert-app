@@ -195,7 +195,7 @@ export default function Reducer(state=initialState, action) {
         groupCache: action.payload,
       });
     default:
-      return initialState;
+      return state;
   }
 }
 

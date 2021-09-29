@@ -171,6 +171,7 @@ class App extends React.Component {
             onChangeProfileName={that.props.onChangeProfileNameInEdit}
             onChangeProfileEmail={that.props.onChangeProfileEmailInEdit}
             onChangeProfileImage={that.props.onChangeProfileImageInEdit}
+            fetchProfile={that.props.fetchProfile}
             />
           } />
           <Route component={NotFound} />

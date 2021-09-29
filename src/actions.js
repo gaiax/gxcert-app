@@ -290,8 +290,12 @@ const fetchCertificates = () => async (dispatch, getState) => {
       dispatch, 
       [
         {
-          type: "certificate",
+          type: "userCert",
           refresh: true,
+        },
+        {
+          type: "certificate",
+          refresh: false,
         },
         {
           type: "certificateImage",
@@ -481,6 +485,41 @@ const signIn = () => async (dispatch) => {
   history.push("/");
 }
 
+const fetchProfile = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  let profile;
+  try {
+    profile = await gxCert.getProfile(
+      gxCert.address(),
+      dispatch,
+      [
+        {
+          type: "profile",
+          refresh: true,
+        },
+        {
+          type: "profileImage",
+          refresh: false,
+          wait: false,
+          dispatchType: "FETCHED_PROFILE",
+        },
+      ]
+    )
+  } catch(err) {
+    console.error(err);
+    return;
+  }
+  dispatch({
+    type: "FETCHED_PROFILE_IN_EDIT",
+    payload: profile,
+  });
+}
 const fetchProfileInShow = (address) => async (dispatch, getState) => {
   dispatch({
     type: "FETCHED_PROFILE_IN_SHOW",
@@ -1538,6 +1577,7 @@ export {
   onChangeGroupInSidebar,
   sign,
   signIn,
+  fetchProfile,
   fetchProfileInShow,
   fetchCertificate,
   fetchCertificateInIssue,
