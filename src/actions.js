@@ -606,8 +606,7 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
         {
           type: "certificateImage",
           refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
+          wait: true,
         },
         {
           type: "userCert",
@@ -620,8 +619,7 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
+          wait: true,
         }
       ]
     );
