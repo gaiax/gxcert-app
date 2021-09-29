@@ -62,10 +62,10 @@ class Issuer extends React.Component {
                   { certificate.userCerts ? certificate.userCerts.map((userCert, index) => {
                     return (
                       <div className="certificates-list-cell">
-                        <img src={userCert.profile ? userCert.profile.imageUrl : placeholder} className="issuer-certificate-list-cell-icon"/>
+                        <img src={userCert.toProfile ? userCert.toProfile.imageUrl : placeholder} className="issuer-certificate-list-cell-icon"/>
                         <div className="issuer-certificate-list-cell-detail">
                           <p className="issuer-certificate-list-cell-name">
-                            {userCert.profile ? userCert.profile.name : ""} 
+                            {userCert.toProfile ? userCert.toProfile.name : ""} 
                           </p>
                           <p className="issuer-certificate-list-cell-address">
                             { userCert.to }
