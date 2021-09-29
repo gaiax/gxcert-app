@@ -7889,13 +7889,13 @@
   "version" "1.3.0"
 
 "gxcert-cache-manager@github:gaiax/gxcert-cache-manager":
-  "resolved" "git+ssh://git@github.com/gaiax/gxcert-cache-manager.git#c4754093d333a4afd3e3a912f36534d587eb1261"
+  "resolved" "git+ssh://git@github.com/gaiax/gxcert-cache-manager.git#18df42d6b74d3add67190e546e467a589043a30a"
   "version" "1.0.0"
   dependencies:
     "ipfs-http-client" "^52.0.5"
 
 "gxcert-lib@github:gaiax/gxcert-lib":
-  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#673ea4024da31a7a17959dfe5a1197f29e3dea0b"
+  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#5833dbd1f8152cd8cf9a050368182d12bff82165"
   "version" "1.0.0"
   dependencies:
     "@truffle/hdwallet-provider" "^1.4.2"

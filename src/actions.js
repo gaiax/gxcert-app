@@ -201,6 +201,8 @@ const fetchCertificateInIssue = (certId) => async (dispatch) => {
         {
           type: "certificateImage",
           refresh: false,
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATE_IN_ISSUE",
         }
       ], 
       1
@@ -240,6 +242,8 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
         {
           type: "certificateImage",
           refresh: false,
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATE",
         }
       ], 
       1
@@ -292,6 +296,8 @@ const fetchCertificates = () => async (dispatch, getState) => {
         {
           type: "certificateImage",
           refresh: false,
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATES",
         },
         {
           type: "group",
@@ -304,6 +310,8 @@ const fetchCertificates = () => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATES",
         },
       ]
     );
@@ -455,6 +463,8 @@ const signIn = () => async (dispatch) => {
         {
           type: "profileImage",
           refresh: false,
+          wait: false,
+          dispatchType: "MY_PROFILE",
         },
       ]
     );
@@ -496,6 +506,8 @@ const fetchProfileInShow = (address) => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
+          wait: false,
+          dispatchType: "FETCHED_PROFILE_IN_SHOW",
         },
       ],
       1
@@ -536,6 +548,8 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
         {
           type: "certificateImage",
           refresh: false,
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
         },
         {
           type: "issuedUserCert",
@@ -548,6 +562,8 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
         }
       ]
     );
@@ -671,6 +687,7 @@ const sign = () => async (dispatch, getState) => {
               {
                 type: "certificateImage",
                 refresh: false,
+                wait: false,
               }
             ]
           );
@@ -774,6 +791,7 @@ const registerProfile = () => async (dispatch, getState) => {
             {
               type: "profileImage",
               refresh: false,
+              wait: false,
             }
           ]
         );
@@ -966,6 +984,7 @@ const updateProfile = () => async (dispatch, getState) => {
               {
                 type: "profileImage",
                 refresh: false,
+                wait: false,
               }
             ]
           );
@@ -1231,6 +1250,7 @@ const inviteMember = () => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
+          wait: false,
         }
       ]
     );
@@ -1386,6 +1406,8 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
             {
               type: "certificateImage",
               refresh: false,
+              wait: false,
+              dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
             },
             {
               type: "userCert",
@@ -1462,6 +1484,7 @@ const addTo = () => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
+          wait: false,
         },
       ],
       1

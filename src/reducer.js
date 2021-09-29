@@ -166,6 +166,34 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         toCountInIssue: action.payload,
       });
+    case "UPDATE_PROFILE_CACHE":
+      return Object.assign({}, state, {
+        profileCache: action.payload,
+      });
+    case "UPDATE_USER_CERT_CACHE":
+      return Object.assign({}, state, {
+        userCertCache: action.payload,
+      });
+    case "UPDATE_RECEIVED_USER_CERT_CACHE":
+      return Object.assign({}, state, {
+        receivedUserCertCache: action.payload,
+      });
+    case "UPDATE_ISSUED_USER_CERT_CACHE":
+      return Object.assign({}, state, {
+        issuedUserCertCache: action.payload,
+      });
+    case "UPDATE_IMAGE_CACHE":
+      return Object.assign({}, state, {
+        imageCache: action.payload,
+      });
+    case "UPDATE_GROUP_CERT_CACHE":
+      return Object.assign({}, state, {
+        groupCertCache: action.payload,
+      });
+    case "UPDATE_GROUP_CACHE":
+      return Object.assign({}, state, {
+        groupCache: action.payload,
+      });
     default:
       return initialState;
   }
