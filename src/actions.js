@@ -366,7 +366,16 @@ const fetchGroupsInSidebar = () => async (dispatch, getState) => {
         {
           type: "group",
           refresh: true,
-        }
+        },
+        {
+          type: "profile",
+          refresh: false,
+        },
+        {
+          type: "profileImage",
+          refresh: false,
+          wait: true,
+        },
       ]
     );
   } catch(err) {
@@ -1319,7 +1328,7 @@ const inviteMember = () => async (dispatch, getState) => {
     payload: true,
   });
   try {
-    signedMember = await gxCert.signMemberAddressForInviting(address, { address: signerAddress });
+    signedMember = await gxCert.client.signMemberAddressForInviting(address, { address: signerAddress });
   } catch(err) {
     console.error(err);
     group.members.pop();
