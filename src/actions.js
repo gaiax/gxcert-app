@@ -1225,7 +1225,7 @@ const issue = (certId) => async (dispatch, getState) => {
   let certIndex = null;
   console.log(state.certificatesInIssuer);
   for (let i = 0; i < state.certificatesInIssuer.length; i++) {
-    if (parseInt(state.certificatesInIssuer[i].id) === certId) {
+    if (parseInt(state.certificatesInIssuer[i].certId) === certId) {
       certIndex = i;
       continue;
     }
