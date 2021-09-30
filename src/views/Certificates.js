@@ -19,6 +19,11 @@ class Certificates extends React.Component {
           </p>
           <div className="certificates-list">
             { this.props.userCerts !== null && this.props.userCerts.length !== 0 ? this.props.userCerts.map((userCert, index) => {
+              if (!userCert.certificate) {
+                return (
+                  <p></p>
+                )
+              }
               return (
                 <Link to={"/certs/" + userCert.userCertId}>
                   <div className="certificates-list-cell">

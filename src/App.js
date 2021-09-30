@@ -60,7 +60,6 @@ class App extends React.Component {
             />
           } />
           <Route exact={true} path="/new/" render={ () => <NewCert
-              fetchGroups={that.props.fetchGroups}
               fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
               groupsInSidebar={that.props.state.groupsInSidebar}
               groupInSidebar={that.props.state.groupInSidebar}
@@ -127,7 +126,6 @@ class App extends React.Component {
             onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
             group={that.props.state.groupInEdit}
             updateGroup={that.props.updateGroup}
-            fetchGroup={that.props.fetchGroupInEdit}
             onChangeGroupId={that.props.onChangeGroupIdInEdit}
             onChangeGroupName={that.props.onChangeGroupNameInEdit}
             onChangeGroupAddress={that.props.onChangeGroupAddressInEdit}
@@ -170,10 +168,10 @@ class App extends React.Component {
             profileName={that.props.state.profileNameInEdit}
             profileEmail={that.props.state.profileEmailInEdit}
             profileImage={that.props.state.profileImageInEdit}
-            fetchProfile={that.props.fetchProfileInEdit}
             onChangeProfileName={that.props.onChangeProfileNameInEdit}
             onChangeProfileEmail={that.props.onChangeProfileEmailInEdit}
             onChangeProfileImage={that.props.onChangeProfileImageInEdit}
+            fetchProfile={that.props.fetchProfile}
             />
           } />
           <Route component={NotFound} />

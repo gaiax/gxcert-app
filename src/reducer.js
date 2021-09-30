@@ -28,7 +28,6 @@ export default function Reducer(state=initialState, action) {
         groupAddress: action.payload,
       });
     case "ON_CHANGE_GROUP_IN_SIDEBAR":
-      console.log(action.payload);
       return Object.assign({}, state, {
         groupInSidebar: action.payload,
       });
@@ -97,11 +96,6 @@ export default function Reducer(state=initialState, action) {
         certificateInIssue: action.payload,
       });
     case "FETCHED_CERTIFICATES":
-      if (action.payload === null) {
-        return Object.assign({}, state, {
-          certificates: null,
-        });
-      }
       return Object.assign({}, state, {
         certificates: action.payload,
       });
@@ -126,7 +120,6 @@ export default function Reducer(state=initialState, action) {
         groupInEdit: action.payload,
       });
     case "FETCHED_CERTIFICATES_IN_ISSUER":
-      console.log(action.payload);
       return Object.assign({}, state, {
         certificatesInIssuer: action.payload,
       });
@@ -166,8 +159,36 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         toCountInIssue: action.payload,
       });
+    case "UPDATE_PROFILE_CACHE":
+      return Object.assign({}, state, {
+        profileCache: action.payload,
+      });
+    case "UPDATE_USER_CERT_CACHE":
+      return Object.assign({}, state, {
+        userCertCache: action.payload,
+      });
+    case "UPDATE_RECEIVED_USER_CERT_CACHE":
+      return Object.assign({}, state, {
+        receivedUserCertCache: action.payload,
+      });
+    case "UPDATE_ISSUED_USER_CERT_CACHE":
+      return Object.assign({}, state, {
+        issuedUserCertCache: action.payload,
+      });
+    case "UPDATE_IMAGE_CACHE":
+      return Object.assign({}, state, {
+        imageCache: action.payload,
+      });
+    case "UPDATE_GROUP_CERT_CACHE":
+      return Object.assign({}, state, {
+        groupCertCache: action.payload,
+      });
+    case "UPDATE_GROUP_CACHE":
+      return Object.assign({}, state, {
+        groupCache: action.payload,
+      });
     default:
-      return initialState;
+      return state;
   }
 }
 

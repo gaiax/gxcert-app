@@ -41,7 +41,7 @@ class Issuer extends React.Component {
                         <p className="issuer-certificates-list-cell-title">
                           {certificate.title} 
                         </p>
-                        <Link to={"/issue/" + certificate.id}>
+                        <Link to={"/issue/" + certificate.certId}>
                           <div className="issuer-certificates-list-cell-issue">発行</div>
                         </Link>
                       </div>
@@ -58,13 +58,13 @@ class Issuer extends React.Component {
                   {certificate.title}
                 </p>
                 <div className="issuer-certificate-list">
-                  { certificate.userCerts.map((userCert, index) => {
+                  { certificate.userCerts ? certificate.userCerts.map((userCert, index) => {
                     return (
                       <div className="certificates-list-cell">
-                        <img src={userCert.profile ? userCert.profile.imageUrl : placeholder} className="issuer-certificate-list-cell-icon"/>
+                        <img src={userCert.toProfile ? userCert.toProfile.imageUrl : placeholder} className="issuer-certificate-list-cell-icon"/>
                         <div className="issuer-certificate-list-cell-detail">
                           <p className="issuer-certificate-list-cell-name">
-                            {userCert.profile ? userCert.profile.name : ""} 
+                            {userCert.toProfile ? userCert.toProfile.name : ""} 
                           </p>
                           <p className="issuer-certificate-list-cell-address">
                             { userCert.to }
@@ -73,7 +73,7 @@ class Issuer extends React.Component {
                         <div className="issuer-certificate-list-cell-invalidate" onClick={() => this.props.invalidateUserCert(userCert.userCertId)}>取消</div>
                       </div>
                     );
-                  }) }
+                  }) : "" }
                 </div>
               </div>
             );

@@ -18,7 +18,6 @@ class Certificate extends React.Component {
     this.props.fetchCertificate(userCertId);
   }
   render() {
-    console.log(this.props.userCert);
     return (
       <div className="certificate">
         { (this.props.userCert && this.props.userCert.certificate) ? (
@@ -27,7 +26,7 @@ class Certificate extends React.Component {
             <p className="certificate-title">
               {this.props.userCert.certificate.title}
             </p>
-            <img src={this.props.certificateImage} className="certificate-icon" />
+            <img src={this.props.userCert.certificate.imageUrl} className="certificate-icon" />
             <table className="certificate-detail">
               <tr>
                 <td>発行日: </td>
@@ -82,7 +81,7 @@ class Certificate extends React.Component {
               <p className="certificate-title">
                 {this.props.userCert.certificate.title}
               </p>
-              <img src={this.props.certificateImage} className="certificate-icon" />
+              <img src={this.props.userCert.certificate.imageUrl} className="certificate-icon" />
               <table className="certificate-detail">
                 <tr>
                   <td>発行日: </td>

@@ -12,20 +12,10 @@ class EditProfile extends React.Component {
   }
   render() {
     let imageUrl = null;
-    let initialImageUrl = null;
+    let initialImageUrl = placeholder;
     if (this.props.profile !== null) {
-      initialImageUrl = this.props.profile.imageUrl;
-    } else {
-      initialImageUrl = placeholder;
+      imageUrl = this.props.profile.imageUrl;
     }
-    if (this.props.image) {
-      try {
-        imageUrl = createImageUrlFromUint8Array(this.props.image);
-      } catch(err) {
-        console.error(err);
-      }
-    }
-    console.log(imageUrl);
     return (
       <div className="edit-profile">
         <div className="edit-profile-content">
@@ -35,7 +25,7 @@ class EditProfile extends React.Component {
           <div className="edit-profile-form">
             <div className="edit-profile-form-image">
               <label for="edit-profile-form-image-file">
-                <img src={imageUrl === null ? initialImageUrl : imageUrl} className="edit-profile-form-image" />
+                <img src={!imageUrl ? initialImageUrl : imageUrl} className="edit-profile-form-image" />
               </label>
               <input id="edit-profile-form-image-file" type="file" onChange={this.props.onChangeProfileImage} />
             </div>

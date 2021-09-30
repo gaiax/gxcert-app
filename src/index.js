@@ -34,14 +34,11 @@ import {
   fetchCertificate,
   fetchCertificates,
   fetchCertificatesInIssuer,
-  fetchGroups,
-  fetchGroup,
-  fetchGroupInEdit,
   fetchGroupInShow,
   fetchGroupsInIssuer,
   fetchCertificateInIssue,
-  fetchProfileInEdit,
   fetchProfileInShow,
+  fetchProfile,
   fetchGroupsInSidebar,
   invalidateUserCert,
   updateProfile,
@@ -129,17 +126,8 @@ function mapDispatchToProps(dispatch, props) {
     fetchCertificates: () => {
       dispatch(fetchCertificates());
     },
-    fetchGroups: () => {
-      dispatch(fetchGroups());
-    },
-    fetchGroup: (groupId) => {
-      dispatch(fetchGroup(groupId));
-    },
     fetchGroupInShow: (groupId) => {
       dispatch(fetchGroupInShow(groupId));
-    },
-    fetchGroupInEdit: (groupId) => {
-      dispatch(fetchGroupInEdit(groupId));
     },
     fetchCertificatesInIssuer: () => {
       dispatch(fetchCertificatesInIssuer());
@@ -150,11 +138,11 @@ function mapDispatchToProps(dispatch, props) {
     fetchGroupsInSidebar: () => {
       dispatch(fetchGroupsInSidebar());
     },
-    fetchProfileInEdit: () => {
-      dispatch(fetchProfileInEdit());
-    },
     fetchProfileInShow: (address) => {
       dispatch(fetchProfileInShow(address));
+    },
+    fetchProfile: () => {
+      dispatch(fetchProfile());
     },
     signIn: () => {
       dispatch(signIn());

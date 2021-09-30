@@ -35,7 +35,6 @@ var concatBuffer = function (buffer1, buffer2) {
 async function getImageOnIpfs(ipfsHash) {
   const response = await ipfs.get(ipfsHash);
   for await (const data of response) {
-    console.log(data);
     let content = new ArrayBuffer(0);
     for await (const chunk of data.content) {
       content = concatBuffer(content, chunk);
@@ -81,7 +80,6 @@ function uintToString(array) {
 async function getTextOnIpfs(ipfsHash) {
   const response = await ipfs.get(ipfsHash);
   for await (const data of response) {
-    console.log(data);
     let content = new ArrayBuffer(0);
     for await (const chunk of data.content) {
       content = concatBuffer(content, chunk);
