@@ -249,9 +249,8 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
         {
           type: "certificateImage",
           refresh: false,
-          wait: true,
-          //wait: false,
-          //dispatchType: "FETCHED_CERTIFICATE",
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATE",
         },
         {
           type: "group",
@@ -312,9 +311,8 @@ const fetchCertificates = () => async (dispatch, getState) => {
         {
           type: "certificateImage",
           refresh: false,
-          wait: true,
-          //wait: false,
-          //dispatchType: "FETCHED_CERTIFICATES",
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATES",
         },
         {
           type: "group",
@@ -327,9 +325,8 @@ const fetchCertificates = () => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
-          wait: true,
-          //wait: false,
-          //dispatchType: "FETCHED_CERTIFICATES",
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATES",
         },
       ]
     );
@@ -374,7 +371,8 @@ const fetchGroupsInSidebar = () => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
-          wait: true,
+          wait: false,
+          dispatchType: "FETCHED_GROUPS_IN_SIDEBAR",
         },
       ]
     );
@@ -615,7 +613,8 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
         {
           type: "certificateImage",
           refresh: false,
-          wait: true,
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
         },
         {
           type: "userCert",
@@ -628,7 +627,8 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
         {
           type: "profileImage",
           refresh: false,
-          wait: true,
+          wait: false,
+          dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
         }
       ]
     );
@@ -856,7 +856,7 @@ const registerProfile = () => async (dispatch, getState) => {
             {
               type: "profileImage",
               refresh: false,
-              wait: false,
+              wait: true,
             }
           ]
         );
@@ -1040,7 +1040,7 @@ const updateProfile = () => async (dispatch, getState) => {
               {
                 type: "profileImage",
                 refresh: false,
-                wait: false,
+                wait: true,
               }
             ]
           );
