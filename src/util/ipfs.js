@@ -73,6 +73,8 @@ function uintToString(array) {
                                    ((char2 & 0x3F) << 6) |
                                    ((char3 & 0x3F) << 0));
         break;
+      default:
+        break;
     }
   }
   return out;

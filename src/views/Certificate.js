@@ -64,7 +64,7 @@ class Certificate extends React.Component {
             <br />
             
               <img src={this.props.userCert.qr} width="60" height="60" className="qr" alt="qr" />
-            <a id="cert-link" download="cert.png" href="" ></a>
+            <a id="cert-link" className="cert-link" download="cert.png" href="/" >-</a>
           </div>
         </div>
         ) : ""}
@@ -116,7 +116,7 @@ class Certificate extends React.Component {
                   </td>
                 </tr>
               </table>
-              <a id="cert-link" download="cert.png" href="" ></a>
+              <a id="cert-link" className="cert-link" download="cert.png" href="/" >-</a>
               <div className="certificate-buttons">
                 <div className="certificate-button" onClick={() => {
                   copyToClipboard(window.location.href)
