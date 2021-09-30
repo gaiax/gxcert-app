@@ -139,10 +139,6 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         isLoading: action.payload
       });
-    case "UPDATE_IMAGE_CACHE":
-      return Object.assign({}, state, {
-        imageCache: action.payload,
-      });
     case "ON_CHANGE_TO_LIST":
       return Object.assign({}, state, {
         toList: action.payload,

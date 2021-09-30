@@ -34,7 +34,7 @@ class TorusClient {
     */
   }
   async login() {
-    const response = await this.torus.login();
+    await this.torus.login();
     this.web3 = new Web3(this.torus.provider);
     return this.web3;
   }

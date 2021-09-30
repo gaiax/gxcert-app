@@ -1,18 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import Sidebar from "./Sidebar";
 import placeholder from "../images/User-1@2x.png";
 
 class GroupMembers extends React.Component {
-
-  constructor() {
-    super();
-  }
   componentDidMount() {
 
   }
-
   render() {
     return (
       <div className="group-members">
@@ -39,7 +33,7 @@ class GroupMembers extends React.Component {
                   { this.props.groupInSidebar.members.map(member => {
                     return (
                       <div className="group-members-list-cell">
-                        <img src={member.imageUrl ? member.imageUrl : placeholder} className="group-members-list-cell-icon"/>
+                        <img src={member.imageUrl ? member.imageUrl : placeholder} className="group-members-list-cell-icon" alt="プロフィール" />
                         <div className="group-members-list-cell-detail">
                           <p className="group-members-list-cell-name">
                             {member.name} 

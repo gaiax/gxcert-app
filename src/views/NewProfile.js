@@ -2,9 +2,6 @@ import React from "react";
 import { createImageUrlFromUint8Array } from "../util/ipfs";
 
 class NewProfile extends React.Component {
-  constructor() {
-    super();
-  }
   render() {
     let imageUrl = "";
     try {
@@ -21,7 +18,7 @@ class NewProfile extends React.Component {
           <div className="new-profile-form">
             <div className="new-profile-form-image">
               <label for="new-profile-form-image-file">
-                <img src={imageUrl} className="new-profile-form-image" />
+                <img src={imageUrl} className="new-profile-form-image" alt="プロフィール" />
               </label>
               <input id="new-profile-form-image-file" type="file" onChange={this.props.onChangeProfileImage} />
             </div>

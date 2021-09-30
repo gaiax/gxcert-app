@@ -1,37 +1,10 @@
 import { getGxCert } from "./gxcert-client";
-import { getImageOnIpfs, createImageUrlFromUint8Array } from "./util/ipfs";
 import torusClient from "./torus";
 import history from "./history";
 import QRCode from "qrcode";
 import config from "./config";
 
 
-function doNTimes(callback, n, ms) {
-  for (let i = 0; i < n; i++) {
-    setTimeout(callback, i * ms);
-  }
-}
-async function getImageOnIpfsOrCache(cid, dispatch, getState) {
-  const state = getState().state;
-  let imageCache = state.imageCache;
-  if (cid in imageCache) {
-    return imageCache[cid];
-  }
-  const imageUrl = await getImageOnIpfs(cid);
-  imageCache = getState().state.imageCache;
-  imageCache[cid] = imageUrl;
-  dispatch({
-    type: "UPDATE_IMAGE_CACHE",
-    payload: imageCache,
-  });
-  return imageUrl;
-
-
-}
-
-async function getUserCert(userCertId, dispatch, getState) {
-
-}
 
 function wait() {
   return new Promise((resolve, reject) => {
@@ -81,12 +54,6 @@ const onChangeToInIssue = (evt) => async (dispatch) => {
   });
 }
 
-const onChangeGroupIdInEdit = (evt) => async (dispatch, getState) => {
-  dispatch({
-    type: "ON_CHANGE_GROUP_ID_IN_EDIT",
-    payload: evt.target.value,
-  });
-}
 const onChangeGroupNameInEdit = (evt) => async (dispatch, getState) => {
   dispatch({
     type: "ON_CHANGE_GROUP_NAME_IN_EDIT",
@@ -422,13 +389,6 @@ const fetchGroupInShow = (groupId) => async (dispatch, getState) => {
 }
 
 const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
-  let gxCert;
-  try {
-    gxCert = await getGxCert();
-  } catch(err) {
-    console.error(err);
-    return;
-  }
   const state = getState().state;
   const groupIdStr = evt.target.value;
   if (groupIdStr === "new") {
@@ -596,7 +556,6 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
-  const address = gxCert.address();
   let certificates = [];
   const group = state.groupInSidebar;
   const groupId = group.groupId;
@@ -759,7 +718,6 @@ const sign = () => async (dispatch, getState) => {
           console.error(err);
           return;
         }
-        const state = getState().state;
         if (prevLength < certificates.length) {
           clearInterval(timer);
           resolve();
@@ -941,7 +899,6 @@ const registerGroup = () => async (dispatch, getState) => {
           resolve();
           return;
         }
-        const state = getState().state;
         if (prevLength < groups.length) {
           clearInterval(timer);
           resolve();
@@ -1188,7 +1145,6 @@ const issue = (certId) => async (dispatch, getState) => {
     return;
   }
   const from = state.from;
-  const signerAddress = state.from;
   const tos = users.map(user => {
     return user.address;
   });
@@ -1395,7 +1351,6 @@ const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  const state = getState().state;
   const signedAddress = await gxCert.client.signMemberAddressForDisabling(address, { address: gxCert.address() });
   try {
     await gxCert.client.disableGroupMember(groupId, signedAddress);
@@ -1422,7 +1377,6 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
   }
   await wait();
 
-  const state = getState().state;
   const address = gxCert.address();
   let groups;
   try {

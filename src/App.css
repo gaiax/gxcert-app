@@ -575,3 +575,7 @@ a:visited {
 .certificate-content-export .qr {
   float: right;
 }
+
+.cert-link {
+  display: none;
+}

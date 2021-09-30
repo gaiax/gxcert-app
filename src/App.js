@@ -1,10 +1,8 @@
 import React from "react";
-import logo from './logo.svg';
 import Header from "./Header";
 import Footer from "./Footer";
 import Top from "./views/Top";
 import SignIn from "./views/SignIn";
-import Registration from "./views/Registration";
 import Certificates from "./views/Certificates";
 import Certificate from "./views/Certificate";
 import NewCert from "./views/NewCert";
@@ -17,16 +15,12 @@ import Issuer from "./views/Issuer";
 import Issue from "./views/Issue";
 import Loading from "./Loading";
 import Group from "./views/Group";
-import User from "./views/User";
 import NotFound from "./views/NotFound";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 class App extends React.Component {
-  constructor() {
-    super(); 
-  }
   render() {
     const that = this;
     return (

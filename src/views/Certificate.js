@@ -1,7 +1,4 @@
-import { getImageOnIpfs } from "../util/ipfs"
 import React from "react";
-
-import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import domtoimage from "dom-to-image";
 import { copyToClipboard } from "../util/clipboard";
@@ -10,9 +7,6 @@ import { dateToString } from "../util/date";
 
 
 class Certificate extends React.Component {
-  constructor() {
-    super();
-  }
   componentDidMount() {
     const userCertId = parseInt(this.props.match.params.id);
     this.props.fetchCertificate(userCertId);
@@ -26,7 +20,7 @@ class Certificate extends React.Component {
             <p className="certificate-title">
               {this.props.userCert.certificate.title}
             </p>
-            <img src={this.props.userCert.certificate.imageUrl} className="certificate-icon" />
+            <img src={this.props.userCert.certificate.imageUrl} className="certificate-icon" alt="証明書" />
             <table className="certificate-detail">
               <tr>
                 <td>発行日: </td>
@@ -69,8 +63,8 @@ class Certificate extends React.Component {
             </table>
             <br />
             
-              <img src={this.props.userCert.qr} width="60" height="60" className="qr" />
-            <a id="cert-link" download="cert.png" href="" ></a>
+              <img src={this.props.userCert.qr} width="60" height="60" className="qr" alt="qr" />
+            <a id="cert-link" className="cert-link" download="cert.png" href="/" >-</a>
           </div>
         </div>
         ) : ""}
@@ -81,7 +75,7 @@ class Certificate extends React.Component {
               <p className="certificate-title">
                 {this.props.userCert.certificate.title}
               </p>
-              <img src={this.props.userCert.certificate.imageUrl} className="certificate-icon" />
+              <img src={this.props.userCert.certificate.imageUrl} className="certificate-icon" alt="証明書" />
               <table className="certificate-detail">
                 <tr>
                   <td>発行日: </td>
@@ -122,7 +116,7 @@ class Certificate extends React.Component {
                   </td>
                 </tr>
               </table>
-              <a id="cert-link" download="cert.png" href="" ></a>
+              <a id="cert-link" className="cert-link" download="cert.png" href="/" >-</a>
               <div className="certificate-buttons">
                 <div className="certificate-button" onClick={() => {
                   copyToClipboard(window.location.href)
@@ -142,7 +136,7 @@ class Certificate extends React.Component {
                 }}>
                   証明書のダウンロード
                 </div>
-                <img src={this.props.userCert.qr} width="60" height="60" className="qr" />
+                <img src={this.props.userCert.qr} width="60" height="60" className="qr" alt="qr" />
               </div>
             </div>
           )}

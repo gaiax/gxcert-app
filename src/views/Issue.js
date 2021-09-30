@@ -3,9 +3,6 @@ import ListInput from "./ListInput";
 import Sidebar from "./Sidebar";
 
 class Issue extends React.Component {
-  constructor() {
-    super();
-  }
   componentDidMount() {
     this.certId = parseInt(this.props.match.params.certId);
     this.props.fetchCertificate(this.certId);

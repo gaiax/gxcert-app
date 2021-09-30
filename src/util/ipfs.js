@@ -73,6 +73,8 @@ function uintToString(array) {
                                    ((char2 & 0x3F) << 6) |
                                    ((char3 & 0x3F) << 0));
         break;
+      default:
+        break;
     }
   }
   return out;
@@ -90,4 +92,10 @@ async function getTextOnIpfs(ipfsHash) {
 }
 
 
-export { getImageOnIpfs, getTextOnIpfs, postCertificate, postText, createImageUrlFromUint8Array };
+export { 
+  getImageOnIpfs, 
+  getTextOnIpfs, 
+  postCertificate, 
+  postText, 
+  createImageUrlFromUint8Array 
+};
