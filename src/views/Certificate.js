@@ -18,7 +18,6 @@ class Certificate extends React.Component {
     this.props.fetchCertificate(userCertId);
   }
   render() {
-    console.log(this.props.userCert);
     return (
       <div className="certificate">
         { (this.props.userCert && this.props.userCert.certificate) ? (

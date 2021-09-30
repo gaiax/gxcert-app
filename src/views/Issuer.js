@@ -12,7 +12,6 @@ class Issuer extends React.Component {
   componentDidMount() {
   }
   render() {
-    console.log(this.props);
     return (
       <div className="issuer">
         <Sidebar

@@ -16,7 +16,6 @@ class EditProfile extends React.Component {
     if (this.props.profile !== null) {
       imageUrl = this.props.profile.imageUrl;
     }
-    console.log(imageUrl);
     return (
       <div className="edit-profile">
         <div className="edit-profile-content">

@@ -28,7 +28,6 @@ export default function Reducer(state=initialState, action) {
         groupAddress: action.payload,
       });
     case "ON_CHANGE_GROUP_IN_SIDEBAR":
-      console.log(action.payload);
       return Object.assign({}, state, {
         groupInSidebar: action.payload,
       });
@@ -121,7 +120,6 @@ export default function Reducer(state=initialState, action) {
         groupInEdit: action.payload,
       });
     case "FETCHED_CERTIFICATES_IN_ISSUER":
-      console.log(action.payload);
       return Object.assign({}, state, {
         certificatesInIssuer: action.payload,
       });

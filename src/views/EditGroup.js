@@ -11,7 +11,6 @@ class EditGroup extends React.Component {
   componentDidMount() {
   }
   render() {
-    console.log(this.props.groupInSidebar);
     return (
       <div className="edit-group">
         <Sidebar

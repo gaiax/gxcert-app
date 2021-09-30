@@ -334,7 +334,6 @@ const fetchCertificates = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  console.log(userCerts);
   dispatch({
     type: "FETCHED_CERTIFICATES",
     payload: userCerts,
@@ -1000,7 +999,6 @@ const updateProfile = () => async (dispatch, getState) => {
     email,
     icon,
   }
-  console.log(newProfile);
   let signedProfile;
   try {
     signedProfile = await gxCert.client.signProfileForUpdating(newProfile, { address });
@@ -1206,7 +1204,6 @@ const issue = (certId) => async (dispatch, getState) => {
     });
     return;
   }
-  console.log(signed);
   try {
     await gxCert.client.createUserCerts(signed);
   } catch(err) {
@@ -1223,7 +1220,6 @@ const issue = (certId) => async (dispatch, getState) => {
     payload: [],
   });
   let certIndex = null;
-  console.log(state.certificatesInIssuer);
   for (let i = 0; i < state.certificatesInIssuer.length; i++) {
     if (parseInt(state.certificatesInIssuer[i].certId) === certId) {
       certIndex = i;
@@ -1418,7 +1414,6 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     return;
   }
   const signedUserCert = await gxCert.client.signUserCertForInvalidation(userCertId, { address: gxCert.address() });
-  console.log(signedUserCert);
   try {
     await gxCert.client.invalidateUserCert(signedUserCert);
   } catch(err) {
