@@ -1,10 +1,6 @@
 import React from "react";
 import Loader from "react-loader-spinner";
 class Group extends React.Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     const groupId = parseInt(this.props.match.params.groupId);
     this.props.fetchGroup(groupId);

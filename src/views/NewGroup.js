@@ -1,10 +1,6 @@
 import React from "react";
 
 class NewGroup extends React.Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
       <div className="new-group">

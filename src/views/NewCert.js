@@ -4,9 +4,6 @@ import { Link } from "react-router-dom";
 import placeholder from "../images/Video-1@2x.png";
 
 class NewCert extends React.Component {
-  constructor() {
-    super();
-  }
   componentDidMount() {
     this.props.fetchGroupsInSidebar();
   }
@@ -57,7 +54,7 @@ class NewCert extends React.Component {
             <p className="new-cert-form-title">
               証明書画像
             </p>
-            <img src={imageUrl} className="new-cert-form-image" />
+            <img src={imageUrl} className="new-cert-form-image" alt="証明書" />
             <div className="new-cert-form-image-file-div">
               <label className="new-cert-form-image-file-label">
                 <input type="file" className="new-cert-form-image-file" onChange={this.props.onChangeImage} />

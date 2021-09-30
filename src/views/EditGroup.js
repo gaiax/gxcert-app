@@ -1,13 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import Sidebar from "./Sidebar";
 
 class EditGroup extends React.Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
   }
   render() {

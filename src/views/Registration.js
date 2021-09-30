@@ -4,7 +4,7 @@ function Registration() {
     <div className="registration">
       <div className="registration-content">
         <p className="registration-title">ユーザー登録</p>
-        <img src="" className="registration-icon" />
+        <img src="" className="registration-icon" alt="プロフィール" />
         <div className="registration-form">
           <p className="registration-form-title">Name</p>
           <input type="text" className="registration-form-name" />
