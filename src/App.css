@@ -465,10 +465,11 @@ footer .footer-message, .footer-app {
   margin-top: 46px;
 }
 .issue-form-issue {
-  width: 44px;
+  width: 80px;
   height: 36px;
   line-height: 30px;
   border: none;
+  margin-top: 30px;
   background-color: #49AAFC;
   color: white;
   border-radius: 4px;
