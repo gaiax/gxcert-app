@@ -7,7 +7,7 @@ class ListInput extends React.Component {
     const cells = this.props.usersToIssue.map(user => {
       return (
         <div className="group-members-list-cell">
-          <img src={user.imageUrl ? user.imageUrl : placeholder} className="group-members-list-cell-icon" alt="プロフィール" />
+          <img src={user.imageUrl ? user.imageUrl : placeholder} className="group-members-list-cell-icon" />
           <div className="group-members-list-cell-detail">
             <p className="group-members-list-cell-name">
               {user.name} 

@@ -11,7 +11,7 @@ class User extends React.Component {
       <div className="user">
         { this.props.profile ? (
           <div className="user-content">
-            <img src={this.props.profile.imageUrl} className="show-profile-image" alt="プロフィール" />
+            <img src={this.props.profile.imageUrl} className="show-profile-image" />
             <p className="user-title">{this.props.profile.name}</p>
           </div>
         ) : <Loader type="Puff" color="#00BFFF" height={100} width={100} /> }

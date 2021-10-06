@@ -20,7 +20,7 @@ class EditProfile extends React.Component {
           <div className="edit-profile-form">
             <div className="edit-profile-form-image">
               <label for="edit-profile-form-image-file">
-                <img src={!imageUrl ? initialImageUrl : imageUrl} className="edit-profile-form-image" alt="プロフィール"  />
+                <img src={!imageUrl ? initialImageUrl : imageUrl} className="edit-profile-form-image" />
               </label>
               <input id="edit-profile-form-image-file" type="file" onChange={this.props.onChangeProfileImage} />
             </div>

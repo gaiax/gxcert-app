@@ -54,7 +54,7 @@ class NewCert extends React.Component {
             <p className="new-cert-form-title">
               証明書画像
             </p>
-            <img src={imageUrl} className="new-cert-form-image" alt="証明書" />
+            <img src={imageUrl} className="new-cert-form-image" />
             <div className="new-cert-form-image-file-div">
               <label className="new-cert-form-image-file-label">
                 <input type="file" className="new-cert-form-image-file" onChange={this.props.onChangeImage} />

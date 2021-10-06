@@ -30,10 +30,10 @@ class GroupMembers extends React.Component {
                 <input type="text" className="group-members-invite" onChange={this.props.onChangeGroupMemberToInvite} />
                 <button className="group-members-invite-button" onClick={this.props.inviteMember} >招待</button>
                 <div className="group-members-list">
-                  { this.props.groupInSidebar.members.map(member => {
+                  { this.props.groupInSidebar.members.map((member, index) => {
                     return (
                       <div className="group-members-list-cell">
-                        <img src={member.imageUrl ? member.imageUrl : placeholder} className="group-members-list-cell-icon" alt="プロフィール" />
+                        <img src={member.imageUrl ? member.imageUrl : placeholder} className="group-members-list-cell-icon" />
                         <div className="group-members-list-cell-detail">
                           <p className="group-members-list-cell-name">
                             {member.name} 
@@ -42,7 +42,9 @@ class GroupMembers extends React.Component {
                             {member.address}
                           </p>
                         </div>
-                        <div className="group-members-list-cell-disable" onClick={() => that.props.disableGroupMember(that.props.groupInSidebar.groupId, member.address) }>削除</div>
+                        { this.props.groupInSidebar.members.length > 1 && index !== 0 ? (
+                          <div className="group-members-list-cell-disable" onClick={() => that.props.disableGroupMember(that.props.groupInSidebar.groupId, member.address) }>削除</div>
+                        ) : "" }
                       </div>
                     );
                   }) }
