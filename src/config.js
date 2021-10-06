@@ -1,6 +1,8 @@
-
+require("dotenv").config();
 let config;
-if (process.env.DOTENV === "development") {
+console.log(process.env);
+const env = process.env;
+if (env.REACT_APP_DOTENV === "development") {
   config = {
     web3Host: "https://matic-mumbai.chainstacklabs.com",
     contractAddress: "0x759Fdf53c6820ADDf7BEaE7440707E94A6d2A5A9",
@@ -12,7 +14,7 @@ if (process.env.DOTENV === "development") {
       networkName: "Matic Mumbai"
     },
   };
-} else if (process.env.DOTENV === "staging") {
+} else if (env.REACT_APP_DOTENV === "staging") {
   config = {
     web3Host: "https://matic-mumbai.chainstacklabs.com",
     contractAddress: "0x759Fdf53c6820ADDf7BEaE7440707E94A6d2A5A9",
@@ -24,7 +26,7 @@ if (process.env.DOTENV === "development") {
       networkName: "Matic Mumbai"
     },
   };
-} else if (process.env.DOTENV === "production") {
+} else if (env.REACT_APP_DOTENV === "production") {
   //TODO: Change here
   config = {
     web3Host: "https://rpc-mainnet.maticvigil.com",
