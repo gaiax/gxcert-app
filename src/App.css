@@ -107,13 +107,13 @@ footer .footer-message, .footer-app {
   font-size: 24px;
 }
 
-.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .edit-profile, .group, .not-found{
+.sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .edit-profile, .group, .not-found, .donation{
   padding: 20px;
   background-color: #F1F9FF;
   min-height: 1000px;
 }
 
-.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content, .issuer-certificate, .group-content, .not-found-content{
+.sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content, .issuer-certificate, .group-content, .not-found-content, .donation-content{
   margin-left: auto;
   margin-right: auto;
   width: 60%;
@@ -141,7 +141,7 @@ footer .footer-message, .footer-app {
   font-weight: bold;
 }
 
-.registration-title, .new-cert-title, .new-group-title, .new-profile-title, .issuer-certificates-title, .issue-title, .edit-group-title, .edit-profile-title, .issuer-certificate-title, .group-title{
+.registration-title, .new-cert-title, .new-group-title, .new-profile-title, .issuer-certificates-title, .issue-title, .edit-group-title, .edit-profile-title, .issuer-certificate-title, .group-title, .donation-title{
   color: #49AAFC;
   font-weight: bold;
 }
@@ -579,4 +579,18 @@ a:visited {
 
 .cert-link {
   display: none;
+}
+
+.donation-address {
+  font-size: 12px;
+  color: #49AAFC;
+  font-weight: bold;
+}
+
+.donation-description > p {
+  margin-bottom: 40px;
+}
+
+.donation-address-title {
+  color: #111;
 }

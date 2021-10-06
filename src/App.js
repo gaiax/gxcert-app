@@ -16,6 +16,7 @@ import Issue from "./views/Issue";
 import Loading from "./Loading";
 import Group from "./views/Group";
 import NotFound from "./views/NotFound";
+import Donation from "./views/Donation";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -43,6 +44,7 @@ class App extends React.Component {
             />)
 
           } }/>
+          <Route exact={true} path="/donate" component={Donation} />
           <Route exact={true} path="/top" render={ (routeProps) => {
             return (
               <Top />
