@@ -1,6 +1,6 @@
 
 let config;
-if (process.env.NODE_ENV === "development") {
+if (process.env.DOTENV === "development") {
   config = {
     web3Host: "https://matic-mumbai.chainstacklabs.com",
     contractAddress: "0x759Fdf53c6820ADDf7BEaE7440707E94A6d2A5A9",
@@ -12,7 +12,19 @@ if (process.env.NODE_ENV === "development") {
       networkName: "Matic Mumbai"
     },
   };
-} else if (process.env.NODE_ENV === "production") {
+} else if (process.env.DOTENV === "staging") {
+  config = {
+    web3Host: "https://matic-mumbai.chainstacklabs.com",
+    contractAddress: "0x759Fdf53c6820ADDf7BEaE7440707E94A6d2A5A9",
+    gxApi: "https://asia-northeast1-gxcert-21233.cloudfunctions.net/gxcert",
+    host: "http://gaiax.github.io/gxcert-test/#",
+    network: {
+      host: "https://matic-mumbai.chainstacklabs.com",
+      chainId: 80001,
+      networkName: "Matic Mumbai"
+    },
+  };
+} else if (process.env.DOTENV === "production") {
   //TODO: Change here
   config = {
     web3Host: "https://rpc-mainnet.maticvigil.com",
