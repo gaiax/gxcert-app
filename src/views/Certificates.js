@@ -24,7 +24,7 @@ class Certificates extends React.Component {
               return (
                 <Link to={"/certs/" + userCert.userCertId}>
                   <div className="certificates-list-cell">
-                    <img src={userCert.certificate.imageUrl} className="certificates-list-cell-icon" alt="証明書" />
+                    <img src={userCert.certificate.imageUrl} className="certificates-list-cell-icon" />
                     <div className="certificates-list-cell-detail">
                       <p className="certificates-list-cell-title">
                         {userCert.certificate.title} 

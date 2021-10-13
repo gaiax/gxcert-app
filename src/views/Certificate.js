@@ -20,7 +20,7 @@ class Certificate extends React.Component {
             <p className="certificate-title">
               {this.props.userCert.certificate.title}
             </p>
-            <img src={this.props.userCert.certificate.imageUrl} className="certificate-icon" alt="証明書" />
+            <img src={this.props.userCert.certificate.imageUrl} className="certificate-icon" />
             <table className="certificate-detail">
               <tr>
                 <td>発行日: </td>
@@ -63,7 +63,7 @@ class Certificate extends React.Component {
             </table>
             <br />
             
-              <img src={this.props.userCert.qr} width="60" height="60" className="qr" alt="qr" />
+              <img src={this.props.userCert.qr} width="60" height="60" className="qr" />
             <a id="cert-link" className="cert-link" download="cert.png" href="/" >-</a>
           </div>
         </div>
@@ -75,7 +75,7 @@ class Certificate extends React.Component {
               <p className="certificate-title">
                 {this.props.userCert.certificate.title}
               </p>
-              <img src={this.props.userCert.certificate.imageUrl} className="certificate-icon" alt="証明書" />
+              <img src={this.props.userCert.certificate.imageUrl} className="certificate-icon" />
               <table className="certificate-detail">
                 <tr>
                   <td>発行日: </td>
@@ -136,7 +136,7 @@ class Certificate extends React.Component {
                 }}>
                   証明書のダウンロード
                 </div>
-                <img src={this.props.userCert.qr} width="60" height="60" className="qr" alt="qr" />
+                <img src={this.props.userCert.qr} width="60" height="60" className="qr" />
               </div>
             </div>
           )}
