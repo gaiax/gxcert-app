@@ -172,8 +172,9 @@ class App extends React.Component {
           } />
           <Route component={NotFound} />
         </Switch>
-        { this.props.state.isLoading ? <Loading /> : "" }
         <Footer />
+        { this.props.state.isLoading ? <Loading /> : "" }
+	<div></div>
       </div>
     );
   }
