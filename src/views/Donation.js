@@ -14,7 +14,10 @@ class Donation extends React.Component{
             <p>また寄付されたMATICは本サービスの運営以外の目的で移動、使用は行いません。</p>
             <p className="donation-address-title">寄付先アドレス</p>
             <div className="donation-address-container">
-              <p className="donation-address">0x21DAA5453e9d5BF9e33CC2406abBa1BC6338a22C</p> <span onClick={() => copyToClipboard("0x21DAA5453e9d5BF9e33CC2406abBa1BC6338a22C")}><FaCopy />コピー</span>
+              <p className="donation-address">0x21DAA5453e9d5BF9e33CC2406abBa1BC6338a22C</p> <span onClick={() => {
+                copyToClipboard("0x21DAA5453e9d5BF9e33CC2406abBa1BC6338a22C");
+                this.props.alert.show("コピーされました");
+              }}><FaCopy />コピー</span>
             </div>
             
           </div>

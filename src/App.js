@@ -20,10 +20,12 @@ import Donation from "./views/Donation";
 import './App.css';
 import { Switch, Route } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { withAlert } from 'react-alert'
 
 class App extends React.Component {
   render() {
     const that = this;
+    console.log(that.props);
     return (
       <div className="App">
         <Header
@@ -44,7 +46,10 @@ class App extends React.Component {
             />)
 
           } }/>
-          <Route exact={true} path="/donate" component={Donation} />
+          <Route exact={true} path="/donate" render={ (routeProps) => <Donation
+            alert={that.props.alert}
+            />
+           } />
           <Route exact={true} path="/top" render={ (routeProps) => {
             return (
               <Top />
@@ -180,5 +185,5 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withAlert()(App);
 

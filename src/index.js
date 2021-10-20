@@ -50,6 +50,15 @@ import {
   removeUserInIssue,
 
 } from "./actions";
+import { Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
+
+const options = {
+  position: "bottom right",
+  timeout: 5000,
+  offset: "30px",
+  transition: "fade",
+}
 //import CertClient from "./client"
 
 function mapStateToProps(state, props) {
@@ -185,9 +194,11 @@ const RxApp = connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
-      <RxApp />
-    </Router>
+      <Router history={history}>
+        <AlertProvider template={AlertTemplate} {...options}>
+          <RxApp />
+        </AlertProvider>
+      </Router>
   </Provider>,
   document.getElementById("root")
 );
