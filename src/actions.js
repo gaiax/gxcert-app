@@ -682,8 +682,9 @@ const sign = () => async (dispatch, getState) => {
     });
     return;
   }
+  let transactionHash;
   try {
-    await gxCert.client.createCert(signed);
+    transactionHash = await gxCert.client.createCert(signed);
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
@@ -697,6 +698,7 @@ const sign = () => async (dispatch, getState) => {
     });
     return;
   }
+  alert("TransactionHash: " + transactionHash);
   let prevLength = certificates.length;
   await (() => {
     return new Promise((resolve, reject) => {
@@ -791,8 +793,9 @@ const registerProfile = () => async (dispatch, getState) => {
     });
     return;
   }
+  let transactionHash;
   try {
-    await gxCert.client.createProfile(address, signedProfile);
+    transactionHash = await gxCert.client.createProfile(address, signedProfile);
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
@@ -806,6 +809,7 @@ const registerProfile = () => async (dispatch, getState) => {
     });
     return;
   }
+  alert("TransactionHash: " + transactionHash);
   let profile;
   await (() => {
     return new Promise((resolve, reject) => {
@@ -871,8 +875,9 @@ const registerGroup = () => async (dispatch, getState) => {
   const groupName = state.groupName;
   const groupAddress = state.groupAddress;
   const groupPhone = state.groupPhone;
+  let transactionHash;
   try {
-    await gxCert.client.createGroup(groupName, groupAddress, groupPhone, from);
+    transactionHash = await gxCert.client.createGroup(groupName, groupAddress, groupPhone, from);
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
@@ -886,6 +891,7 @@ const registerGroup = () => async (dispatch, getState) => {
     });
     return;
   }
+  alert("TransactionHash: " + transactionHash);
   const prevLength = state.groupsInSidebar.length;
   let groups;
   await (() => {
@@ -980,8 +986,9 @@ const updateProfile = () => async (dispatch, getState) => {
     alert("プロフィールを更新するには署名を許可する必要があります。");
     return;
   }
+  let transactionHash;
   try {
-    await gxCert.client.updateProfile(signedProfile);
+    transactionHash = await gxCert.client.updateProfile(signedProfile);
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
@@ -995,6 +1002,7 @@ const updateProfile = () => async (dispatch, getState) => {
     });
     return;
   }
+  alert("TransactionHash: " + transactionHash);
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
@@ -1082,8 +1090,9 @@ const updateGroup = () => async (dispatch, getState) => {
     alert("発行元情報を更新するには、署名を許可する必要があります。");
     return;
   }
+  let transactionHash;
   try {
-    await gxCert.client.updateGroup(signedGroup);
+    transactionHash = await gxCert.client.updateGroup(signedGroup);
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
@@ -1097,6 +1106,7 @@ const updateGroup = () => async (dispatch, getState) => {
     });
     return;
   }
+  alert("TransactionHash: " + transactionHash);
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
@@ -1180,8 +1190,9 @@ const issue = (certId) => async (dispatch, getState) => {
     });
     return;
   }
+  let transactionHash;
   try {
-    await gxCert.client.createUserCerts(signed);
+    transactionHash = await gxCert.client.createUserCerts(signed);
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
@@ -1195,6 +1206,7 @@ const issue = (certId) => async (dispatch, getState) => {
     });
     return;
   }
+  alert("TransactionHash: " + transactionHash);
   dispatch({
     type: "ADD_TO",
     payload: [],
