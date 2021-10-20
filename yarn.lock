@@ -7876,7 +7876,7 @@
     "ipfs-http-client" "^49.0.1"
 
 "gxcert-lib@github:gaiax/gxcert-lib":
-  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#5833dbd1f8152cd8cf9a050368182d12bff82165"
+  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#17c8d8490c7c92f76d26b4f505fffa130c5582a9"
   "version" "1.0.0"
   dependencies:
     "@truffle/hdwallet-provider" "^1.4.2"

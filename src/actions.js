@@ -686,7 +686,11 @@ const sign = () => async (dispatch, getState) => {
     await gxCert.client.createCert(signed);
   } catch(err) {
     console.error(err);
-    alert("Failed to post the signed certificate.");
+    if (err.message === "insufficient funds") {
+      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+    } else {
+      alert("Failed to post the signed certificate.");
+    }
     dispatch({
       type: "LOADING",
       payload: false,
@@ -791,7 +795,11 @@ const registerProfile = () => async (dispatch, getState) => {
     await gxCert.client.createProfile(address, signedProfile);
   } catch(err) {
     console.error(err);
-    alert("Failed to register profile.");
+    if (err.message === "insufficient funds") {
+      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+    } else {
+      alert("Failed to register profile.");
+    }
     dispatch({
       type: "LOADING",
       payload: false,
@@ -867,7 +875,11 @@ const registerGroup = () => async (dispatch, getState) => {
     await gxCert.client.createGroup(groupName, groupAddress, groupPhone, from);
   } catch(err) {
     console.error(err);
-    alert("Failed to create group.");
+    if (err.message === "insufficient funds") {
+      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+    } else {
+      alert("Failed to create group.");
+    }
     dispatch({
       type: "LOADING",
       payload: false,
@@ -972,7 +984,11 @@ const updateProfile = () => async (dispatch, getState) => {
     await gxCert.client.updateProfile(signedProfile);
   } catch(err) {
     console.error(err);
-    alert("Failed to update your profile.");
+    if (err.message === "insufficient funds") {
+      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+    } else {
+      alert("Failed to update your profile.");
+    }
     dispatch({
       type: "LOADING",
       payload: false,
@@ -1070,7 +1086,11 @@ const updateGroup = () => async (dispatch, getState) => {
     await gxCert.client.updateGroup(signedGroup);
   } catch(err) {
     console.error(err);
-    alert("Failed to update group.");
+    if (err.message === "insufficient funds") {
+      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+    } else {
+      alert("Failed to update group.");
+    }
     dispatch({
       type: "LOADING",
       payload: false,
@@ -1164,7 +1184,11 @@ const issue = (certId) => async (dispatch, getState) => {
     await gxCert.client.createUserCerts(signed);
   } catch(err) {
     console.error(err);
-    alert("Failed to issue the certificate.");
+    if (err.message === "insufficient funds") {
+      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+    } else {
+      alert("Failed to issue the certificate.");
+    }
     dispatch({
       type: "LOADING",
       payload: false,
@@ -1372,6 +1396,9 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
   try {
     await gxCert.client.invalidateUserCert(signedUserCert);
   } catch(err) {
+    if (err.message === "insufficient funds") {
+      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+    }
     console.error(err);
     return;
   }
