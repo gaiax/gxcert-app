@@ -26,8 +26,6 @@ class EditProfile extends React.Component {
             </div>
             <p className="edit-profile-form-title">Name</p>
             <input type="text" className="edit-profile-form-name" onChange={this.props.onChangeProfileName} defaultValue={this.props.profile !== null ? this.props.profile.name : ""} />
-            <p className="edit-profile-form-title">E-mail</p>
-            <input type="text" className="edit-profile-form-email" onChange={this.props.onChangeProfileEmail} defaultValue={this.props.profile !== null ? this.props.profile.email : ""} />
             <div className="register-button" onClick={this.props.updateProfile} >
               更新
             </div>

@@ -24,8 +24,6 @@ class NewProfile extends React.Component {
             </div>
             <p className="new-profile-form-title">氏名</p>
             <input type="text" className="new-profile-form-name" onChange={this.props.onChangeProfileName} placeholder="John Doe" />
-            <p className="new-profile-form-title">メールアドレス</p>
-            <input type="text" className="new-profile-form-email" onChange={this.props.onChangeProfileEmail} placeholder="john@example.com" />
             <div className="register-button" onClick={this.props.registerProfile} >
               登録
             </div>
