@@ -585,12 +585,28 @@ a:visited {
   font-size: 12px;
   color: #49AAFC;
   font-weight: bold;
+  border-radius: 4px;
+  border: 2px solid #49AAFC;
+  padding: 6px;
+  margin: 0;
+}
+
+.donation-address-container {
+  width: 380px;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.donation-address-container > span {
+  color: #49AAFC;
 }
 
 .donation-description > p {
-  margin-bottom: 40px;
+  color: #49AAFC;
 }
 
 .donation-address-title {
   color: #111;
+  font-weight: bold;
 }
