@@ -12,6 +12,7 @@ class Certificate extends React.Component {
     this.props.fetchCertificate(userCertId);
   }
   render() {
+    const that = this;
     return (
       <div className="certificate">
         { (this.props.userCert && this.props.userCert.certificate) ? (
@@ -120,7 +121,7 @@ class Certificate extends React.Component {
               <div className="certificate-buttons">
                 <div className="certificate-button" onClick={() => {
                   copyToClipboard(window.location.href)
-                  alert("コピーしました");
+                  that.props.alert.show("コピーしました");
                 }} >
                   参照URLの発行
                 </div>
@@ -131,7 +132,7 @@ class Certificate extends React.Component {
                       document.getElementById("cert-link").click();
                     }).catch(err => {
                       console.error(err);
-                      alert("証明書の書き出しに失敗しました");
+                      that.props.alert("証明書の書き出しに失敗しました");
                     });
                 }}>
                   証明書のダウンロード

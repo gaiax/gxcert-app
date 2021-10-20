@@ -106,6 +106,7 @@ class App extends React.Component {
           <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate
 
             {...routeProps}
+            alert={that.props.alert}
             userCert={that.props.state.certificate}
             certificateImage={that.props.state.certificateImage}
             fetchCertificate={that.props.fetchCertificate}
