@@ -610,3 +610,7 @@ a:visited {
   color: #111;
   font-weight: bold;
 }
+
+.close-modal {
+  float:right;
+}

@@ -21,6 +21,7 @@ import './App.css';
 import { Switch, Route } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { withAlert } from 'react-alert'
+import GxModal from "./Modal";
 
 class App extends React.Component {
   render() {
@@ -180,6 +181,7 @@ class App extends React.Component {
         </Switch>
         <Footer />
         { this.props.state.isLoading ? <Loading /> : "" }
+        { this.props.state.modalMessage !== null ? <GxModal isOpen={true} message={this.props.state.modalMessage} closeModal={this.props.closeModal} /> : "" }
 	<div></div>
       </div>
     );

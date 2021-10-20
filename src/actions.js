@@ -13,6 +13,20 @@ function wait() {
     }, 6000);
   });
 }
+
+const openModal = (message) => async (dispatch, getState) => {
+  dispatch({
+    type: "MODAL",
+    payload: message,
+  });
+}
+const closeModal = (message) => async (dispatch, getState) => {
+  console.log("close");
+  dispatch({
+    type: "MODAL",
+    payload: null,
+  });
+}
 const onChangeTitle = (evt) => async (dispatch, getState) => {
   dispatch({
     type: "ON_CHANGE_TITLE",
@@ -427,7 +441,7 @@ const signIn = () => async (dispatch) => {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
-    alert("Please log with Google");
+    openModal("Please log with Google")(dispatch);
     return;
   }
   if (!gxCert.address()) {
@@ -592,7 +606,7 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
     );
   } catch(err) {
     console.error(err);
-    alert("Failed to fetch certificates.");
+    openModal("Failed to fetch certificates.")(dispatch, getState);
     return;
   }
   dispatch({
@@ -627,7 +641,7 @@ const sign = () => async (dispatch, getState) => {
   const state = getState().state;
   const certificates = state.certificatesInIssuer;
   if (state.groupInSidebar === null) {
-    alert("Please set group on sidebar.");
+    openModal("Please set group on sidebar.")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -636,7 +650,7 @@ const sign = () => async (dispatch, getState) => {
   }
   const image = state.image;
   if (!image) {
-    alert("Image not set.");
+    openModal("Image not set.")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -648,7 +662,7 @@ const sign = () => async (dispatch, getState) => {
     imageCid = await gxCert.client.uploadImageToIpfs(image);
   } catch(err) {
     console.error(err);
-    alert("Failed to post the image to IPFS.");
+    openModal("Failed to post the image to IPFS.")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -663,7 +677,7 @@ const sign = () => async (dispatch, getState) => {
     groupId: state.groupInSidebar.groupId,
   }
   if (!gxCert.client.isCertificate(certificate)) {
-    alert("Invalid Certificate.");
+    openModal("Invalid Certificate.")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -675,7 +689,7 @@ const sign = () => async (dispatch, getState) => {
     signed = await gxCert.client.signCertificate(certificate, { address: gxCert.address() });
   } catch(err) {
     console.error(err);
-    alert("Failed to sign the certificate.");
+    openModal("Failed to sign the certificate.")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -688,9 +702,9 @@ const sign = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
-      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+      openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      alert("Failed to post the signed certificate.");
+      openModal("Failed to post the signed certificate.")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -698,7 +712,7 @@ const sign = () => async (dispatch, getState) => {
     });
     return;
   }
-  alert("TransactionHash: " + transactionHash);
+  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
   let prevLength = certificates.length;
   await (() => {
     return new Promise((resolve, reject) => {
@@ -767,7 +781,7 @@ const registerProfile = () => async (dispatch, getState) => {
     icon = await gxCert.client.uploadImageToIpfs(iconImage);
   } catch(err) {
     console.error(err);
-    alert("Failed to upload image to IPFS."); 
+    openModal("Failed to upload image to IPFS.")(dispatch, getState); 
     dispatch({
       type: "LOADING",
       payload: false,
@@ -786,7 +800,7 @@ const registerProfile = () => async (dispatch, getState) => {
     });
   } catch(err) {
     console.error(err);
-    alert("Failed to sign profile.");
+    openModal("Failed to sign profile.")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -799,9 +813,9 @@ const registerProfile = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
-      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+      openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      alert("Failed to register profile.");
+      openModal("Failed to register profile.")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -809,7 +823,7 @@ const registerProfile = () => async (dispatch, getState) => {
     });
     return;
   }
-  alert("TransactionHash: " + transactionHash);
+  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
   let profile;
   await (() => {
     return new Promise((resolve, reject) => {
@@ -881,9 +895,9 @@ const registerGroup = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
-      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+      openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      alert("Failed to create group.");
+      openModal("Failed to create group.")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -891,7 +905,7 @@ const registerGroup = () => async (dispatch, getState) => {
     });
     return;
   }
-  alert("TransactionHash: " + transactionHash);
+  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
   const prevLength = state.groupsInSidebar.length;
   let groups;
   await (() => {
@@ -983,7 +997,7 @@ const updateProfile = () => async (dispatch, getState) => {
       type: "LOADING",
       payload: false,
     });
-    alert("プロフィールを更新するには署名を許可する必要があります。");
+    openModal("プロフィールを更新するには署名を許可する必要があります。")(dispatch, getState);
     return;
   }
   let transactionHash;
@@ -992,9 +1006,9 @@ const updateProfile = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
-      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+      openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      alert("Failed to update your profile.");
+      openModal("Failed to update your profile.")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -1002,7 +1016,7 @@ const updateProfile = () => async (dispatch, getState) => {
     });
     return;
   }
-  alert("TransactionHash: " + transactionHash);
+  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
@@ -1060,7 +1074,7 @@ const updateGroup = () => async (dispatch, getState) => {
   }
   const state = getState().state;
   if (state.groupInSidebar === null) {
-    alert("Please choose group on sidebar.");
+    openModal("Please choose group on sidebar.")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -1087,7 +1101,7 @@ const updateGroup = () => async (dispatch, getState) => {
       type: "LOADING",
       payload: false,
     });
-    alert("発行元情報を更新するには、署名を許可する必要があります。");
+    openModal("発行元情報を更新するには、署名を許可する必要があります。")(dispatch, getState);
     return;
   }
   let transactionHash;
@@ -1096,9 +1110,9 @@ const updateGroup = () => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
-      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+      openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      alert("Failed to update group.");
+      openModal("Failed to update group.")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -1106,7 +1120,7 @@ const updateGroup = () => async (dispatch, getState) => {
     });
     return;
   }
-  alert("TransactionHash: " + transactionHash);
+  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
@@ -1167,7 +1181,7 @@ const issue = (certId) => async (dispatch, getState) => {
   const state = getState().state;
   const users = state.usersToIssue;
   if (users.length === 0) {
-    alert("発行先のユーザーを指定してください");
+    openModal("発行先のユーザーを指定してください")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -1183,7 +1197,7 @@ const issue = (certId) => async (dispatch, getState) => {
     signed = await gxCert.client.signUserCertificates(certId, from, tos, { address: from });
   } catch(err) {
     console.error(err);
-    alert("Failed to sign the certificate.");
+    openModal("Failed to sign the certificate.")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -1196,9 +1210,9 @@ const issue = (certId) => async (dispatch, getState) => {
   } catch(err) {
     console.error(err);
     if (err.message === "insufficient funds") {
-      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+      openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      alert("Failed to issue the certificate.");
+      openModal("Failed to issue the certificate.")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -1206,7 +1220,7 @@ const issue = (certId) => async (dispatch, getState) => {
     });
     return;
   }
-  alert("TransactionHash: " + transactionHash);
+  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
   dispatch({
     type: "ADD_TO",
     payload: [],
@@ -1278,7 +1292,7 @@ const inviteMember = () => async (dispatch, getState) => {
     address = await torusClient.getPublicAddressByGoogle(email);
   } catch(err) {
     console.error(err);
-    alert("Email is not registered.");
+    openModal("Email is not registered.")(dispatch, getState);
     return;
   }
   let profile;
@@ -1300,7 +1314,7 @@ const inviteMember = () => async (dispatch, getState) => {
     );
   } catch(err) {
     console.error(err);
-    alert("そのユーザーは登録されていません");
+    openModal("そのユーザーは登録されていません")(dispatch, getState);
     return;
   }
   profile.address = address;
@@ -1328,14 +1342,14 @@ const inviteMember = () => async (dispatch, getState) => {
       type: "LOADING",
       payload: false,
     });
-    alert("Failed to sign for invitation.");
+    openModal("Failed to sign for invitation.")(dispatch, getState);
     return;
   }
   try {
     await gxCert.client.inviteMemberToGroup(groupId, signedMember);
   } catch(err) {
     console.error(err);
-    alert("Failed to send invitation.");
+    openModal("Failed to send invitation.")(dispatch, getState);
     group.members.pop();
     dispatch({
       type: "ON_CHANGE_GROUP_IN_SIDEBAR",
@@ -1409,7 +1423,7 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     await gxCert.client.invalidateUserCert(signedUserCert);
   } catch(err) {
     if (err.message === "insufficient funds") {
-      alert("書き込み用のMATICが足りません。寄付をすれば書き込みができます。");
+      openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     }
     console.error(err);
     return;
@@ -1435,7 +1449,7 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     );
   } catch(err) {
     console.error(err);
-    alert("Failed to fetch your groups");
+    openModal("Failed to fetch your groups")(dispatch, getState);
     return;
   }
   let certificates = [];
@@ -1499,7 +1513,7 @@ const addTo = () => async (dispatch, getState) => {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
-    alert("発行先の登録に失敗しました");
+    openModal("発行先の登録に失敗しました")(dispatch, getState);
     return;
   }
   const state = getState().state;
@@ -1509,7 +1523,7 @@ const addTo = () => async (dispatch, getState) => {
     to = await torusClient.getPublicAddressByGoogle(email);
   } catch(err) {
     console.error(err);
-    alert("発行先の登録に失敗しました");
+    openModal("発行先の登録に失敗しました")(dispatch, getState);
     return;
   }
   const usersToIssue = state.usersToIssue;
@@ -1537,7 +1551,7 @@ const addTo = () => async (dispatch, getState) => {
     );
   } catch(err) {
     console.error(err);
-    alert("発行先の登録に失敗しました");
+    openModal("発行先の登録に失敗しました")(dispatch, getState);
     return;
   }
   profile.address = to;
@@ -1604,5 +1618,7 @@ export {
   onChangeToList,
   addTo,
   removeUserInIssue,
+  openModal,
+  closeModal,
 
 };

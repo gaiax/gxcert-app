@@ -48,6 +48,8 @@ import {
   disableGroupMember,
   addTo,
   removeUserInIssue,
+  openModal,
+  closeModal,
 
 } from "./actions";
 import { Provider as AlertProvider } from "react-alert";
@@ -186,6 +188,12 @@ function mapDispatchToProps(dispatch, props) {
     },
     removeUserInIssue: (address) => {
       dispatch(removeUserInIssue(address));
+    },
+    openModal: (message) => {
+      dispatch(openModal(message));
+    },
+    closeModal: () => {
+      dispatch(closeModal());
     },
   }
 }

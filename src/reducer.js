@@ -183,6 +183,10 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         groupCache: action.payload,
       });
+    case "MODAL":
+      return Object.assign({}, state, {
+        modalMessage: action.payload,
+      });
     default:
       return state;
   }
