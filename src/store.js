@@ -11,6 +11,7 @@ const persistConfig = {
   blacklist: [
     "isLoading",
     "toCountInIssue",
+    "modalMessage",
   ],
 }
 

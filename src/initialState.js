@@ -41,6 +41,7 @@ const initialState = {
   usersToIssue: [],
   toList: [],
   myProfile: null,
+  modalMessage: null,
 
 }
 

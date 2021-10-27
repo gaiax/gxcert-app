@@ -7,7 +7,7 @@ const modalStyle = {
     position: "fixed",
     top: 0,
     left: 0,
-    backgroundColor: "rgba(0,0,0,0.85)"
+    backgroundColor: "rgba(127,127,127,0.5)"
   },
   content: {
     position: "absolute",
@@ -16,8 +16,9 @@ const modalStyle = {
     height: "240px",
     marginLeft: "auto",
     marginRight: "auto",
-    backgroundColor: "#DDD",
+    backgroundColor: "#F1F9FF",
     borderRadius: "1rem",
+    border: "2px solid #49AAFC",
     padding: "2.5rem",
   }
 };
