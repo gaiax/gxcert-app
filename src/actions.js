@@ -1375,8 +1375,9 @@ const inviteMember = () => async (dispatch, getState) => {
     openModal("Failed to sign for invitation.")(dispatch, getState);
     return;
   }
+  let transactionHash;
   try {
-    await gxCert.client.inviteMemberToGroup(groupId, signedMember);
+    transactionHash = await gxCert.client.inviteMemberToGroup(groupId, signedMember);
   } catch(err) {
     console.error(err);
     openModal("Failed to send invitation.")(dispatch, getState);
@@ -1391,6 +1392,12 @@ const inviteMember = () => async (dispatch, getState) => {
     });
     return;
   }
+
+  openModal("書き込みを実行しました", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
+
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
@@ -1449,8 +1456,9 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     return;
   }
   const signedUserCert = await gxCert.client.signUserCertForInvalidation(userCertId, { address: gxCert.address() });
+  let transactionHash;
   try {
-    await gxCert.client.invalidateUserCert(signedUserCert);
+    transactionHash = await gxCert.client.invalidateUserCert(signedUserCert);
   } catch(err) {
     if (err.message === "insufficient funds") {
       openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
@@ -1458,6 +1466,10 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     console.error(err);
     return;
   }
+  openModal("書き込みを実行しました", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
   await wait();
 
   const address = gxCert.address();
@@ -1482,44 +1494,6 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     openModal("Failed to fetch your groups")(dispatch, getState);
     return;
   }
-  let certificates = [];
-  for (const group of groups) {
-    const groupId = group.groupId;
-    try {
-      certificates = certificates.concat(
-        await gxCert.getGroupCerts(
-          groupId,
-          dispatch,
-          [
-            {
-              type: "certificate",
-              refresh: false,
-            },
-            {
-              type: "certificateImage",
-              refresh: false,
-              wait: true,
-            },
-            {
-              type: "userCert",
-              refresh: true,
-            },
-            {
-              type: "profile",
-              refresh: false,
-            }
-          ]
-        )
-      );
-    } catch(err) {
-      console.error(err);
-      continue;
-    }
-  }
-  dispatch({
-    type: "FETCHED_CERTIFICATES_IN_ISSUER",
-    payload: certificates,
-  });
 }
 
 const onChangeToList = (values) => async (dispatch) => {
