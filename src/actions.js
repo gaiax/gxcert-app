@@ -14,14 +14,26 @@ function wait() {
   });
 }
 
-const openModal = (message) => async (dispatch, getState) => {
+const openModal = (message, link) => async (dispatch, getState) => {
+  if (link) {
+    dispatch({
+      type: "MODAL_LINK",
+      payload: link,
+    });
+  }
   dispatch({
     type: "MODAL",
     payload: message,
   });
 }
 const closeModal = (message) => async (dispatch, getState) => {
-  console.log("close");
+  dispatch({
+    type: "MODAL_LINK",
+    payload: {
+      link: null,
+      text: null,
+    },
+  });
   dispatch({
     type: "MODAL",
     payload: null,
@@ -712,7 +724,10 @@ const sign = () => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
+  openModal("書き込みを実行しました", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
   let prevLength = certificates.length;
   await (() => {
     return new Promise((resolve, reject) => {
@@ -823,7 +838,10 @@ const registerProfile = () => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
+  openModal("書き込みを実行しました", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
   let profile;
   await (() => {
     return new Promise((resolve, reject) => {
@@ -905,7 +923,10 @@ const registerGroup = () => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
+  openModal("書き込みを実行しました", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
   const prevLength = state.groupsInSidebar.length;
   let groups;
   await (() => {
@@ -1016,7 +1037,10 @@ const updateProfile = () => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
+  openModal("書き込みを実行しました", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
@@ -1120,7 +1144,10 @@ const updateGroup = () => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
+  openModal("書き込みを実行しました", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
@@ -1220,7 +1247,10 @@ const issue = (certId) => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("TransactionHash: " + transactionHash)(dispatch, getState);
+  openModal("書き込みを実行しました", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
   dispatch({
     type: "ADD_TO",
     payload: [],

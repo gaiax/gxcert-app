@@ -187,6 +187,11 @@ export default function Reducer(state=initialState, action) {
       return Object.assign({}, state, {
         modalMessage: action.payload,
       });
+    case "MODAL_LINK":
+      return Object.assign({}, state, {
+        modalLink: action.payload.link,
+        modalLinkText: action.payload.text,
+      });
     default:
       return state;
   }

@@ -12,6 +12,8 @@ const persistConfig = {
     "isLoading",
     "toCountInIssue",
     "modalMessage",
+    "modalLink",
+    "modalLinkText",
   ],
 }
 

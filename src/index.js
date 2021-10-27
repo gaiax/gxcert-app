@@ -189,8 +189,8 @@ function mapDispatchToProps(dispatch, props) {
     removeUserInIssue: (address) => {
       dispatch(removeUserInIssue(address));
     },
-    openModal: (message) => {
-      dispatch(openModal(message));
+    openModal: (message, link) => {
+      dispatch(openModal(message, link));
     },
     closeModal: () => {
       dispatch(closeModal());

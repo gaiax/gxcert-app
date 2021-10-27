@@ -42,6 +42,8 @@ const initialState = {
   toList: [],
   myProfile: null,
   modalMessage: null,
+  modalLink: null,
+  modalLinkText: null,
 
 }
 

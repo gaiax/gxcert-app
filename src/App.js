@@ -180,8 +180,8 @@ class App extends React.Component {
           <Route component={NotFound} />
         </Switch>
         <Footer />
-        { this.props.state.isLoading ? <Loading /> : "" }
-        { this.props.state.modalMessage !== null ? <GxModal isOpen={true} message={this.props.state.modalMessage} closeModal={this.props.closeModal} /> : "" }
+        { this.props.state.isLoading && !this.props.state.modalMessage ? <Loading /> : "" }
+        { this.props.state.modalMessage || (this.props.state.modalLinkText && this.props.state.modalLink) ? <GxModal isOpen={true} message={this.props.state.modalMessage} link={this.props.state.modalLink} linkText={this.props.state.modalLinkText} closeModal={this.props.closeModal} /> : "" }
 	<div></div>
       </div>
     );
