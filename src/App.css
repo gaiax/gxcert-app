@@ -621,7 +621,7 @@ a:visited {
   text-align: center;
   margin-top: 50px;
   word-break: break-all;
-  color: black;
+  color: #333;
 }
 
 .modal-message:visited {
