@@ -453,11 +453,11 @@ const signIn = () => async (dispatch) => {
     gxCert = await getGxCert();
   } catch(err) {
     console.error(err);
-    openModal("Please log with Google")(dispatch);
+    openModal("Googleでログインしてください")(dispatch);
     return;
   }
   if (!gxCert.address()) {
-    console.log("Failed to login.");
+    console.log("ログインできませんでした");
     return;
   }
   console.log(gxCert.address());
@@ -618,7 +618,7 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
     );
   } catch(err) {
     console.error(err);
-    openModal("Failed to fetch certificates.")(dispatch, getState);
+    openModal("証明書を取得できませんでした")(dispatch, getState);
     return;
   }
   dispatch({
@@ -674,7 +674,7 @@ const sign = () => async (dispatch, getState) => {
     imageCid = await gxCert.client.uploadImageToIpfs(image);
   } catch(err) {
     console.error(err);
-    openModal("Failed to post the image to IPFS.")(dispatch, getState);
+    openModal("画像をIPFSにアップロードできませんでした")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -701,7 +701,7 @@ const sign = () => async (dispatch, getState) => {
     signed = await gxCert.client.signCertificate(certificate, { address: gxCert.address() });
   } catch(err) {
     console.error(err);
-    openModal("Failed to sign the certificate.")(dispatch, getState);
+    openModal("証明書データに署名できませんでした")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -716,7 +716,7 @@ const sign = () => async (dispatch, getState) => {
     if (err.message === "insufficient funds") {
       openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      openModal("Failed to post the signed certificate.")(dispatch, getState);
+      openModal("証明書を書き込むことができませんでした")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -796,7 +796,7 @@ const registerProfile = () => async (dispatch, getState) => {
     icon = await gxCert.client.uploadImageToIpfs(iconImage);
   } catch(err) {
     console.error(err);
-    openModal("Failed to upload image to IPFS.")(dispatch, getState); 
+    openModal("画像をIPFSにアップロードできませんでした")(dispatch, getState); 
     dispatch({
       type: "LOADING",
       payload: false,
@@ -815,7 +815,7 @@ const registerProfile = () => async (dispatch, getState) => {
     });
   } catch(err) {
     console.error(err);
-    openModal("Failed to sign profile.")(dispatch, getState);
+    openModal("プロフィールに署名できませんでした")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -830,7 +830,7 @@ const registerProfile = () => async (dispatch, getState) => {
     if (err.message === "insufficient funds") {
       openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      openModal("Failed to register profile.")(dispatch, getState);
+      openModal("プロフィールを登録できませんでした")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -915,7 +915,7 @@ const registerGroup = () => async (dispatch, getState) => {
     if (err.message === "insufficient funds") {
       openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      openModal("Failed to create group.")(dispatch, getState);
+      openModal("グループを作成できませんでした")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -1029,7 +1029,7 @@ const updateProfile = () => async (dispatch, getState) => {
     if (err.message === "insufficient funds") {
       openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      openModal("Failed to update your profile.")(dispatch, getState);
+      openModal("プロフィールを更新できませんでした")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -1136,7 +1136,7 @@ const updateGroup = () => async (dispatch, getState) => {
     if (err.message === "insufficient funds") {
       openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      openModal("Failed to update group.")(dispatch, getState);
+      openModal("グループ情報を更新できませんでした")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -1224,7 +1224,7 @@ const issue = (certId) => async (dispatch, getState) => {
     signed = await gxCert.client.signUserCertificates(certId, from, tos, { address: from });
   } catch(err) {
     console.error(err);
-    openModal("Failed to sign the certificate.")(dispatch, getState);
+    openModal("証明書データに署名できませんでした")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
@@ -1239,7 +1239,7 @@ const issue = (certId) => async (dispatch, getState) => {
     if (err.message === "insufficient funds") {
       openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
     } else {
-      openModal("Failed to issue the certificate.")(dispatch, getState);
+      openModal("証明書を発行できませんでした")(dispatch, getState);
     }
     dispatch({
       type: "LOADING",
@@ -1372,7 +1372,7 @@ const inviteMember = () => async (dispatch, getState) => {
       type: "LOADING",
       payload: false,
     });
-    openModal("Failed to sign for invitation.")(dispatch, getState);
+    openModal("グループへの招待に署名できませんでした")(dispatch, getState);
     return;
   }
   let transactionHash;
@@ -1380,7 +1380,7 @@ const inviteMember = () => async (dispatch, getState) => {
     transactionHash = await gxCert.client.inviteMemberToGroup(groupId, signedMember);
   } catch(err) {
     console.error(err);
-    openModal("Failed to send invitation.")(dispatch, getState);
+    openModal("グループへの招待を送信できませんでした")(dispatch, getState);
     group.members.pop();
     dispatch({
       type: "ON_CHANGE_GROUP_IN_SIDEBAR",
@@ -1491,7 +1491,7 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     );
   } catch(err) {
     console.error(err);
-    openModal("Failed to fetch your groups")(dispatch, getState);
+    //openModal("")(dispatch, getState);
     return;
   }
 }
