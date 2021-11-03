@@ -57,18 +57,20 @@ class Issuer extends React.Component {
                 <div className="issuer-certificate-list">
                   { certificate.userCerts ? certificate.userCerts.map((userCert, index) => {
                     return (
-                      <div className="certificates-list-cell">
-                        <img src={userCert.toProfile ? userCert.toProfile.imageUrl : placeholder} className="issuer-certificate-list-cell-icon" />
-                        <div className="issuer-certificate-list-cell-detail">
-                          <p className="issuer-certificate-list-cell-name">
-                            {userCert.toProfile ? userCert.toProfile.name : ""} 
-                          </p>
-                          <p className="issuer-certificate-list-cell-address">
-                            { userCert.to }
-                          </p>
+                        <div className="certificates-list-cell">
+                          <Link to={"/certs/" + userCert.userCertId}>
+                            <img src={userCert.toProfile ? userCert.toProfile.imageUrl : placeholder} className="issuer-certificate-list-cell-icon" />
+                          </Link>
+                          <Link to={"/certs/" + userCert.userCertId} className="issuer-certificate-list-cell-detail">
+                              <p className="issuer-certificate-list-cell-name">
+                                {userCert.toProfile ? userCert.toProfile.name : ""} 
+                              </p>
+                              <p className="issuer-certificate-list-cell-address">
+                                { userCert.to }
+                              </p>
+                          </Link>
+                          <div className="issuer-certificate-list-cell-invalidate" onClick={() => this.props.invalidateUserCert(userCert.userCertId)}>取消</div>
                         </div>
-                        <div className="issuer-certificate-list-cell-invalidate" onClick={() => this.props.invalidateUserCert(userCert.userCertId)}>取消</div>
-                      </div>
                     );
                   }) : "" }
                 </div>
