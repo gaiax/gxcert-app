@@ -9,6 +9,13 @@ import { openModal, closeModal } from "./modal";
 
 import { fetchGroupsInSidebar, fetchCertificatesInIssuer } from "./fetch";
 
+const openModalOfTransactionHash = (message, link) => async (dispatch, getState) => {
+  openModal(message, link)(dispatch, getState);
+  setTimeout(() => {
+    closeModal()(dispatch, getState);
+  }, 10 * 1000);
+}
+
 const registerProfile = () => async (dispatch, getState) => {
   dispatch({
     type: "LOADING",
@@ -80,7 +87,7 @@ const registerProfile = () => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("書き込みを実行しました", {
+  openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
@@ -175,7 +182,7 @@ const registerGroup = () => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("書き込みを実行しました", {
+  openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
@@ -292,7 +299,7 @@ const updateProfile = () => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("書き込みを実行しました", {
+  openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
@@ -406,7 +413,7 @@ const updateGroup = () => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("書き込みを実行しました", {
+  openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
@@ -517,7 +524,7 @@ const issue = (certId) => async (dispatch, getState) => {
     });
     return;
   }
-  openModal("書き込みを実行しました", {
+  openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
@@ -660,7 +667,7 @@ const inviteMember = () => async (dispatch, getState) => {
     return;
   }
 
-  openModal("書き込みを実行しました", {
+  openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
@@ -737,7 +744,7 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  openModal("書き込みを実行しました", {
+  openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
