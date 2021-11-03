@@ -1,4 +1,3 @@
-
 const initialState = {
   from: "",
   to: "",
@@ -44,7 +43,6 @@ const initialState = {
   modalMessage: null,
   modalLink: null,
   modalLinkText: null,
-
-}
+};
 
 export default initialState;

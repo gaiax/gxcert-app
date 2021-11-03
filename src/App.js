@@ -17,10 +17,10 @@ import Loading from "./Loading";
 import Group from "./views/Group";
 import NotFound from "./views/NotFound";
 import Donation from "./views/Donation";
-import './App.css';
+import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import { withAlert } from 'react-alert'
+import { withAlert } from "react-alert";
 import GxModal from "./Modal";
 
 class App extends React.Component {
@@ -29,172 +29,238 @@ class App extends React.Component {
     return (
       <div className="App">
         <Header
-          isLoggedIn={that.props.state.from !== "" && that.props.state.myProfile !== null}
+          isLoggedIn={
+            that.props.state.from !== "" && that.props.state.myProfile !== null
+          }
           signOut={that.props.signOut}
         ></Header>
         <Switch>
-          <Route exact={true} path="/" render={ (routeProps) => {
-            if (that.props.state.from === "") { 
+          <Route
+            exact={true}
+            path="/"
+            render={(routeProps) => {
+              if (that.props.state.from === "") {
+                return <Top />;
+              }
               return (
-                <Top />
+                <Certificates
+                  {...routeProps}
+                  userCerts={that.props.state.certificates}
+                  fetchCertificates={that.props.fetchCertificates}
+                />
               );
-            }
-            return (
-              <Certificates
-                {...routeProps}
-                userCerts={that.props.state.certificates}
-                fetchCertificates={that.props.fetchCertificates}
-              />
-            )
-
-          } }/>
-          <Route exact={true} path="/donate" render={ (routeProps) => <Donation
-            alert={that.props.alert}
-            />
-           } />
-          <Route exact={true} path="/top" render={ (routeProps) => {
-            return (
-              <Top />
-            )
-          } }/>
-          <Route exact={true} path="/signup" render={ (routeProps) => <SignIn
-            {...routeProps}
-            signIn={that.props.signIn}
-            />
-          } />
-          <Route exact={true} path="/new/" render={ () => <NewCert
-              fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
-              groupsInSidebar={that.props.state.groupsInSidebar}
-              groupInSidebar={that.props.state.groupInSidebar}
-              onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
-              onChangeTitle={that.props.onChangeTitle}
-              onChangeDescription={that.props.onChangeDescription}
-              onChangeImage={that.props.onChangeImage}
-              onChangeGroup={that.props.onChangeGroup}
-              sign={that.props.sign}
-              from={that.props.state.from}
-              image={that.props.state.image}
-              groups={that.props.state.groups}
-            />
-          } />
-          <Route exact={true} path="/issue/" render={ (routeProps) => <Issuer
-            {...routeProps}
-            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
-            groupsInSidebar={that.props.state.groupsInSidebar}
-            groupInSidebar={that.props.state.groupInSidebar}
-            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
-            groups={that.props.state.groupsInIssuer}
-            certificates={that.props.state.certificatesInIssuer}
-            fetchCertificates={that.props.fetchCertificatesInIssuer}
-            issue={that.props.issue}
-            invalidateUserCert={that.props.invalidateUserCert}
-            />
-          } />
-          <Route exact={true} path="/issue/:certId" render={ (routeProps) => <Issue
-            {...routeProps}
-            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
-            groupsInSidebar={that.props.state.groupsInSidebar}
-            groupInSidebar={that.props.state.groupInSidebar}
-            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
-            certificate={that.props.state.certificateInIssue}
-            fetchCertificate={that.props.fetchCertificateInIssue}
-            usersToIssue={that.props.state.usersToIssue}
-            removeUserInIssue={that.props.removeUserInIssue}
-            onChangeToInIssue={that.props.onChangeToInIssue}
-            issue={that.props.issue}
-            addTo={that.props.addTo}
+            }}
           />
-          } />
-          <Route exact={true} path="/certs/:id" render={ (routeProps) => <Certificate
-
-            {...routeProps}
-            alert={that.props.alert}
-            userCert={that.props.state.certificate}
-            certificateImage={that.props.state.certificateImage}
-            fetchCertificate={that.props.fetchCertificate}
-            />
-          } />
-          <Route exact={true} path="/group/new" render={ (routeProps) => <NewGroup
-            {...routeProps}
-            registerGroup={that.props.registerGroup}
-            onChangeGroupName={that.props.onChangeGroupName}
-            onChangeGroupAddress={that.props.onChangeGroupAddress}
-            onChangeGroupPhone={that.props.onChangeGroupPhone}
-            />
-          } />
-          <Route exact={true} path="/group/edit" render={ (routeProps) => <EditGroup
-            {...routeProps}
-            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
-            groupsInSidebar={that.props.state.groupsInSidebar}
-            groupInSidebar={that.props.state.groupInSidebar}
-            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
-            group={that.props.state.groupInEdit}
-            updateGroup={that.props.updateGroup}
-            onChangeGroupId={that.props.onChangeGroupIdInEdit}
-            onChangeGroupName={that.props.onChangeGroupNameInEdit}
-            onChangeGroupAddress={that.props.onChangeGroupAddressInEdit}
-            onChangeGroupPhone={that.props.onChangeGroupPhoneInEdit}
-            />
-          } />
-          <Route exact={true} path="/group" render={ (routeProps) => <GroupMembers
-            {...routeProps}
-            fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
-            groupsInSidebar={that.props.state.groupsInSidebar}
-            groupInSidebar={that.props.state.groupInSidebar}
-            onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
-            group={that.props.state.group}
-            fetchGroup={that.props.fetchGroup}
-            inviteMember={that.props.inviteMember}
-            onChangeGroupMemberToInvite={that.props.onChangeGroupMemberToInvite}
-            disableGroupMember={that.props.disableGroupMember}
-            />
-          } />
-          <Route exact={true} path="/group/:groupId" render={ (routeProps) => <Group
-            {...routeProps}
-            group={that.props.state.groupInShow}
-            fetchGroup={that.props.fetchGroupInShow}
-            />
-          } />
-          <Route exact={true} path="/profile/new" render={ (routeProps) => <NewProfile
-            {...routeProps}
-            image={that.props.state.profileImage}
-            registerProfile={that.props.registerProfile}
-            onChangeProfileName={that.props.onChangeProfileName}
-            onChangeProfileEmail={that.props.onChangeProfileEmail}
-            onChangeProfileImage={that.props.onChangeProfileImage}
-            />
-          } />
-          <Route exact={true} path="/profile/edit" render={ (routeProps) => <EditProfile
-            {...routeProps}
-            image={that.props.state.profileImageInEdit}
-            updateProfile={that.props.updateProfile}
-            profile={that.props.state.profileInEdit}
-            profileName={that.props.state.profileNameInEdit}
-            profileEmail={that.props.state.profileEmailInEdit}
-            profileImage={that.props.state.profileImageInEdit}
-            onChangeProfileName={that.props.onChangeProfileNameInEdit}
-            onChangeProfileEmail={that.props.onChangeProfileEmailInEdit}
-            onChangeProfileImage={that.props.onChangeProfileImageInEdit}
-            fetchProfile={that.props.fetchProfile}
-            />
-          } />
+          <Route
+            exact={true}
+            path="/donate"
+            render={(routeProps) => <Donation alert={that.props.alert} />}
+          />
+          <Route
+            exact={true}
+            path="/top"
+            render={(routeProps) => {
+              return <Top />;
+            }}
+          />
+          <Route
+            exact={true}
+            path="/signup"
+            render={(routeProps) => (
+              <SignIn {...routeProps} signIn={that.props.signIn} />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/new/"
+            render={() => (
+              <NewCert
+                fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+                groupsInSidebar={that.props.state.groupsInSidebar}
+                groupInSidebar={that.props.state.groupInSidebar}
+                onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
+                onChangeTitle={that.props.onChangeTitle}
+                onChangeDescription={that.props.onChangeDescription}
+                onChangeImage={that.props.onChangeImage}
+                onChangeGroup={that.props.onChangeGroup}
+                sign={that.props.sign}
+                from={that.props.state.from}
+                image={that.props.state.image}
+                groups={that.props.state.groups}
+              />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/issue/"
+            render={(routeProps) => (
+              <Issuer
+                {...routeProps}
+                fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+                groupsInSidebar={that.props.state.groupsInSidebar}
+                groupInSidebar={that.props.state.groupInSidebar}
+                onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
+                groups={that.props.state.groupsInIssuer}
+                certificates={that.props.state.certificatesInIssuer}
+                fetchCertificates={that.props.fetchCertificatesInIssuer}
+                issue={that.props.issue}
+                invalidateUserCert={that.props.invalidateUserCert}
+              />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/issue/:certId"
+            render={(routeProps) => (
+              <Issue
+                {...routeProps}
+                fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+                groupsInSidebar={that.props.state.groupsInSidebar}
+                groupInSidebar={that.props.state.groupInSidebar}
+                onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
+                certificate={that.props.state.certificateInIssue}
+                fetchCertificate={that.props.fetchCertificateInIssue}
+                usersToIssue={that.props.state.usersToIssue}
+                removeUserInIssue={that.props.removeUserInIssue}
+                onChangeToInIssue={that.props.onChangeToInIssue}
+                issue={that.props.issue}
+                addTo={that.props.addTo}
+              />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/certs/:id"
+            render={(routeProps) => (
+              <Certificate
+                {...routeProps}
+                alert={that.props.alert}
+                userCert={that.props.state.certificate}
+                certificateImage={that.props.state.certificateImage}
+                fetchCertificate={that.props.fetchCertificate}
+              />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/group/new"
+            render={(routeProps) => (
+              <NewGroup
+                {...routeProps}
+                registerGroup={that.props.registerGroup}
+                onChangeGroupName={that.props.onChangeGroupName}
+                onChangeGroupAddress={that.props.onChangeGroupAddress}
+                onChangeGroupPhone={that.props.onChangeGroupPhone}
+              />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/group/edit"
+            render={(routeProps) => (
+              <EditGroup
+                {...routeProps}
+                fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+                groupsInSidebar={that.props.state.groupsInSidebar}
+                groupInSidebar={that.props.state.groupInSidebar}
+                onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
+                group={that.props.state.groupInEdit}
+                updateGroup={that.props.updateGroup}
+                onChangeGroupId={that.props.onChangeGroupIdInEdit}
+                onChangeGroupName={that.props.onChangeGroupNameInEdit}
+                onChangeGroupAddress={that.props.onChangeGroupAddressInEdit}
+                onChangeGroupPhone={that.props.onChangeGroupPhoneInEdit}
+              />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/group"
+            render={(routeProps) => (
+              <GroupMembers
+                {...routeProps}
+                fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
+                groupsInSidebar={that.props.state.groupsInSidebar}
+                groupInSidebar={that.props.state.groupInSidebar}
+                onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
+                group={that.props.state.group}
+                fetchGroup={that.props.fetchGroup}
+                inviteMember={that.props.inviteMember}
+                onChangeGroupMemberToInvite={
+                  that.props.onChangeGroupMemberToInvite
+                }
+                disableGroupMember={that.props.disableGroupMember}
+              />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/group/:groupId"
+            render={(routeProps) => (
+              <Group
+                {...routeProps}
+                group={that.props.state.groupInShow}
+                fetchGroup={that.props.fetchGroupInShow}
+              />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/profile/new"
+            render={(routeProps) => (
+              <NewProfile
+                {...routeProps}
+                image={that.props.state.profileImage}
+                registerProfile={that.props.registerProfile}
+                onChangeProfileName={that.props.onChangeProfileName}
+                onChangeProfileEmail={that.props.onChangeProfileEmail}
+                onChangeProfileImage={that.props.onChangeProfileImage}
+              />
+            )}
+          />
+          <Route
+            exact={true}
+            path="/profile/edit"
+            render={(routeProps) => (
+              <EditProfile
+                {...routeProps}
+                image={that.props.state.profileImageInEdit}
+                updateProfile={that.props.updateProfile}
+                profile={that.props.state.profileInEdit}
+                profileName={that.props.state.profileNameInEdit}
+                profileEmail={that.props.state.profileEmailInEdit}
+                profileImage={that.props.state.profileImageInEdit}
+                onChangeProfileName={that.props.onChangeProfileNameInEdit}
+                onChangeProfileEmail={that.props.onChangeProfileEmailInEdit}
+                onChangeProfileImage={that.props.onChangeProfileImageInEdit}
+                fetchProfile={that.props.fetchProfile}
+              />
+            )}
+          />
           <Route component={NotFound} />
         </Switch>
         <Footer />
-        { 
-          this.props.state.isLoading && !this.props.state.modalMessage ? 
-          <Loading /> : "" 
-        }
-        { 
-          this.props.state.modalMessage || (this.props.state.modalLinkText && this.props.state.modalLink) ? 
-          <GxModal isOpen={true} message={this.props.state.modalMessage} link={this.props.state.modalLink} linkText={this.props.state.modalLinkText} closeModal={this.props.closeModal} />
-            : "" 
-        }
-	      <div></div>
+        {this.props.state.isLoading && !this.props.state.modalMessage ? (
+          <Loading />
+        ) : (
+          ""
+        )}
+        {this.props.state.modalMessage ||
+        (this.props.state.modalLinkText && this.props.state.modalLink) ? (
+          <GxModal
+            isOpen={true}
+            message={this.props.state.modalMessage}
+            link={this.props.state.modalLink}
+            linkText={this.props.state.modalLinkText}
+            closeModal={this.props.closeModal}
+          />
+        ) : (
+          ""
+        )}
+        <div></div>
       </div>
     );
   }
 }
 
 export default withAlert()(App);
-

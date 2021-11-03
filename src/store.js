@@ -1,8 +1,8 @@
 import { combineReducers, createStore, compose, applyMiddleware } from "redux";
 import Reducer from "./reducer";
 import thunk from "redux-thunk";
-import { persistReducer, persistStore } from 'redux-persist'
-import sessionStorage from 'redux-persist/lib/storage/session'
+import { persistReducer, persistStore } from "redux-persist";
+import sessionStorage from "redux-persist/lib/storage/session";
 import initialState from "./initialState";
 
 const persistConfig = {
@@ -15,7 +15,7 @@ const persistConfig = {
     "modalLink",
     "modalLinkText",
   ],
-}
+};
 
 const persistedReducer = persistReducer(persistConfig, Reducer);
 

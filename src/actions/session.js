@@ -3,15 +3,12 @@ import torusClient from "../torus";
 import history from "../history";
 import QRCode from "qrcode";
 import config from "../config";
-import {
-  openModal,
-  closeModal,
-} from "./modal";
+import { openModal, closeModal } from "./modal";
 const signIn = () => async (dispatch) => {
   let gxCert;
   try {
     gxCert = await getGxCert();
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     openModal("Googleでログインしてください")(dispatch);
     return;
@@ -27,23 +24,19 @@ const signIn = () => async (dispatch) => {
   });
   let profile;
   try {
-    profile = await gxCert.getProfile(
-      gxCert.address(),
-      dispatch,
-      [
-        {
-          type: "profile",
-          refresh: true,
-        },
-        {
-          type: "profileImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "MY_PROFILE",
-        },
-      ]
-    );
-  } catch(err) {
+    profile = await gxCert.getProfile(gxCert.address(), dispatch, [
+      {
+        type: "profile",
+        refresh: true,
+      },
+      {
+        type: "profileImage",
+        refresh: false,
+        wait: false,
+        dispatchType: "MY_PROFILE",
+      },
+    ]);
+  } catch (err) {
     console.error(err);
     history.push("/profile/new");
     return;
@@ -54,16 +47,13 @@ const signIn = () => async (dispatch) => {
   });
 
   history.push("/");
-}
+};
 const signOut = () => async (dispatch) => {
   dispatch({
     type: "SIGN_OUT",
     payload: null,
   });
   history.push("/top");
-}
+};
 
-export {
-  signIn,
-  signOut,
-}
+export { signIn, signOut };

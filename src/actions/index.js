@@ -18,7 +18,7 @@ const sign = () => async (dispatch, getState) => {
   let gxCert;
   try {
     gxCert = await getGxCert();
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     dispatch({
       type: "LOADING",
@@ -26,7 +26,11 @@ const sign = () => async (dispatch, getState) => {
     });
     return;
   }
-  if (!window.confirm("グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。")) {
+  if (
+    !window.confirm(
+      "グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。"
+    )
+  ) {
     dispatch({
       type: "LOADING",
       payload: false,
@@ -55,9 +59,12 @@ const sign = () => async (dispatch, getState) => {
   let imageCid;
   try {
     imageCid = await gxCert.client.uploadImageToIpfs(image);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
-    modal.openModal("画像をIPFSにアップロードできませんでした")(dispatch, getState);
+    modal.openModal("画像をIPFSにアップロードできませんでした")(
+      dispatch,
+      getState
+    );
     dispatch({
       type: "LOADING",
       payload: false,
@@ -70,7 +77,7 @@ const sign = () => async (dispatch, getState) => {
     description: state.description,
     image: imageCid,
     groupId: state.groupInSidebar.groupId,
-  }
+  };
   if (!gxCert.client.isCertificate(certificate)) {
     modal.openModal("Invalid Certificate.")(dispatch, getState);
     dispatch({
@@ -81,8 +88,10 @@ const sign = () => async (dispatch, getState) => {
   }
   let signed = null;
   try {
-    signed = await gxCert.client.signCertificate(certificate, { address: gxCert.address() });
-  } catch(err) {
+    signed = await gxCert.client.signCertificate(certificate, {
+      address: gxCert.address(),
+    });
+  } catch (err) {
     console.error(err);
     modal.openModal("証明書データに署名できませんでした")(dispatch, getState);
     dispatch({
@@ -94,12 +103,17 @@ const sign = () => async (dispatch, getState) => {
   let transactionHash;
   try {
     transactionHash = await gxCert.client.createCert(signed);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     if (err.message === "insufficient funds") {
-      modal.openModal("書き込み用のMATICが足りません。寄付をすれば書き込みができます。")(dispatch, getState);
+      modal.openModal(
+        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
+      )(dispatch, getState);
     } else {
-      modal.openModal("証明書を書き込むことができませんでした")(dispatch, getState);
+      modal.openModal("証明書を書き込むことができませんでした")(
+        dispatch,
+        getState
+      );
     }
     dispatch({
       type: "LOADING",
@@ -129,10 +143,10 @@ const sign = () => async (dispatch, getState) => {
                 type: "certificateImage",
                 refresh: false,
                 wait: false,
-              }
+              },
             ]
           );
-        } catch(err) {
+        } catch (err) {
           console.error(err);
           return;
         }
@@ -150,16 +164,13 @@ const sign = () => async (dispatch, getState) => {
   });
 
   history.push("/issue");
-}
-
-
-
+};
 
 const addTo = () => async (dispatch, getState) => {
   let gxCert;
   try {
     gxCert = await getGxCert();
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     modal.openModal("発行先の登録に失敗しました")(dispatch, getState);
     return;
@@ -169,7 +180,7 @@ const addTo = () => async (dispatch, getState) => {
   let to;
   try {
     to = await torusClient.getPublicAddressByGoogle(email);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
     modal.openModal("発行先の登録に失敗しました")(dispatch, getState);
     return;
@@ -182,22 +193,18 @@ const addTo = () => async (dispatch, getState) => {
   }
   let profile;
   try {
-    profile = await gxCert.getProfile(
-      to,
-      dispatch,
-      [
-        {
-          type: "profile",
-          refresh: true,
-        },
-        {
-          type: "profileImage",
-          refresh: false,
-          wait: true,
-        },
-      ]
-    );
-  } catch(err) {
+    profile = await gxCert.getProfile(to, dispatch, [
+      {
+        type: "profile",
+        refresh: true,
+      },
+      {
+        type: "profileImage",
+        refresh: false,
+        wait: true,
+      },
+    ]);
+  } catch (err) {
     console.error(err);
     modal.openModal("発行先の登録に失敗しました")(dispatch, getState);
     return;
@@ -208,7 +215,7 @@ const addTo = () => async (dispatch, getState) => {
     type: "ADD_TO",
     payload: usersToIssue,
   });
-}
+};
 
 const removeUserInIssue = (address) => async (dispatch, getState) => {
   const state = getState().state;
@@ -223,13 +230,13 @@ const removeUserInIssue = (address) => async (dispatch, getState) => {
       return;
     }
   }
-}
+};
 
 const thisObjectToExport = {
   addTo,
   sign,
   removeUserInIssue,
-}
+};
 
 const actions = {
   ...fetch,
@@ -238,6 +245,6 @@ const actions = {
   ...request,
   ...session,
   ...thisObjectToExport,
-}
+};
 
 export default actions;

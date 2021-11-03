@@ -1,4 +1,3 @@
-
 function wait() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {

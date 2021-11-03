@@ -16,7 +16,7 @@ const options = {
   timeout: 5000,
   offset: "30px",
   transition: "fade",
-}
+};
 //import CertClient from "./client"
 
 function mapStateToProps(state, props) {
@@ -151,18 +151,18 @@ function mapDispatchToProps(dispatch, props) {
     closeModal: () => {
       dispatch(actions.closeModal());
     },
-  }
+  };
 }
 
 const RxApp = connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
 
 ReactDOM.render(
   <Provider store={store}>
-      <Router history={history}>
-        <AlertProvider template={AlertTemplate} {...options}>
-          <RxApp />
-        </AlertProvider>
-      </Router>
+    <Router history={history}>
+      <AlertProvider template={AlertTemplate} {...options}>
+        <RxApp />
+      </AlertProvider>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );

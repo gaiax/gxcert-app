@@ -14,7 +14,7 @@ const openModal = (message, link) => async (dispatch, getState) => {
     type: "MODAL",
     payload: message,
   });
-}
+};
 const closeModal = (message) => async (dispatch, getState) => {
   dispatch({
     type: "MODAL_LINK",
@@ -27,9 +27,6 @@ const closeModal = (message) => async (dispatch, getState) => {
     type: "MODAL",
     payload: null,
   });
-}
+};
 
-export {
-  openModal,
-  closeModal,
-}
+export { openModal, closeModal };
