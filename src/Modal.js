@@ -16,9 +16,8 @@ const modalStyle = {
     height: "240px",
     marginLeft: "auto",
     marginRight: "auto",
-    backgroundColor: "#F1F9FF",
-    borderRadius: "1rem",
-    border: "2px solid #49AAFC",
+    backgroundColor: "#FFFFFF",
+    borderRadius: "6px",
     padding: "2.5rem",
   }
 };
