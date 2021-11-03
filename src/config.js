@@ -11,7 +11,7 @@ if (env.REACT_APP_DOTENV === "development") {
     network: {
       host: "https://matic-mumbai.chainstacklabs.com",
       chainId: 80001,
-      networkName: "Matic Mumbai"
+      networkName: "Matic Mumbai",
     },
   };
 } else if (env.REACT_APP_DOTENV === "staging") {
@@ -23,7 +23,7 @@ if (env.REACT_APP_DOTENV === "development") {
     network: {
       host: "https://matic-mumbai.chainstacklabs.com",
       chainId: 80001,
-      networkName: "Matic Mumbai"
+      networkName: "Matic Mumbai",
     },
   };
 } else if (env.REACT_APP_DOTENV === "production") {
@@ -37,10 +37,9 @@ if (env.REACT_APP_DOTENV === "development") {
       host: "https://rpc-mainnet.maticvigil.com",
       chainId: 137,
       networkId: 137,
-      networkName: "matic-mainnet"
+      networkName: "matic-mainnet",
     },
-  }
+  };
 }
-
 
 export default config;

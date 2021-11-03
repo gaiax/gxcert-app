@@ -1,23 +1,22 @@
-
 import initialState from "./initialState";
 
-export default function Reducer(state=initialState, action) {
-  switch(action.type) {
+export default function Reducer(state = initialState, action) {
+  switch (action.type) {
     case "ON_CHANGE_TITLE":
       return Object.assign({}, state, {
-        title: action.payload
+        title: action.payload,
       });
     case "ON_CHANGE_DESCRIPTION":
       return Object.assign({}, state, {
-        description: action.payload
+        description: action.payload,
       });
     case "ON_CHANGE_IMAGE":
       return Object.assign({}, state, {
-        image: action.payload
+        image: action.payload,
       });
     case "ON_CHANGE_GROUP":
       return Object.assign({}, state, {
-        groupId: action.payload
+        groupId: action.payload,
       });
     case "ON_CHANGE_GROUP_NAME":
       return Object.assign({}, state, {
@@ -137,7 +136,7 @@ export default function Reducer(state=initialState, action) {
       });
     case "LOADING":
       return Object.assign({}, state, {
-        isLoading: action.payload
+        isLoading: action.payload,
       });
     case "ON_CHANGE_TO_LIST":
       return Object.assign({}, state, {
@@ -196,4 +195,3 @@ export default function Reducer(state=initialState, action) {
       return state;
   }
 }
-

@@ -14,11 +14,11 @@ class TorusClient {
       showTorusButton: true,
       enabledVerifiers: {
         google: true,
-        facebook:false,
+        facebook: false,
         reddit: false,
         twitch: false,
         discord: false,
-      }
+      },
     });
     /*
     await this.torus.init({

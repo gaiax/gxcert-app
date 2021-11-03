@@ -7,60 +7,16 @@ import { connect, Provider } from "react-redux";
 import { withRouter, HashRouter as Router } from "react-router-dom";
 import store from "./store";
 import history from "./history";
-import {
-  onChangeTitle,
-  onChangeDescription,
-  onChangeImage,
-  onChangeToInIssue,
-  onChangeGroup,
-  onChangeGroupName,
-  onChangeGroupAddress,
-  onChangeGroupPhone,
-  onChangeProfileName,
-  onChangeProfileEmail,
-  onChangeProfileImage,
-  onChangeGroupNameInEdit,
-  onChangeGroupAddressInEdit,
-  onChangeGroupPhoneInEdit,
-  onChangeProfileNameInEdit,
-  onChangeProfileEmailInEdit,
-  onChangeProfileImageInEdit,
-  onChangeGroupMemberToInvite,
-  onChangeGroupInSidebar,
-  sign,
-  signIn,
-  signOut,
-  fetchCertificate,
-  fetchCertificates,
-  fetchCertificatesInIssuer,
-  fetchGroupInShow,
-  fetchCertificateInIssue,
-  fetchProfileInShow,
-  fetchProfile,
-  fetchGroupsInSidebar,
-  invalidateUserCert,
-  updateProfile,
-  updateGroup,
-  issue,
-  registerGroup,
-  registerProfile,
-  inviteMember,
-  disableGroupMember,
-  addTo,
-  removeUserInIssue,
-  openModal,
-  closeModal,
-
-} from "./actions";
 import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import actions from "./actions";
 
 const options = {
   position: "bottom right",
   timeout: 5000,
   offset: "30px",
   transition: "fade",
-}
+};
 //import CertClient from "./client"
 
 function mapStateToProps(state, props) {
@@ -70,143 +26,143 @@ function mapStateToProps(state, props) {
 function mapDispatchToProps(dispatch, props) {
   return {
     onChangeTitle: (evt) => {
-      dispatch(onChangeTitle(evt));
+      dispatch(actions.onChangeTitle(evt));
     },
     onChangeDescription: (evt) => {
-      dispatch(onChangeDescription(evt));
+      dispatch(actions.onChangeDescription(evt));
     },
     onChangeImage: (evt) => {
-      dispatch(onChangeImage(evt));
+      dispatch(actions.onChangeImage(evt));
     },
     onChangeGroupName: (evt) => {
-      dispatch(onChangeGroupName(evt));
+      dispatch(actions.onChangeGroupName(evt));
     },
     onChangeGroupAddress: (evt) => {
-      dispatch(onChangeGroupAddress(evt));
+      dispatch(actions.onChangeGroupAddress(evt));
     },
     onChangeGroupPhone: (evt) => {
-      dispatch(onChangeGroupPhone(evt));
+      dispatch(actions.onChangeGroupPhone(evt));
     },
     onChangeGroupNameInEdit: (evt) => {
-      dispatch(onChangeGroupNameInEdit(evt));
+      dispatch(actions.onChangeGroupNameInEdit(evt));
     },
     onChangeGroupAddressInEdit: (evt) => {
-      dispatch(onChangeGroupAddressInEdit(evt));
+      dispatch(actions.onChangeGroupAddressInEdit(evt));
     },
     onChangeGroupPhoneInEdit: (evt) => {
-      dispatch(onChangeGroupPhoneInEdit(evt));
+      dispatch(actions.onChangeGroupPhoneInEdit(evt));
     },
     onChangeProfileName: (evt) => {
-      dispatch(onChangeProfileName(evt));
+      dispatch(actions.onChangeProfileName(evt));
     },
     onChangeProfileEmail: (evt) => {
-      dispatch(onChangeProfileEmail(evt));
+      dispatch(actions.onChangeProfileEmail(evt));
     },
     onChangeProfileImage: (evt) => {
-      dispatch(onChangeProfileImage(evt));
+      dispatch(actions.onChangeProfileImage(evt));
     },
     onChangeProfileNameInEdit: (evt) => {
-      dispatch(onChangeProfileNameInEdit(evt));
+      dispatch(actions.onChangeProfileNameInEdit(evt));
     },
     onChangeProfileEmailInEdit: (evt) => {
-      dispatch(onChangeProfileEmailInEdit(evt));
+      dispatch(actions.onChangeProfileEmailInEdit(evt));
     },
     onChangeProfileImageInEdit: (evt) => {
-      dispatch(onChangeProfileImageInEdit(evt));
+      dispatch(actions.onChangeProfileImageInEdit(evt));
     },
     onChangeGroup: (evt) => {
-      dispatch(onChangeGroup(evt));
+      dispatch(actions.onChangeGroup(evt));
     },
     onChangeToInIssue: (evt) => {
-      dispatch(onChangeToInIssue(evt));
+      dispatch(actions.onChangeToInIssue(evt));
     },
     onChangeGroupMemberToInvite: (evt) => {
-      dispatch(onChangeGroupMemberToInvite(evt));
+      dispatch(actions.onChangeGroupMemberToInvite(evt));
     },
     onChangeGroupInSidebar: (evt) => {
-      dispatch(onChangeGroupInSidebar(evt));
+      dispatch(actions.onChangeGroupInSidebar(evt));
     },
     sign: () => {
-      dispatch(sign());
+      dispatch(actions.sign());
     },
     fetchCertificate: (cid) => {
-      dispatch(fetchCertificate(cid));
+      dispatch(actions.fetchCertificate(cid));
     },
     fetchCertificates: () => {
-      dispatch(fetchCertificates());
+      dispatch(actions.fetchCertificates());
     },
     fetchGroupInShow: (groupId) => {
-      dispatch(fetchGroupInShow(groupId));
+      dispatch(actions.fetchGroupInShow(groupId));
     },
     fetchCertificatesInIssuer: () => {
-      dispatch(fetchCertificatesInIssuer());
+      dispatch(actions.fetchCertificatesInIssuer());
     },
     fetchCertificateInIssue: (certId) => {
-      dispatch(fetchCertificateInIssue(certId));
+      dispatch(actions.fetchCertificateInIssue(certId));
     },
     fetchGroupsInSidebar: () => {
-      dispatch(fetchGroupsInSidebar());
+      dispatch(actions.fetchGroupsInSidebar());
     },
     fetchProfileInShow: (address) => {
-      dispatch(fetchProfileInShow(address));
+      dispatch(actions.fetchProfileInShow(address));
     },
     fetchProfile: () => {
-      dispatch(fetchProfile());
+      dispatch(actions.fetchProfile());
     },
     signIn: () => {
-      dispatch(signIn());
+      dispatch(actions.signIn());
     },
     registerGroup: () => {
-      dispatch(registerGroup());
+      dispatch(actions.registerGroup());
     },
     updateGroup: () => {
-      dispatch(updateGroup());
+      dispatch(actions.updateGroup());
     },
     updateProfile: () => {
-      dispatch(updateProfile());
+      dispatch(actions.updateProfile());
     },
     registerProfile: () => {
-      dispatch(registerProfile());
+      dispatch(actions.registerProfile());
     },
     inviteMember: () => {
-      dispatch(inviteMember());
+      dispatch(actions.inviteMember());
     },
     issue: (certId) => {
-      dispatch(issue(certId));
+      dispatch(actions.issue(certId));
     },
     disableGroupMember: (groupId, address) => {
-      dispatch(disableGroupMember(groupId, address));
+      dispatch(actions.disableGroupMember(groupId, address));
     },
     invalidateUserCert: (userCertId) => {
-      dispatch(invalidateUserCert(userCertId));
+      dispatch(actions.invalidateUserCert(userCertId));
     },
     signOut: () => {
-      dispatch(signOut());
+      dispatch(actions.signOut());
     },
     addTo: () => {
-      dispatch(addTo());
+      dispatch(actions.addTo());
     },
     removeUserInIssue: (address) => {
-      dispatch(removeUserInIssue(address));
+      dispatch(actions.removeUserInIssue(address));
     },
     openModal: (message, link) => {
-      dispatch(openModal(message, link));
+      dispatch(actions.openModal(message, link));
     },
     closeModal: () => {
-      dispatch(closeModal());
+      dispatch(actions.closeModal());
     },
-  }
+  };
 }
 
 const RxApp = connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
 
 ReactDOM.render(
   <Provider store={store}>
-      <Router history={history}>
-        <AlertProvider template={AlertTemplate} {...options}>
-          <RxApp />
-        </AlertProvider>
-      </Router>
+    <Router history={history}>
+      <AlertProvider template={AlertTemplate} {...options}>
+        <RxApp />
+      </AlertProvider>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );
