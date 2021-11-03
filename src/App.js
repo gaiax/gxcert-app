@@ -26,7 +26,6 @@ import GxModal from "./Modal";
 class App extends React.Component {
   render() {
     const that = this;
-    console.log(that.props);
     return (
       <div className="App">
         <Header
@@ -40,11 +39,13 @@ class App extends React.Component {
                 <Top />
               );
             }
-            return (<Certificates
-              {...routeProps}
-              userCerts={that.props.state.certificates}
-              fetchCertificates={that.props.fetchCertificates}
-            />)
+            return (
+              <Certificates
+                {...routeProps}
+                userCerts={that.props.state.certificates}
+                fetchCertificates={that.props.fetchCertificates}
+              />
+            )
 
           } }/>
           <Route exact={true} path="/donate" render={ (routeProps) => <Donation
@@ -180,9 +181,16 @@ class App extends React.Component {
           <Route component={NotFound} />
         </Switch>
         <Footer />
-        { this.props.state.isLoading && !this.props.state.modalMessage ? <Loading /> : "" }
-        { this.props.state.modalMessage || (this.props.state.modalLinkText && this.props.state.modalLink) ? <GxModal isOpen={true} message={this.props.state.modalMessage} link={this.props.state.modalLink} linkText={this.props.state.modalLinkText} closeModal={this.props.closeModal} /> : "" }
-	<div></div>
+        { 
+          this.props.state.isLoading && !this.props.state.modalMessage ? 
+          <Loading /> : "" 
+        }
+        { 
+          this.props.state.modalMessage || (this.props.state.modalLinkText && this.props.state.modalLink) ? 
+          <GxModal isOpen={true} message={this.props.state.modalMessage} link={this.props.state.modalLink} linkText={this.props.state.modalLinkText} closeModal={this.props.closeModal} />
+            : "" 
+        }
+	      <div></div>
       </div>
     );
   }
