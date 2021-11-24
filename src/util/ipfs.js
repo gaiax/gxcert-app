@@ -1,9 +1,6 @@
 import * as IpfsHttpClient from "ipfs-http-client";
-const ipfs = IpfsHttpClient({
-  host: "ipfs.infura.io",
-  port: 5001,
-  protocol: "https",
-});
+import config from "../config";
+const ipfs = IpfsHttpClient(config.ipfs);
 async function postCertificate(blob) {
   const response = await ipfs.add(blob);
   if (response) {

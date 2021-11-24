@@ -12,7 +12,7 @@ import config from "./config";
 let gxCertWithoutLogin = new GxCertClient(new Web3(config.web3Host), config.contractAddress);
 let gxCert;
 
-let cacheManager = new GxCertCacheManager([null, gxCertWithoutLogin]);
+let cacheManager = new GxCertCacheManager([null, gxCertWithoutLogin], config.ipfs);
 
 async function getGxCert(login) {
   let web3;
