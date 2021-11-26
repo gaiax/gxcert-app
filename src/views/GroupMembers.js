@@ -2,6 +2,7 @@ import React from "react";
 import Loader from "react-loader-spinner";
 import Sidebar from "./Sidebar";
 import placeholder from "../images/User-1@2x.png";
+import { ipfsUrl } from "../util/ipfs";
 
 class GroupMembers extends React.Component {
   componentDidMount() {
@@ -33,7 +34,7 @@ class GroupMembers extends React.Component {
                   { this.props.groupInSidebar.members.map((member, index) => {
                     return (
                       <div className="group-members-list-cell">
-                        <img src={member.imageUrl ? member.imageUrl : placeholder} className="group-members-list-cell-icon" />
+                        <img src={member.icon ? ipfsUrl(member.icon) : placeholder} className="group-members-list-cell-icon" />
                         <div className="group-members-list-cell-detail">
                           <p className="group-members-list-cell-name">
                             {member.name} 

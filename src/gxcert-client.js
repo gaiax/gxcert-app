@@ -9,7 +9,7 @@ import {
 import config from "./config";
 
 
-let gxCertWithoutLogin = new GxCertClient(new Web3(config.web3Host), config.contractAddress);
+let gxCertWithoutLogin = new GxCertClient(new Web3(config.web3Host), config.contractAddress, config.ipfs);
 let gxCert;
 
 let cacheManager = new GxCertCacheManager([null, gxCertWithoutLogin], config.ipfs);
@@ -31,7 +31,7 @@ async function getGxCert(login) {
     console.log(web3);
     if (web3) {
       try {
-        gxCert = new GxCertClient(web3, config.contractAddress, config.gxApi);
+        gxCert = new GxCertClient(web3, config.contractAddress, config.gxApi, config.ipfs);
         await gxCert.init();
       } catch(err) {
         console.error(err);

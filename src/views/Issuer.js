@@ -4,6 +4,7 @@ import Loader from "react-loader-spinner";
 import Sidebar from "./Sidebar";
 import placeholder from "../images/User-1@2x.png";
 import noCertImage from "../images/Video-1@2x.png";
+import { ipfsUrl } from "../util/ipfs";
 
 class Issuer extends React.Component {
   componentDidMount() {
@@ -34,7 +35,7 @@ class Issuer extends React.Component {
                   this.props.certificates.map(certificate => {
                     return (
                       <div className="issuer-certificates-list-cell">
-                        <img src={certificate.imageUrl ? certificate.imageUrl : noCertImage} className="issuer-certificates-list-cell-icon" />
+                        <img src={ipfsUrl(certificate.image)} className="issuer-certificates-list-cell-icon" />
                         <p className="issuer-certificates-list-cell-title">
                           {certificate.title} 
                         </p>
@@ -58,7 +59,7 @@ class Issuer extends React.Component {
                   { certificate.userCerts ? certificate.userCerts.map((userCert, index) => {
                     return (
                       <div className="certificates-list-cell">
-                        <img src={userCert.toProfile ? userCert.toProfile.imageUrl : placeholder} className="issuer-certificate-list-cell-icon" />
+                        <img src={ipfsUrl(userCert.toProfile.icon)} className="issuer-certificate-list-cell-icon" />
                         <div className="issuer-certificate-list-cell-detail">
                           <p className="issuer-certificate-list-cell-name">
                             {userCert.toProfile ? userCert.toProfile.name : ""} 

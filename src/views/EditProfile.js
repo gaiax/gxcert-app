@@ -1,15 +1,16 @@
 import React from "react";
 import placeholder from "../images/User-1@2x.png";
+import { ipfsUrl } from "../util/ipfs";
 
 class EditProfile extends React.Component {
   componentDidMount() {
     this.props.fetchProfile();
   }
   render() {
-    let imageUrl = null;
+    let image = null;
     let initialImageUrl = placeholder;
     if (this.props.profile !== null) {
-      imageUrl = this.props.profile.imageUrl;
+      image = this.props.profile.icon;
     }
     return (
       <div className="edit-profile">
@@ -20,7 +21,7 @@ class EditProfile extends React.Component {
           <div className="edit-profile-form">
             <div className="edit-profile-form-image">
               <label for="edit-profile-form-image-file">
-                <img src={!imageUrl ? initialImageUrl : imageUrl} className="edit-profile-form-image" />
+                <img src={!image ? initialImageUrl : ipfsUrl(image)} className="edit-profile-form-image" />
               </label>
               <input id="edit-profile-form-image-file" type="file" onChange={this.props.onChangeProfileImage} />
             </div>

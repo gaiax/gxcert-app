@@ -88,11 +88,16 @@ async function getTextOnIpfs(ipfsHash) {
   return null;
 }
 
+function ipfsUrl(cid) {
+  return config.ipfs.protocol + "://" + config.ipfs.host + ":8080/ipfs/" + cid;
+}
+
 
 export { 
   getImageOnIpfs, 
   getTextOnIpfs, 
   postCertificate, 
   postText, 
-  createImageUrlFromUint8Array 
+  createImageUrlFromUint8Array,
+  ipfsUrl,
 };
