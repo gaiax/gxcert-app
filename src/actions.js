@@ -183,12 +183,6 @@ const fetchCertificateInIssue = (certId) => async (dispatch) => {
           type: "certificate",
           refresh: false,
         },
-        {
-          type: "certificateImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATE_IN_ISSUE",
-        }
       ]
     );
   } catch(err) {
@@ -226,12 +220,6 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
         {
           type: "certificate", 
           refresh: false,
-        },
-        {
-          type: "certificateImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATE",
         },
         {
           type: "group",
@@ -290,24 +278,12 @@ const fetchCertificates = () => async (dispatch, getState) => {
           refresh: false,
         },
         {
-          type: "certificateImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATES",
-        },
-        {
           type: "group",
           refresh: false,
         },
         {
           type: "profile",
           refresh: false,
-        },
-        {
-          type: "profileImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATES",
         },
       ]
     );
@@ -347,12 +323,6 @@ const fetchGroupsInSidebar = () => async (dispatch, getState) => {
         {
           type: "profile",
           refresh: false,
-        },
-        {
-          type: "profileImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_GROUPS_IN_SIDEBAR",
         },
       ]
     );
@@ -463,12 +433,6 @@ const signIn = () => async (dispatch) => {
           type: "profile",
           refresh: true,
         },
-        {
-          type: "profileImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "MY_PROFILE",
-        },
       ]
     );
   } catch(err) {
@@ -502,12 +466,6 @@ const fetchProfile = () => async (dispatch, getState) => {
           type: "profile",
           refresh: true,
         },
-        {
-          type: "profileImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_PROFILE",
-        },
       ]
     )
   } catch(err) {
@@ -540,12 +498,6 @@ const fetchProfileInShow = (address) => async (dispatch, getState) => {
         {
           type: "profile",
           refresh: true,
-        },
-        {
-          type: "profileImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_PROFILE_IN_SHOW",
         },
       ],
       1
@@ -583,12 +535,6 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
           refresh: true,
         },
         {
-          type: "certificateImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
-        },
-        {
           type: "userCert",
           refresh: true,
         },
@@ -596,12 +542,6 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
           type: "profile",
           refresh: false,
         },
-        {
-          type: "profileImage",
-          refresh: false,
-          wait: false,
-          dispatchType: "FETCHED_CERTIFICATES_IN_ISSUER",
-        }
       ]
     );
   } catch(err) {
@@ -727,11 +667,6 @@ const sign = () => async (dispatch, getState) => {
                 type: "certificate",
                 refresh: true,
               },
-              {
-                type: "certificateImage",
-                refresh: false,
-                wait: false,
-              }
             ]
           );
         } catch(err) {
@@ -836,11 +771,6 @@ const registerProfile = () => async (dispatch, getState) => {
               type: "profile",
               refresh: true,
             },
-            {
-              type: "profileImage",
-              refresh: false,
-              wait: true,
-            }
           ]
         );
         if (profile.name === newProfile.name && profile.email === newProfile.email && profile.icon === newProfile.icon) {
@@ -1030,11 +960,6 @@ const updateProfile = () => async (dispatch, getState) => {
                 type: "profile",
                 refresh: true,
               },
-              {
-                type: "profileImage",
-                refresh: false,
-                wait: true,
-              }
             ]
           );
         } catch(err) {
@@ -1305,11 +1230,6 @@ const inviteMember = () => async (dispatch, getState) => {
           type: "profile",
           refresh: true,
         },
-        {
-          type: "profileImage",
-          refresh: false,
-          wait: false,
-        }
       ]
     );
   } catch(err) {
@@ -1466,11 +1386,6 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
               refresh: false,
             },
             {
-              type: "certificateImage",
-              refresh: false,
-              wait: true,
-            },
-            {
               type: "userCert",
               refresh: true,
             },
@@ -1541,11 +1456,6 @@ const addTo = () => async (dispatch, getState) => {
         {
           type: "profile",
           refresh: true,
-        },
-        {
-          type: "profileImage",
-          refresh: false,
-          wait: true,
         },
       ]
     );
