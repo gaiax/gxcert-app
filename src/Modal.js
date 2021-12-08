@@ -7,7 +7,7 @@ const modalStyle = {
     position: "fixed",
     top: 0,
     left: 0,
-    backgroundColor: "rgba(0,0,0,0.85)"
+    backgroundColor: "rgba(127,127,127,0.5)",
   },
   content: {
     position: "absolute",
@@ -16,10 +16,10 @@ const modalStyle = {
     height: "240px",
     marginLeft: "auto",
     marginRight: "auto",
-    backgroundColor: "#DDD",
-    borderRadius: "1rem",
+    backgroundColor: "#FFFFFF",
+    borderRadius: "6px",
     padding: "2.5rem",
-  }
+  },
 };
 
 class GxModal extends React.Component {
@@ -29,10 +29,23 @@ class GxModal extends React.Component {
   render() {
     return (
       <Modal isOpen={this.props.isOpen} style={modalStyle}>
-        <span className="close-modal" onClick={this.props.closeModal} ><FaTimes /></span>
-        <br/>
+        <span className="close-modal" onClick={this.props.closeModal}>
+          <FaTimes />
+        </span>
+        <br />
 
-        { this.props.message !== undefined ? <p className="modal-message">{this.props.message}</p> : "" }
+        {this.props.message ? (
+          <p className="modal-message">{this.props.message}</p>
+        ) : (
+          ""
+        )}
+        {this.props.link && this.props.linkText ? (
+          <a target="_blank" className="modal-message" href={this.props.link}>
+            {this.props.linkText}
+          </a>
+        ) : (
+          ""
+        )}
       </Modal>
     );
   }

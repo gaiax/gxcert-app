@@ -15,19 +15,28 @@ class EditProfile extends React.Component {
     return (
       <div className="edit-profile">
         <div className="edit-profile-content">
-          <p className="edit-profile-title">
-            プロフィール編集
-          </p>
+          <p className="edit-profile-title">プロフィール編集</p>
           <div className="edit-profile-form">
             <div className="edit-profile-form-image">
               <label for="edit-profile-form-image-file">
                 <img src={!image ? initialImageUrl : ipfsUrl(image)} className="edit-profile-form-image" />
               </label>
-              <input id="edit-profile-form-image-file" type="file" onChange={this.props.onChangeProfileImage} />
+              <input
+                id="edit-profile-form-image-file"
+                type="file"
+                onChange={this.props.onChangeProfileImage}
+              />
             </div>
             <p className="edit-profile-form-title">Name</p>
-            <input type="text" className="edit-profile-form-name" onChange={this.props.onChangeProfileName} defaultValue={this.props.profile !== null ? this.props.profile.name : ""} />
-            <div className="register-button" onClick={this.props.updateProfile} >
+            <input
+              type="text"
+              className="edit-profile-form-name"
+              onChange={this.props.onChangeProfileName}
+              defaultValue={
+                this.props.profile !== null ? this.props.profile.name : ""
+              }
+            />
+            <div className="register-button" onClick={this.props.updateProfile}>
               更新
             </div>
           </div>

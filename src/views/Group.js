@@ -9,9 +9,9 @@ class Group extends React.Component {
   render() {
     return (
       <div className="group">
-        { this.props.group ? (
+        {this.props.group ? (
           <div className="group-content">
-            <p className="group-title">{ this.props.group.name }</p>
+            <p className="group-title">{this.props.group.name}</p>
             <table className="group-detail">
               <tr>
                 <td>電話番号</td>
@@ -23,7 +23,9 @@ class Group extends React.Component {
               </tr>
             </table>
           </div>
-        ) : <Loader type="Puff" color="#00BFFF" height={100} width={100} /> }
+        ) : (
+          <Loader type="Puff" color="#00BFFF" height={100} width={100} />
+        )}
       </div>
     );
   }

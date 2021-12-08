@@ -16,27 +16,32 @@ class Issue extends React.Component {
           groupsInSidebar={this.props.groupsInSidebar}
           fetchGroupsInSidebar={this.props.fetchGroupsInSidebar}
         />
-        { !this.props.certificate ? (
+        {!this.props.certificate ? (
           <div className="issue-content">
-            <p className="certificate-not-found">Certificate not found.</p> 
+            <p className="certificate-not-found">Certificate not found.</p>
           </div>
         ) : (
           <div className="issue-content">
-            <p className="issue-title">
-              {this.props.certificate.title}の発行
-            </p>
+            <p className="issue-title">{this.props.certificate.title}の発行</p>
             <p className="issue-form-title">発行先メールアドレス</p>
             <div className="issue-form">
-              <ListInput 
+              <ListInput
                 usersToIssue={this.props.usersToIssue}
-                addTo={this.props.addTo} 
+                addTo={this.props.addTo}
                 removeUserInIssue={this.props.removeUserInIssue}
                 onChangeToInIssue={this.props.onChangeToInIssue}
               />
-              <button className="issue-form-issue" onClick={ () => { this.props.issue(this.certId)}}>発行</button>
+              <button
+                className="issue-form-issue"
+                onClick={() => {
+                  this.props.issue(this.certId);
+                }}
+              >
+                発行
+              </button>
             </div>
           </div>
-        ) }
+        )}
       </div>
     );
   }

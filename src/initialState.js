@@ -1,4 +1,3 @@
-
 const initialState = {
   from: "",
   to: "",
@@ -41,7 +40,9 @@ const initialState = {
   usersToIssue: [],
   toList: [],
   myProfile: null,
-
-}
+  modalMessage: null,
+  modalLink: null,
+  modalLinkText: null,
+};
 
 export default initialState;

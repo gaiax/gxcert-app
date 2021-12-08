@@ -1,4 +1,3 @@
-
 function Registration() {
   return (
     <div className="registration">
@@ -11,9 +10,7 @@ function Registration() {
           <p className="registration-form-title">E-mail</p>
           <input type="text" className="registration-form-email" />
         </div>
-        <div className="register-button">
-          登録
-        </div>
+        <div className="register-button">登録</div>
       </div>
     </div>
   );

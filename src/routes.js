@@ -1,10 +1,10 @@
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
 
-import App from './App';
+import App from "./App";
 
 export const Path = {
-  app: '/',
+  app: "/",
 };
 
 const routes = (

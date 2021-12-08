@@ -613,4 +613,21 @@ a:visited {
 
 .close-modal {
   float:right;
+  color: #49AAFC;
+  font-size: 20px;
+}
+
+.modal-message {
+  text-align: center;
+  margin-top: 50px;
+  word-break: break-all;
+  color: #333;
+}
+
+.modal-message:visited {
+  color: black;
+}
+
+a.modal-message {
+  text-decoration: underline;
 }

@@ -1,13 +1,9 @@
 import GxCertClient from "gxcert-lib";
 import Web3 from "web3";
 import torusClient from "./torus";
-import {
-  GxCertCacheManager,
-  REFRESH_DEPTH,
-} from "gxcert-cache-manager";
+import { GxCertCacheManager, REFRESH_DEPTH } from "gxcert-cache-manager";
 
 import config from "./config";
-
 
 let gxCertWithoutLogin = new GxCertClient(new Web3(config.web3Host), config.contractAddress, config.ipfs);
 let gxCert;
@@ -19,12 +15,12 @@ async function getGxCert(login) {
   if (login !== false) {
     try {
       await torusClient.init();
-    } catch(err) {
+    } catch (err) {
       console.error(err);
     }
     try {
       web3 = await torusClient.login();
-    } catch(err) {
+    } catch (err) {
       console.error(err);
       throw new Error("Please log in using torus.");
     }
@@ -33,7 +29,7 @@ async function getGxCert(login) {
       try {
         gxCert = new GxCertClient(web3, config.contractAddress, config.gxApi, config.ipfs);
         await gxCert.init();
-      } catch(err) {
+      } catch (err) {
         console.error(err);
         throw new Error("gxCert is not initialized.");
       }
@@ -51,8 +47,4 @@ async function getGxCert(login) {
   return cacheManager;
 }
 
-export {
-  getGxCert,
-  REFRESH_DEPTH,
-
-};
+export { getGxCert, REFRESH_DEPTH };
