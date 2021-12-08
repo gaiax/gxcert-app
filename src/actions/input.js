@@ -186,6 +186,7 @@ export {
   onChangeDescription,
   onChangeImage,
   onChangeGroup,
+  onChangeGroupInSidebar,
   onChangeGroupName,
   onChangeGroupAddress,
   onChangeGroupPhone,
