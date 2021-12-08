@@ -1,5 +1,6 @@
 import React from "react";
 import Loader from "react-loader-spinner";
+import { ipfsUrl } from "../util/ipfs";
 
 class User extends React.Component {
   componentDidMount() {
@@ -11,10 +12,7 @@ class User extends React.Component {
       <div className="user">
         {this.props.profile ? (
           <div className="user-content">
-            <img
-              src={this.props.profile.imageUrl}
-              className="show-profile-image"
-            />
+            <img src={ipfsUrl(this.props.profile.icon)} className="show-profile-image" />
             <p className="user-title">{this.props.profile.name}</p>
           </div>
         ) : (

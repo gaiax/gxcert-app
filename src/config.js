@@ -13,6 +13,11 @@ if (env.REACT_APP_DOTENV === "development") {
       chainId: 80001,
       networkName: "Matic Mumbai",
     },
+    ipfs: {
+      host: "ipfs.gaiax-blockchain.com",
+      port: 5001,
+      protocol: "http",
+    },
   };
 } else if (env.REACT_APP_DOTENV === "staging") {
   config = {
@@ -24,6 +29,11 @@ if (env.REACT_APP_DOTENV === "development") {
       host: "https://matic-mumbai.chainstacklabs.com",
       chainId: 80001,
       networkName: "Matic Mumbai",
+    },
+    ipfs: {
+      host: "ipfs.gaiax-blockchain.com",
+      port: 5001,
+      protocol: "http",
     },
   };
 } else if (env.REACT_APP_DOTENV === "production") {
@@ -39,7 +49,12 @@ if (env.REACT_APP_DOTENV === "development") {
       networkId: 137,
       networkName: "matic-mainnet",
     },
-  };
+    ipfs: {
+      host: "ipfs.gaiax-blockchain.com",
+      port: 5001,
+      protocol: "http",
+    },
+  }
 }
 
 export default config;

@@ -4,6 +4,7 @@ import domtoimage from "dom-to-image";
 import { copyToClipboard } from "../util/clipboard";
 import config from "../config";
 import { dateToString } from "../util/date";
+import { ipfsUrl } from "../util/ipfs";
 
 class Certificate extends React.Component {
   componentDidMount() {
@@ -24,7 +25,7 @@ class Certificate extends React.Component {
                 {this.props.userCert.certificate.title}
               </p>
               <img
-                src={this.props.userCert.certificate.imageUrl}
+                src={ipfsUrl(this.props.userCert.certificate.image)}
                 className="certificate-icon"
               />
               <table className="certificate-detail">
@@ -102,7 +103,7 @@ class Certificate extends React.Component {
               {this.props.userCert.certificate.title}
             </p>
             <img
-              src={this.props.userCert.certificate.imageUrl}
+              src={ipfsUrl(this.props.userCert.certificate.image)}
               className="certificate-icon"
             />
             <table className="certificate-detail">

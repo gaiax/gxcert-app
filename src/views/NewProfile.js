@@ -1,13 +1,11 @@
 import React from "react";
-import { createImageUrlFromUint8Array } from "../util/ipfs";
+import { createImageUrlFromUint8Array, ipfsUrl } from "../util/ipfs";
 
 class NewProfile extends React.Component {
   render() {
-    let imageUrl = "";
-    try {
-      imageUrl = createImageUrlFromUint8Array(this.props.image);
-    } catch (err) {
-      console.error(err);
+    let image = "";
+    if (this.props.image) {
+      image = ipfsUrl(this.props.image);
     }
     return (
       <div className="new-profile">
@@ -16,7 +14,7 @@ class NewProfile extends React.Component {
           <div className="new-profile-form">
             <div className="new-profile-form-image">
               <label for="new-profile-form-image-file">
-                <img src={imageUrl} className="new-profile-form-image" />
+                <img src={image} className="new-profile-form-image" />
               </label>
               <input
                 id="new-profile-form-image-file"

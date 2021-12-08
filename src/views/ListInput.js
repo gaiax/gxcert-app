@@ -1,15 +1,13 @@
 import React from "react";
 
+import { ipfsUrl } from "../util/ipfs";
 import placeholder from "../images/User-1@2x.png";
 class ListInput extends React.Component {
   render() {
     const cells = this.props.usersToIssue.map((user) => {
       return (
         <div className="group-members-list-cell">
-          <img
-            src={user.imageUrl ? user.imageUrl : placeholder}
-            className="group-members-list-cell-icon"
-          />
+          <img src={user.icon ? ipfsUrl(user.icon) : placeholder} className="group-members-list-cell-icon" />
           <div className="group-members-list-cell-detail">
             <p className="group-members-list-cell-name">{user.name}</p>
             <p className="group-members-list-cell-address">{user.address}</p>

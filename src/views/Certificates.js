@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Loader from "react-loader-spinner";
 import { dateToString } from "../util/date";
+import { ipfsUrl } from "../util/ipfs";
 
 class Certificates extends React.Component {
   componentDidMount() {
@@ -22,7 +23,7 @@ class Certificates extends React.Component {
                     <Link to={"/certs/" + userCert.userCertId}>
                       <div className="certificates-list-cell">
                         <img
-                          src={userCert.certificate.imageUrl}
+                          src={ipfsUrl(userCert.certificate.image)}
                           className="certificates-list-cell-icon"
                         />
                         <div className="certificates-list-cell-detail">
