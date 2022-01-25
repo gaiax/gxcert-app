@@ -373,7 +373,7 @@ const updateGroup = () => async (dispatch, getState) => {
 
   let signedGroup;
   try {
-    signedGroup = await gxCert.client.signGroup(newGroup, {
+    signedGroup = await gxCert.client.signGroupForUpdating(newGroup, {
       address: gxCert.address(),
     });
   } catch (err) {

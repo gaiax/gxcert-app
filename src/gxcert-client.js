@@ -8,7 +8,7 @@ import config from "./config";
 let gxCertWithoutLogin = new GxCertClient(new Web3(config.web3Host), config.contractAddress, config.ipfs, config.ipfsGateway);
 let gxCert;
 
-let cacheManager = new GxCertCacheManager([null, gxCertWithoutLogin], config.ipfs, ipfsGateway);
+let cacheManager = new GxCertCacheManager([null, gxCertWithoutLogin], config.ipfs, config.ipfsGateway);
 
 async function getGxCert(login) {
   let web3;
