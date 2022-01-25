@@ -642,7 +642,13 @@ const inviteMember = () => async (dispatch, getState) => {
     );
   } catch (err) {
     console.error(err);
-    openModal("グループへの招待を送信できませんでした")(dispatch, getState);
+    if (err.message === "insufficient funds") {
+      openModal(
+        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
+      )(dispatch, getState);
+    } else {
+      openModal("グループへの招待を送信できませんでした")(dispatch, getState);
+    }
     group.members.pop();
     dispatch({
       type: "ON_CHANGE_GROUP_IN_SIDEBAR",
@@ -726,7 +732,13 @@ const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
       type: "LOADING",
       payload: false,
     });
-    openModal("グループメンバーの無効化を送信できませんでした")(dispatch, getState);
+    if (err.message === "insufficient funds") {
+      openModal(
+        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
+      )(dispatch, getState);
+    } else {
+      openModal("グループメンバーの無効化を送信できませんでした")(dispatch, getState);
+    }
     return;
   }
   openModalOfTransactionHash("書き込みを実行しました", {
