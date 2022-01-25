@@ -690,22 +690,79 @@ const inviteMember = () => async (dispatch, getState) => {
 
 const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
   let gxCert;
+  const state = getState().state;
   try {
     gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
     return;
   }
-  const signedAddress = await gxCert.client.signMemberAddressForDisabling(
-    address,
-    { address: gxCert.address() }
-  );
+  let group = state.groupInSidebar;
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
+  let signedAddress;
   try {
-    await gxCert.client.disableGroupMember(groupId, signedAddress);
-  } catch (err) {
+    signedAddress = await gxCert.client.signMemberAddressForDisabling(
+      address,
+      { address: gxCert.address() }
+    );
+  } catch(err) {
     console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    openModal("グループメンバーの無効化に署名できませんでした")(dispatch, getState);
     return;
   }
+  let transactionHash;
+  try {
+    transactionHash = await gxCert.client.disableGroupMember(groupId, signedAddress);
+  } catch (err) {
+    console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    openModal("グループメンバーの無効化を送信できませんでした")(dispatch, getState);
+    return;
+  }
+  openModalOfTransactionHash("書き込みを実行しました", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        let _group;
+        try {
+          _group = await gxCert.getGroup(group.groupId, dispatch, [
+            {
+              type: "group",
+              refresh: true,
+            },
+          ]);
+        } catch (err) {
+          console.error(err);
+          return;
+        }
+        if (group.members.length > _group.members.length) {
+          dispatch({
+            type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+            payload: _group,
+          });
+          clearInterval(timer);
+          resolve();
+        }
+      }, 21000);
+    });
+  })();
+  dispatch({
+    type: "LOADING",
+    payload: false,
+  });
 };
 
 const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
