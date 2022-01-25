@@ -34,21 +34,9 @@ const registerProfile = () => async (dispatch, getState) => {
   }
   const state = getState().state;
   const name = state.profileName;
-  const iconImage = state.profileImage;
   const address = state.from;
 
-  let icon;
-  try {
-    icon = await gxCert.client.uploadImageToIpfs(iconImage);
-  } catch (err) {
-    console.error(err);
-    openModal("画像をIPFSにアップロードできませんでした")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
+  const icon = state.profileImage;
   const newProfile = {
     name,
     icon,
@@ -99,6 +87,7 @@ const registerProfile = () => async (dispatch, getState) => {
             refresh: true,
           },
         ]);
+        console.log(profile);
         if (
           profile.name === newProfile.name &&
           profile.icon === newProfile.icon

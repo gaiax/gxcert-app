@@ -96,7 +96,7 @@ async function getTextOnIpfs(ipfsHash) {
 }
 
 function ipfsUrl(cid) {
-  return config.ipfs.protocol + "://" + config.ipfs.host + ":8080/ipfs/" + cid;
+  return config.ipfsGateway + "/" + cid;
 }
 
 
