@@ -227,18 +227,8 @@ const updateProfile = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
-  const name = state.profileNameInEdit;
-  const image = state.profileImageInEdit;
-  let icon;
-  if (image === "") {
-    if (state.profileInEdit !== null) {
-      icon = state.profileInEdit.icon;
-    } else {
-      icon = "";
-    }
-  } else {
-    icon = await gxCert.client.uploadImageToIpfs(image);
-  }
+  const name = state.profileNameInEdit !== "" ? state.profileNameInEdit : state.profileInEdit.name;
+  const icon = state.profileImageInEdit !== "" ? state.profileImageInEdit : state.profileInEdit.icon;
 
   const address = gxCert.address();
 
@@ -768,10 +758,26 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  const signedUserCert = await gxCert.client.signUserCertForInvalidation(
-    userCertId,
-    { address: gxCert.address() }
-  );
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
+
+  let signedUserCert;
+  try {
+    signedUserCert = await gxCert.client.signUserCertForInvalidation(
+      userCertId,
+      { address: gxCert.address() }
+    );
+  } catch(err) {
+    console.error(err);
+    openModal("署名できませんでした")(dispatch, getState);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
+  }
   let transactionHash;
   try {
     transactionHash = await gxCert.client.invalidateUserCert(signedUserCert);
@@ -780,7 +786,15 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
       openModal(
         "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
       )(dispatch, getState);
+    } else {
+      openModal(
+        "証明書を無効化できませんでした。"
+      )(dispatch, getState);
     }
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     console.error(err);
     return;
   }
