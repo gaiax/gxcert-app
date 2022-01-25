@@ -184,6 +184,7 @@ class App extends React.Component {
                 groupInSidebar={that.props.state.groupInSidebar}
                 onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
                 group={that.props.state.group}
+                address={that.props.state.from}
                 fetchGroup={that.props.fetchGroup}
                 inviteMember={that.props.inviteMember}
                 onChangeGroupMemberToInvite={
