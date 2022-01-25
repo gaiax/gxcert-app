@@ -34,7 +34,6 @@ const registerProfile = () => async (dispatch, getState) => {
   }
   const state = getState().state;
   const name = state.profileName;
-  const email = state.profileEmail;
   const iconImage = state.profileImage;
   const address = state.from;
 
@@ -52,7 +51,6 @@ const registerProfile = () => async (dispatch, getState) => {
   }
   const newProfile = {
     name,
-    email,
     icon,
   };
   let signedProfile;
@@ -103,7 +101,6 @@ const registerProfile = () => async (dispatch, getState) => {
         ]);
         if (
           profile.name === newProfile.name &&
-          profile.email === newProfile.email &&
           profile.icon === newProfile.icon
         ) {
           clearInterval(timer);
@@ -242,7 +239,6 @@ const updateProfile = () => async (dispatch, getState) => {
   }
   const state = getState().state;
   const name = state.profileNameInEdit;
-  const email = state.profileEmailInEdit;
   const image = state.profileImageInEdit;
   let icon;
   if (image === "") {
@@ -259,7 +255,6 @@ const updateProfile = () => async (dispatch, getState) => {
 
   const newProfile = {
     name,
-    email,
     icon,
   };
   let signedProfile;
@@ -319,7 +314,6 @@ const updateProfile = () => async (dispatch, getState) => {
         }
         if (
           profile.name === newProfile.name &&
-          profile.email === newProfile.email &&
           profile.icon === newProfile.icon
         ) {
           clearInterval(timer);
