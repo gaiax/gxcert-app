@@ -18,6 +18,7 @@ if (env.REACT_APP_DOTENV === "development") {
       port: 5001,
       protocol: "http",
     },
+    ipfsGateway: "http://ipfs.gaiax-blockchain.com:8080/ipfs"
   };
 } else if (env.REACT_APP_DOTENV === "staging") {
   config = {

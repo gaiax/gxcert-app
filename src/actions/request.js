@@ -100,11 +100,6 @@ const registerProfile = () => async (dispatch, getState) => {
             type: "profile",
             refresh: true,
           },
-          {
-            type: "profileImage",
-            refresh: false,
-            wait: true,
-          },
         ]);
         if (
           profile.name === newProfile.name &&
@@ -156,16 +151,20 @@ const registerGroup = () => async (dispatch, getState) => {
   }
   const state = getState().state;
   const from = state.from;
-  const groupName = state.groupName;
-  const groupAddress = state.groupAddress;
-  const groupPhone = state.groupPhone;
+  const group = {
+    name: state.groupName,
+    residence: state.groupAddress,
+    phone: state.groupPhone,
+  }
+
+  const signedGroup = await gxCert.client.signGroup(group, from, {
+    address: from,
+  });
+
   let transactionHash;
   try {
     transactionHash = await gxCert.client.createGroup(
-      groupName,
-      groupAddress,
-      groupPhone,
-      from
+      signedGroup
     );
   } catch (err) {
     console.error(err);
@@ -312,11 +311,6 @@ const updateProfile = () => async (dispatch, getState) => {
             {
               type: "profile",
               refresh: true,
-            },
-            {
-              type: "profileImage",
-              refresh: false,
-              wait: true,
             },
           ]);
         } catch (err) {
@@ -604,11 +598,6 @@ const inviteMember = () => async (dispatch, getState) => {
       {
         type: "profile",
         refresh: true,
-      },
-      {
-        type: "profileImage",
-        refresh: false,
-        wait: false,
       },
     ]);
   } catch (err) {

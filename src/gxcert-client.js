@@ -5,10 +5,10 @@ import { GxCertCacheManager, REFRESH_DEPTH } from "gxcert-cache-manager";
 
 import config from "./config";
 
-let gxCertWithoutLogin = new GxCertClient(new Web3(config.web3Host), config.contractAddress, config.ipfs);
+let gxCertWithoutLogin = new GxCertClient(new Web3(config.web3Host), config.contractAddress, config.ipfs, config.ipfsGateway);
 let gxCert;
 
-let cacheManager = new GxCertCacheManager([null, gxCertWithoutLogin], config.ipfs);
+let cacheManager = new GxCertCacheManager([null, gxCertWithoutLogin], config.ipfs, ipfsGateway);
 
 async function getGxCert(login) {
   let web3;
@@ -27,7 +27,7 @@ async function getGxCert(login) {
     console.log(web3);
     if (web3) {
       try {
-        gxCert = new GxCertClient(web3, config.contractAddress, config.gxApi, config.ipfs);
+        gxCert = new GxCertClient(web3, config.contractAddress, config.gxApi, config.ipfs, config.ipfsGateway);
         await gxCert.init();
       } catch (err) {
         console.error(err);
