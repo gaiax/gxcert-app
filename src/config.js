@@ -5,7 +5,7 @@ const env = process.env;
 if (env.REACT_APP_DOTENV === "development") {
   config = {
     web3Host: "https://matic-mumbai.chainstacklabs.com",
-    contractAddress: "0xA7decdC6c8FbE55478b9184b62C910Bdb4cb5E20",
+    contractAddress: "0x93A62c0bDF73cB2843453daA55890E5f4Fae2A57",
     gxApi: "http://127.0.0.1:5001/gxcert-21233/asia-northeast1/gxcert",
     host: "http://localhost:3000/#",
     network: {

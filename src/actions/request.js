@@ -151,13 +151,12 @@ const registerGroup = () => async (dispatch, getState) => {
   }
   const state = getState().state;
   const from = state.from;
-  const group = {
+
+  const signedGroup = await gxCert.client.signGroup({
     name: state.groupName,
     residence: state.groupAddress,
     phone: state.groupPhone,
-  }
-
-  const signedGroup = await gxCert.client.signGroup(group, from, {
+  }, from, {
     address: from,
   });
 
