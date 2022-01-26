@@ -410,6 +410,26 @@ const updateGroup = () => async (dispatch, getState) => {
       }, 21000);
     });
   })();
+  let groupsInSidebar = state.groupsInSidebar;
+  groupsInSidebar = groupsInSidebar.map(group => {
+    if (group.groupId === groupId) {
+      return {
+        groupId,
+        name,
+        residence,
+        phone,
+      }
+    }
+    return group;
+  });
+  dispatch({
+    type: "FETCHED_GROUPS_IN_SIDEBAR",
+    payload: groupsInSidebar,
+  });
+  dispatch({
+    type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+    payload: newGroup,
+  });
 
   dispatch({
     type: "LOADING",
