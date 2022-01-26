@@ -120,10 +120,6 @@ const registerProfile = () => async (dispatch, getState) => {
   });
 };
 const registerGroup = () => async (dispatch, getState) => {
-  dispatch({
-    type: "LOADING",
-    payload: true,
-  });
   let gxCert;
   try {
     gxCert = await getGxCert();
@@ -140,86 +136,64 @@ const registerGroup = () => async (dispatch, getState) => {
       "グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。"
     )
   ) {
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   const state = getState().state;
   const from = state.from;
 
-  const signedGroup = await gxCert.client.signGroup({
-    name: state.groupName,
-    residence: state.groupAddress,
-    phone: state.groupPhone,
-  }, from, {
-    address: from,
-  });
-
-  let transactionHash;
-  try {
-    transactionHash = await gxCert.client.createGroup(
-      signedGroup
-    );
-  } catch (err) {
-    console.error(err);
-    if (err.message === "insufficient funds") {
-      openModal(
-        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
-      )(dispatch, getState);
-    } else {
-      openModal("グループを作成できませんでした")(dispatch, getState);
-    }
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
-  openModalOfTransactionHash("書き込みを実行しました", {
-    link: "https://polygonscan.com/tx/" + transactionHash,
-    text: "TransactionHash: " + transactionHash,
-  })(dispatch, getState);
-  const prevLength = state.groupsInSidebar.length;
+  let signedGroup;
   let groups;
-  await (() => {
-    return new Promise((resolve, reject) => {
-      const timer = setInterval(async () => {
-        try {
-          groups = await gxCert.getGroups(gxCert.address(), dispatch, [
-            {
-              type: "groupId",
-              refresh: true,
-            },
-            {
-              type: "group",
-              refresh: false,
-            },
-          ]);
-        } catch (err) {
-          console.error(err);
-          resolve();
-          return;
-        }
-        if (prevLength < groups.length) {
-          clearInterval(timer);
-          resolve();
-        }
-      }, 21000);
+  const prevLength = state.groupsInSidebar.length;
+  await write(dispatch, getState, 
+    async () => {
+      signedGroup = await gxCert.client.signGroup({
+        name: state.groupName,
+        residence: state.groupAddress,
+        phone: state.groupPhone,
+      }, from, {
+        address: from,
+      });
+      return signedGroup;
+    },
+    async () => {
+      return await gxCert.client.createGroup(
+        signedGroup
+      );
+    },
+    async () => {
+      try {
+        groups = await gxCert.getGroups(gxCert.address(), dispatch, [
+          {
+            type: "groupId",
+            refresh: true,
+          },
+          {
+            type: "group",
+            refresh: false,
+          },
+        ]);
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
+      if (prevLength < groups.length) {
+        return true;
+      }
+      return false;
+    },
+    async () => {
+      const group = groups[groups.length - 1];
+      dispatch({
+        type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+        payload: group,
+      });
+      await fetchGroupsInSidebar()(dispatch, getState);
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
+      history.push("/new");
     });
-  })();
-  const group = groups[groups.length - 1];
-  dispatch({
-    type: "ON_CHANGE_GROUP_IN_SIDEBAR",
-    payload: group,
-  });
-  await fetchGroupsInSidebar()(dispatch, getState);
-  dispatch({
-    type: "LOADING",
-    payload: false,
-  });
-  history.push("/new");
 };
 const updateProfile = () => async (dispatch, getState) => {
   dispatch({
