@@ -250,28 +250,16 @@ const updateProfile = () => async (dispatch, getState) => {
     });
 };
 const updateGroup = () => async (dispatch, getState) => {
-  dispatch({
-    type: "LOADING",
-    payload: true,
-  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   const state = getState().state;
   if (state.groupInSidebar === null) {
     openModal("Please choose group on sidebar.")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   const groupId = state.groupInSidebar.groupId;
@@ -286,97 +274,62 @@ const updateGroup = () => async (dispatch, getState) => {
   };
 
   let signedGroup;
-  try {
-    signedGroup = await gxCert.client.signGroupForUpdating(newGroup, {
-      address: gxCert.address(),
-    });
-  } catch (err) {
-    console.error(err);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    openModal("発行元情報を更新するには、署名を許可する必要があります。")(
-      dispatch,
-      getState
-    );
-    return;
-  }
-  let transactionHash;
-  try {
-    transactionHash = await gxCert.client.updateGroup(signedGroup);
-  } catch (err) {
-    console.error(err);
-    if (err.message === "insufficient funds") {
-      openModal(
-        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
-      )(dispatch, getState);
-    } else {
-      openModal("グループ情報を更新できませんでした")(dispatch, getState);
-    }
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
-  openModalOfTransactionHash("書き込みを実行しました", {
-    link: "https://polygonscan.com/tx/" + transactionHash,
-    text: "TransactionHash: " + transactionHash,
-  })(dispatch, getState);
-  await (() => {
-    return new Promise((resolve, reject) => {
-      const timer = setInterval(async () => {
-        let group;
-        try {
-          group = await gxCert.getGroup(groupId, dispatch, [
-            {
-              type: "group",
-              refresh: true,
-            },
-          ]);
-        } catch (err) {
-          console.error(err);
-          resolve();
-          return;
-        }
-        if (
-          group.name === newGroup.name &&
-          group.residence === newGroup.residence &&
-          group.phone === newGroup.phone
-        ) {
-          clearInterval(timer);
-          resolve();
-        }
-      }, 21000);
-    });
-  })();
-  let groupsInSidebar = state.groupsInSidebar;
-  groupsInSidebar = groupsInSidebar.map(group => {
-    if (group.groupId === groupId) {
-      return {
-        groupId,
-        name,
-        residence,
-        phone,
+  await write(dispatch, getState,
+    async () => {
+      signedGroup = await gxCert.client.signGroupForUpdating(newGroup, {
+        address: gxCert.address(),
+      });
+      return signedGroup;
+    },
+    async () => {
+      return await gxCert.client.updateGroup(signedGroup);
+    },
+    async () => {
+      let group;
+      try {
+        group = await gxCert.getGroup(groupId, dispatch, [
+          {
+            type: "group",
+            refresh: true,
+          },
+        ]);
+      } catch (err) {
+        console.error(err);
+        return false;
       }
-    }
-    return group;
-  });
-  dispatch({
-    type: "FETCHED_GROUPS_IN_SIDEBAR",
-    payload: groupsInSidebar,
-  });
-  dispatch({
-    type: "ON_CHANGE_GROUP_IN_SIDEBAR",
-    payload: newGroup,
-  });
+      if (
+        group.name === newGroup.name &&
+        group.residence === newGroup.residence &&
+        group.phone === newGroup.phone
+      ) {
+        return true;
+      }
+      return false;
+    },
+    async () => {
+      let groupsInSidebar = state.groupsInSidebar;
+      groupsInSidebar = groupsInSidebar.map(group => {
+        if (group.groupId === groupId) {
+          return {
+            groupId,
+            name,
+            residence,
+            phone,
+          }
+        }
+        return group;
+      });
+      dispatch({
+        type: "FETCHED_GROUPS_IN_SIDEBAR",
+        payload: groupsInSidebar,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+        payload: newGroup,
+      });
+      history.push("/issue");
+    });
 
-  dispatch({
-    type: "LOADING",
-    payload: false,
-  });
-  history.push("/issue");
 };
 const issue = (certId) => async (dispatch, getState) => {
   dispatch({
