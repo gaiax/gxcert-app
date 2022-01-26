@@ -752,6 +752,7 @@ const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
 
 const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
   let gxCert;
+  const state = getState().state;
   try {
     gxCert = await getGxCert();
   } catch (err) {
@@ -802,26 +803,30 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
-  await wait();
-
-  const address = gxCert.address();
-  let groups;
-  try {
-    groups = await gxCert.getGroups(address, dispatch, [
-      {
-        type: "groupId",
-        refresh: true,
-      },
-      {
-        type: "group",
-        refresh: true,
-      },
-    ]);
-  } catch (err) {
-    console.error(err);
-    //openModal("")(dispatch, getState);
-    return;
-  }
+  const prevLength = state.certificatesInIssuer[certIndex].userCerts.length;
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        let userCerts;
+        try {
+          userCerts = await gxCert.getIssuedUserCerts(certId, dispatch, [
+            {
+              type: "userCert",
+              refresh: true,
+            },
+          ]);
+        } catch (err) {
+          console.error(err);
+          resolve();
+          return;
+        }
+        if (prevLength > userCerts.length) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 21000);
+    });
+  })();
 };
 
 export {
