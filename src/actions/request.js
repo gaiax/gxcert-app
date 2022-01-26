@@ -750,7 +750,7 @@ const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
   });
 };
 
-const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
+const invalidateUserCert = (certId, userCertId) => async (dispatch, getState) => {
   let gxCert;
   const state = getState().state;
   try {
@@ -803,6 +803,21 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
+  let certIndex = null;
+  for (let i = 0; i < state.certificatesInIssuer.length; i++) {
+    if (parseInt(state.certificatesInIssuer[i].certId) === certId) {
+      certIndex = i;
+      continue;
+    }
+  }
+  if (certIndex === null || !state.certificatesInIssuer[certIndex].userCerts) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    history.push("/issue");
+    return;
+  }
   const prevLength = state.certificatesInIssuer[certIndex].userCerts.length;
   await (() => {
     return new Promise((resolve, reject) => {
@@ -827,6 +842,12 @@ const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
       }, 21000);
     });
   })();
+  await fetchCertificatesInIssuer()(dispatch, getState);
+  dispatch({
+    type: "LOADING",
+    payload: false,
+  });
+  
 };
 
 export {
