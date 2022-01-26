@@ -16,82 +16,46 @@ const openModalOfTransactionHash = (message, link) => async (dispatch, getState)
   }, 10 * 1000);
 }
 
-const registerProfile = () => async (dispatch, getState) => {
+
+const write = async (dispatch, getState, signFunc, writeFunc, waitFunc, completeFunc) => {
   dispatch({
     type: "LOADING",
     payload: true,
   });
-  let gxCert;
+  let signed;
   try {
-    gxCert = await getGxCert();
-  } catch (err) {
+    signed = await signFunc();
+  } catch(err) {
     console.error(err);
+    openModal("署名が必要です")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
     });
     return;
   }
-  const state = getState().state;
-  const name = state.profileName;
-  const address = state.from;
 
-  const icon = state.profileImage;
-  const newProfile = {
-    name,
-    icon,
-  };
-  let signedProfile;
-  try {
-    signedProfile = await gxCert.client.signProfile(newProfile, {
-      address,
-    });
-  } catch (err) {
-    console.error(err);
-    openModal("プロフィールに署名できませんでした")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
   let transactionHash;
   try {
-    transactionHash = await gxCert.client.createProfile(address, signedProfile);
-  } catch (err) {
+    transactionHash = await writeFunc();
+  } catch(err) {
     console.error(err);
-    if (err.message === "insufficient funds") {
-      openModal(
-        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
-      )(dispatch, getState);
-    } else {
-      openModal("プロフィールを登録できませんでした")(dispatch, getState);
-    }
     dispatch({
       type: "LOADING",
       payload: false,
     });
+    openModal("データの書き込みが失敗しました")(dispatch, getState);
     return;
   }
   openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
-  let profile;
+
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        profile = await gxCert.getProfile(gxCert.address(), dispatch, [
-          {
-            type: "profile",
-            refresh: true,
-          },
-        ]);
-        console.log(profile);
-        if (
-          profile.name === newProfile.name &&
-          profile.icon === newProfile.icon
-        ) {
+        if (await waitFunc()) {
           clearInterval(timer);
           resolve();
         }
@@ -99,14 +63,61 @@ const registerProfile = () => async (dispatch, getState) => {
     });
   })();
   dispatch({
-    type: "MY_PROFILE",
-    payload: profile,
-  });
-  dispatch({
     type: "LOADING",
     payload: false,
   });
-  history.push("/");
+  await completeFunc();
+}
+const registerProfile = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch (err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const name = state.profileName;
+  const address = state.from;
+  const icon = state.profileImage;
+
+  const newProfile = {
+    name,
+    icon,
+  };
+  let profile;
+  let signedProfile;
+  await write(dispatch, getState, async () => {
+    signedProfile = await gxCert.client.signProfile(newProfile, {
+      address,
+    });
+    return signedProfile;
+  },
+  async () => {
+    return await gxCert.client.createProfile(address, signedProfile)
+  },
+  async () => {
+    profile = await gxCert.getProfile(gxCert.address(), dispatch, [
+      {
+        type: "profile",
+        refresh: true,
+      }
+    ]);
+    if (
+      profile.name === newProfile.name &&
+      profile.icon === newProfile.icon
+    ) {
+      return true;
+    }
+    return false;
+  },
+  async () => {
+    dispatch({
+      type: "MY_PROFILE",
+      payload: profile,
+    });
+    history.push("/");
+  });
 };
 const registerGroup = () => async (dispatch, getState) => {
   dispatch({
