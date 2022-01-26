@@ -16,101 +16,46 @@ const openModalOfTransactionHash = (message, link) => async (dispatch, getState)
   }, 10 * 1000);
 }
 
-const registerProfile = () => async (dispatch, getState) => {
+
+const write = async (dispatch, getState, signFunc, writeFunc, waitFunc, completeFunc) => {
   dispatch({
     type: "LOADING",
     payload: true,
   });
-  let gxCert;
+  let signed;
   try {
-    gxCert = await getGxCert();
-  } catch (err) {
+    signed = await signFunc();
+  } catch(err) {
     console.error(err);
+    openModal("署名が必要です")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,
     });
     return;
   }
-  const state = getState().state;
-  const name = state.profileName;
-  const email = state.profileEmail;
-  const iconImage = state.profileImage;
-  const address = state.from;
 
-  let icon;
-  try {
-    icon = await gxCert.client.uploadImageToIpfs(iconImage);
-  } catch (err) {
-    console.error(err);
-    openModal("画像をIPFSにアップロードできませんでした")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
-  const newProfile = {
-    name,
-    email,
-    icon,
-  };
-  let signedProfile;
-  try {
-    signedProfile = await gxCert.client.signProfile(newProfile, {
-      address,
-    });
-  } catch (err) {
-    console.error(err);
-    openModal("プロフィールに署名できませんでした")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
   let transactionHash;
   try {
-    transactionHash = await gxCert.client.createProfile(address, signedProfile);
-  } catch (err) {
+    transactionHash = await writeFunc();
+  } catch(err) {
     console.error(err);
-    if (err.message === "insufficient funds") {
-      openModal(
-        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
-      )(dispatch, getState);
-    } else {
-      openModal("プロフィールを登録できませんでした")(dispatch, getState);
-    }
     dispatch({
       type: "LOADING",
       payload: false,
     });
+    openModal("データの書き込みが失敗しました")(dispatch, getState);
     return;
   }
   openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
-  let profile;
+
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
-        profile = await gxCert.getProfile(gxCert.address(), dispatch, [
-          {
-            type: "profile",
-            refresh: true,
-          },
-          {
-            type: "profileImage",
-            refresh: false,
-            wait: true,
-          },
-        ]);
-        if (
-          profile.name === newProfile.name &&
-          profile.email === newProfile.email &&
-          profile.icon === newProfile.icon
-        ) {
+        if (await waitFunc()) {
           clearInterval(timer);
           resolve();
         }
@@ -118,20 +63,63 @@ const registerProfile = () => async (dispatch, getState) => {
     });
   })();
   dispatch({
-    type: "MY_PROFILE",
-    payload: profile,
-  });
-  dispatch({
     type: "LOADING",
     payload: false,
   });
-  history.push("/");
+  await completeFunc();
+}
+const registerProfile = () => async (dispatch, getState) => {
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch (err) {
+    console.error(err);
+    return;
+  }
+  const state = getState().state;
+  const name = state.profileName;
+  const address = state.from;
+  const icon = state.profileImage;
+
+  const newProfile = {
+    name,
+    icon,
+  };
+  let profile;
+  let signedProfile;
+  await write(dispatch, getState, async () => {
+    signedProfile = await gxCert.client.signProfile(newProfile, {
+      address,
+    });
+    return signedProfile;
+  },
+  async () => {
+    return await gxCert.client.createProfile(address, signedProfile)
+  },
+  async () => {
+    profile = await gxCert.getProfile(gxCert.address(), dispatch, [
+      {
+        type: "profile",
+        refresh: true,
+      }
+    ]);
+    if (
+      profile.name === newProfile.name &&
+      profile.icon === newProfile.icon
+    ) {
+      return true;
+    }
+    return false;
+  },
+  async () => {
+    dispatch({
+      type: "MY_PROFILE",
+      payload: profile,
+    });
+    history.push("/");
+  });
 };
 const registerGroup = () => async (dispatch, getState) => {
-  dispatch({
-    type: "LOADING",
-    payload: true,
-  });
   let gxCert;
   try {
     gxCert = await getGxCert();
@@ -148,223 +136,130 @@ const registerGroup = () => async (dispatch, getState) => {
       "グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。"
     )
   ) {
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   const state = getState().state;
   const from = state.from;
-  const groupName = state.groupName;
-  const groupAddress = state.groupAddress;
-  const groupPhone = state.groupPhone;
-  let transactionHash;
-  try {
-    transactionHash = await gxCert.client.createGroup(
-      groupName,
-      groupAddress,
-      groupPhone,
-      from
-    );
-  } catch (err) {
-    console.error(err);
-    if (err.message === "insufficient funds") {
-      openModal(
-        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
-      )(dispatch, getState);
-    } else {
-      openModal("グループを作成できませんでした")(dispatch, getState);
-    }
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
-  openModalOfTransactionHash("書き込みを実行しました", {
-    link: "https://polygonscan.com/tx/" + transactionHash,
-    text: "TransactionHash: " + transactionHash,
-  })(dispatch, getState);
-  const prevLength = state.groupsInSidebar.length;
+
+  let signedGroup;
   let groups;
-  await (() => {
-    return new Promise((resolve, reject) => {
-      const timer = setInterval(async () => {
-        try {
-          groups = await gxCert.getGroups(gxCert.address(), dispatch, [
-            {
-              type: "groupId",
-              refresh: true,
-            },
-            {
-              type: "group",
-              refresh: false,
-            },
-          ]);
-        } catch (err) {
-          console.error(err);
-          resolve();
-          return;
-        }
-        if (prevLength < groups.length) {
-          clearInterval(timer);
-          resolve();
-        }
-      }, 21000);
+  const prevLength = state.groupsInSidebar.length;
+  await write(dispatch, getState, 
+    async () => {
+      signedGroup = await gxCert.client.signGroup({
+        name: state.groupName,
+        residence: state.groupAddress,
+        phone: state.groupPhone,
+      }, from, {
+        address: from,
+      });
+      return signedGroup;
+    },
+    async () => {
+      return await gxCert.client.createGroup(
+        signedGroup
+      );
+    },
+    async () => {
+      try {
+        groups = await gxCert.getGroups(gxCert.address(), dispatch, [
+          {
+            type: "groupId",
+            refresh: true,
+          },
+          {
+            type: "group",
+            refresh: false,
+          },
+        ]);
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
+      if (prevLength < groups.length) {
+        return true;
+      }
+      return false;
+    },
+    async () => {
+      const group = groups[groups.length - 1];
+      dispatch({
+        type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+        payload: group,
+      });
+      await fetchGroupsInSidebar()(dispatch, getState);
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
+      history.push("/new");
     });
-  })();
-  const group = groups[groups.length - 1];
-  dispatch({
-    type: "ON_CHANGE_GROUP_IN_SIDEBAR",
-    payload: group,
-  });
-  await fetchGroupsInSidebar()(dispatch, getState);
-  dispatch({
-    type: "LOADING",
-    payload: false,
-  });
-  history.push("/new");
 };
 const updateProfile = () => async (dispatch, getState) => {
-  dispatch({
-    type: "LOADING",
-    payload: true,
-  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   const state = getState().state;
-  const name = state.profileNameInEdit;
-  const email = state.profileEmailInEdit;
-  const image = state.profileImageInEdit;
-  let icon;
-  if (image === "") {
-    if (state.profileInEdit !== null) {
-      icon = state.profileInEdit.icon;
-    } else {
-      icon = "";
-    }
-  } else {
-    icon = await gxCert.client.uploadImageToIpfs(image);
-  }
+  const name = state.profileNameInEdit !== "" ? state.profileNameInEdit : state.profileInEdit.name;
+  const icon = state.profileImageInEdit !== "" ? state.profileImageInEdit : state.profileInEdit.icon;
 
   const address = gxCert.address();
 
   const newProfile = {
     name,
-    email,
     icon,
   };
   let signedProfile;
-  try {
-    signedProfile = await gxCert.client.signProfileForUpdating(newProfile, {
-      address,
+  await write(dispatch, getState,
+    async () => {
+      signedProfile = await gxCert.client.signProfileForUpdating(newProfile, {
+        address,
+      });
+      return signedProfile;
+    },
+    async () => {
+      return await gxCert.client.updateProfile(signedProfile);
+    },
+    async () => {
+      let profile;
+      try {
+        profile = await gxCert.getProfile(gxCert.address(), dispatch, [
+          {
+            type: "profile",
+            refresh: true,
+          },
+        ]);
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
+      if (
+        profile.name === newProfile.name &&
+        profile.icon === newProfile.icon
+      ) {
+        return true;
+      }
+      return false;
+    },
+    async () => {
+      history.push("/");
     });
-  } catch (err) {
-    console.error(err);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    openModal("プロフィールを更新するには署名を許可する必要があります。")(
-      dispatch,
-      getState
-    );
-    return;
-  }
-  let transactionHash;
-  try {
-    transactionHash = await gxCert.client.updateProfile(signedProfile);
-  } catch (err) {
-    console.error(err);
-    if (err.message === "insufficient funds") {
-      openModal(
-        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
-      )(dispatch, getState);
-    } else {
-      openModal("プロフィールを更新できませんでした")(dispatch, getState);
-    }
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
-  openModalOfTransactionHash("書き込みを実行しました", {
-    link: "https://polygonscan.com/tx/" + transactionHash,
-    text: "TransactionHash: " + transactionHash,
-  })(dispatch, getState);
-  await (() => {
-    return new Promise((resolve, reject) => {
-      const timer = setInterval(async () => {
-        let profile;
-        try {
-          profile = await gxCert.getProfile(gxCert.address(), dispatch, [
-            {
-              type: "profile",
-              refresh: true,
-            },
-            {
-              type: "profileImage",
-              refresh: false,
-              wait: true,
-            },
-          ]);
-        } catch (err) {
-          console.error(err);
-          resolve();
-          return;
-        }
-        if (
-          profile.name === newProfile.name &&
-          profile.email === newProfile.email &&
-          profile.icon === newProfile.icon
-        ) {
-          clearInterval(timer);
-          resolve();
-        }
-      }, 21000);
-    });
-  })();
-
-  dispatch({
-    type: "LOADING",
-    payload: false,
-  });
-  history.push("/");
 };
 const updateGroup = () => async (dispatch, getState) => {
-  dispatch({
-    type: "LOADING",
-    payload: true,
-  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   const state = getState().state;
   if (state.groupInSidebar === null) {
     openModal("Please choose group on sidebar.")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   const groupId = state.groupInSidebar.groupId;
@@ -379,92 +274,69 @@ const updateGroup = () => async (dispatch, getState) => {
   };
 
   let signedGroup;
-  try {
-    signedGroup = await gxCert.client.signGroup(newGroup, {
-      address: gxCert.address(),
-    });
-  } catch (err) {
-    console.error(err);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    openModal("発行元情報を更新するには、署名を許可する必要があります。")(
-      dispatch,
-      getState
-    );
-    return;
-  }
-  let transactionHash;
-  try {
-    transactionHash = await gxCert.client.updateGroup(signedGroup);
-  } catch (err) {
-    console.error(err);
-    if (err.message === "insufficient funds") {
-      openModal(
-        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
-      )(dispatch, getState);
-    } else {
-      openModal("グループ情報を更新できませんでした")(dispatch, getState);
-    }
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
-  openModalOfTransactionHash("書き込みを実行しました", {
-    link: "https://polygonscan.com/tx/" + transactionHash,
-    text: "TransactionHash: " + transactionHash,
-  })(dispatch, getState);
-  await (() => {
-    return new Promise((resolve, reject) => {
-      const timer = setInterval(async () => {
-        let group;
-        try {
-          group = await gxCert.getGroup(groupId, dispatch, [
-            {
-              type: "group",
-              refresh: true,
-            },
-          ]);
-        } catch (err) {
-          console.error(err);
-          resolve();
-          return;
+  await write(dispatch, getState,
+    async () => {
+      signedGroup = await gxCert.client.signGroupForUpdating(newGroup, {
+        address: gxCert.address(),
+      });
+      return signedGroup;
+    },
+    async () => {
+      return await gxCert.client.updateGroup(signedGroup);
+    },
+    async () => {
+      let group;
+      try {
+        group = await gxCert.getGroup(groupId, dispatch, [
+          {
+            type: "group",
+            refresh: true,
+          },
+        ]);
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
+      if (
+        group.name === newGroup.name &&
+        group.residence === newGroup.residence &&
+        group.phone === newGroup.phone
+      ) {
+        return true;
+      }
+      return false;
+    },
+    async () => {
+      let groupsInSidebar = state.groupsInSidebar;
+      groupsInSidebar = groupsInSidebar.map(group => {
+        if (group.groupId === groupId) {
+          return {
+            groupId,
+            name,
+            residence,
+            phone,
+          }
         }
-        if (
-          group.name === newGroup.name &&
-          group.residence === newGroup.residence &&
-          group.phone === newGroup.phone
-        ) {
-          clearInterval(timer);
-          resolve();
-        }
-      }, 21000);
+        return group;
+      });
+      dispatch({
+        type: "FETCHED_GROUPS_IN_SIDEBAR",
+        payload: groupsInSidebar,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+        payload: newGroup,
+      });
+      history.push("/issue");
     });
-  })();
 
-  dispatch({
-    type: "LOADING",
-    payload: false,
-  });
-  history.push("/issue");
 };
 const issue = (certId) => async (dispatch, getState) => {
-  dispatch({
-    type: "LOADING",
-    payload: true,
-  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   if (
@@ -472,65 +344,17 @@ const issue = (certId) => async (dispatch, getState) => {
       "グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。"
     )
   ) {
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   const state = getState().state;
   const users = state.usersToIssue;
   if (users.length === 0) {
     openModal("発行先のユーザーを指定してください")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   const from = state.from;
   const tos = users.map((user) => {
     return user.address;
-  });
-  let signed;
-  try {
-    signed = await gxCert.client.signUserCertificates(certId, from, tos, {
-      address: from,
-    });
-  } catch (err) {
-    console.error(err);
-    openModal("証明書データに署名できませんでした")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
-  let transactionHash;
-  try {
-    transactionHash = await gxCert.client.createUserCerts(signed);
-  } catch (err) {
-    console.error(err);
-    if (err.message === "insufficient funds") {
-      openModal(
-        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
-      )(dispatch, getState);
-    } else {
-      openModal("証明書を発行できませんでした")(dispatch, getState);
-    }
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
-  openModalOfTransactionHash("書き込みを実行しました", {
-    link: "https://polygonscan.com/tx/" + transactionHash,
-    text: "TransactionHash: " + transactionHash,
-  })(dispatch, getState);
-  dispatch({
-    type: "ADD_TO",
-    payload: [],
   });
   let certIndex = null;
   for (let i = 0; i < state.certificatesInIssuer.length; i++) {
@@ -540,43 +364,48 @@ const issue = (certId) => async (dispatch, getState) => {
     }
   }
   if (certIndex === null || !state.certificatesInIssuer[certIndex].userCerts) {
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     history.push("/issue");
     return;
   }
   const prevLength = state.certificatesInIssuer[certIndex].userCerts.length;
-  await (() => {
-    return new Promise((resolve, reject) => {
-      const timer = setInterval(async () => {
-        let userCerts;
-        try {
-          userCerts = await gxCert.getIssuedUserCerts(certId, dispatch, [
-            {
-              type: "userCert",
-              refresh: true,
-            },
-          ]);
-        } catch (err) {
-          console.error(err);
-          resolve();
-          return;
-        }
-        if (prevLength < userCerts.length) {
-          clearInterval(timer);
-          resolve();
-        }
-      }, 21000);
+  let signed;
+  await write(dispatch, getState,
+    async () => {
+      signed = await gxCert.client.signUserCertificates(certId, from, tos, {
+        address: from,
+      });
+      return signed;
+    },
+    async () => {
+      const transactionHash = await gxCert.client.createUserCerts(signed);
+      dispatch({
+        type: "ADD_TO",
+        payload: [],
+      });
+      return transactionHash;
+    },
+    async () => {
+      let userCerts;
+      try {
+        userCerts = await gxCert.getIssuedUserCerts(certId, dispatch, [
+          {
+            type: "userCert",
+            refresh: true,
+          },
+        ]);
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
+      if (prevLength < userCerts.length) {
+        return true;
+      }
+      return false;
+    }, 
+    async () => {
+      await fetchCertificatesInIssuer()(dispatch, getState);
+      history.push("/issue");
     });
-  })();
-  await fetchCertificatesInIssuer()(dispatch, getState);
-  dispatch({
-    type: "LOADING",
-    payload: false,
-  });
-  history.push("/issue");
 };
 const inviteMember = () => async (dispatch, getState) => {
   let gxCert;
@@ -604,11 +433,6 @@ const inviteMember = () => async (dispatch, getState) => {
       {
         type: "profile",
         refresh: true,
-      },
-      {
-        type: "profileImage",
-        refresh: false,
-        wait: false,
       },
     ]);
   } catch (err) {
@@ -654,7 +478,13 @@ const inviteMember = () => async (dispatch, getState) => {
     );
   } catch (err) {
     console.error(err);
-    openModal("グループへの招待を送信できませんでした")(dispatch, getState);
+    if (err.message === "insufficient funds") {
+      openModal(
+        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
+      )(dispatch, getState);
+    } else {
+      openModal("グループへの招待を送信できませんでした")(dispatch, getState);
+    }
     group.members.pop();
     dispatch({
       type: "ON_CHANGE_GROUP_IN_SIDEBAR",
@@ -702,72 +532,142 @@ const inviteMember = () => async (dispatch, getState) => {
 
 const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
   let gxCert;
+  const state = getState().state;
   try {
     gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
     return;
   }
-  const signedAddress = await gxCert.client.signMemberAddressForDisabling(
-    address,
-    { address: gxCert.address() }
-  );
+  let group = state.groupInSidebar;
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
+  let signedAddress;
   try {
-    await gxCert.client.disableGroupMember(groupId, signedAddress);
-  } catch (err) {
+    signedAddress = await gxCert.client.signMemberAddressForDisabling(
+      address,
+      { address: gxCert.address() }
+    );
+  } catch(err) {
     console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    openModal("グループメンバーの無効化に署名できませんでした")(dispatch, getState);
     return;
   }
-};
-
-const invalidateUserCert = (userCertId) => async (dispatch, getState) => {
-  let gxCert;
-  try {
-    gxCert = await getGxCert();
-  } catch (err) {
-    console.error(err);
-    return;
-  }
-  const signedUserCert = await gxCert.client.signUserCertForInvalidation(
-    userCertId,
-    { address: gxCert.address() }
-  );
   let transactionHash;
   try {
-    transactionHash = await gxCert.client.invalidateUserCert(signedUserCert);
+    transactionHash = await gxCert.client.disableGroupMember(groupId, signedAddress);
   } catch (err) {
+    console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
     if (err.message === "insufficient funds") {
       openModal(
         "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
       )(dispatch, getState);
+    } else {
+      openModal("グループメンバーの無効化を送信できませんでした")(dispatch, getState);
     }
-    console.error(err);
     return;
   }
   openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
-  await wait();
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        let _group;
+        try {
+          _group = await gxCert.getGroup(group.groupId, dispatch, [
+            {
+              type: "group",
+              refresh: true,
+            },
+          ]);
+        } catch (err) {
+          console.error(err);
+          return;
+        }
+        if (group.members.length > _group.members.length) {
+          dispatch({
+            type: "ON_CHANGE_GROUP_IN_SIDEBAR",
+            payload: _group,
+          });
+          clearInterval(timer);
+          resolve();
+        }
+      }, 21000);
+    });
+  })();
+  dispatch({
+    type: "LOADING",
+    payload: false,
+  });
+};
 
-  const address = gxCert.address();
-  let groups;
+const invalidateUserCert = (certId, userCertId) => async (dispatch, getState) => {
+  let gxCert;
+  const state = getState().state;
   try {
-    groups = await gxCert.getGroups(address, dispatch, [
-      {
-        type: "groupId",
-        refresh: true,
-      },
-      {
-        type: "group",
-        refresh: true,
-      },
-    ]);
+    gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
-    //openModal("")(dispatch, getState);
     return;
   }
+
+  let certIndex = null;
+  for (let i = 0; i < state.certificatesInIssuer.length; i++) {
+    if (parseInt(state.certificatesInIssuer[i].certId) === certId) {
+      certIndex = i;
+      continue;
+    }
+  }
+  if (certIndex === null || !state.certificatesInIssuer[certIndex].userCerts) {
+    history.push("/issue");
+    return;
+  }
+  const prevLength = state.certificatesInIssuer[certIndex].userCerts.length;
+  let signedUserCert;
+  await write(dispatch, getState,
+    async () => {
+      signedUserCert = await gxCert.client.signUserCertForInvalidation(
+        userCertId,
+        { address: gxCert.address() }
+      );
+      return signedUserCert;
+    },
+    async () => {
+      return await gxCert.client.invalidateUserCert(signedUserCert);
+    },
+    async () => {
+      let userCerts;
+      try {
+        userCerts = await gxCert.getIssuedUserCerts(certId, dispatch, [
+          {
+            type: "userCert",
+            refresh: true,
+          },
+        ]);
+      } catch (err) {
+        console.error(err);
+        return false;
+      }
+      if (prevLength > userCerts.length) {
+        return true;
+      }
+      return false;
+    },
+    async () => {
+      await fetchCertificatesInIssuer()(dispatch, getState);
+    });
 };
 
 export {

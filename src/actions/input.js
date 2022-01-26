@@ -134,10 +134,19 @@ const onChangeProfileEmail = (evt) => async (dispatch, getState) => {
 const onChangeProfileImage = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
   const reader = new FileReader();
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
   reader.onload = () => {
-    dispatch({
-      type: "ON_CHANGE_PROFILE_IMAGE",
-      payload: reader.result,
+    gxCert.client.uploadImageToIpfs(reader.result).then(cid => {
+      dispatch({
+        type: "ON_CHANGE_PROFILE_IMAGE",
+        payload: cid,
+      });
     });
   };
   reader.readAsArrayBuffer(file);
@@ -159,11 +168,22 @@ const onChangeProfileEmailInEdit = (evt) => async (dispatch, getState) => {
 const onChangeProfileImageInEdit = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
   const reader = new FileReader();
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
   reader.onload = () => {
-    dispatch({
-      type: "ON_CHANGE_PROFILE_IMAGE_IN_EDIT",
-      payload: reader.result,
-    });
+    gxCert.client.uploadImageToIpfs(reader.result).then(cid => {
+      dispatch({
+        type: "ON_CHANGE_PROFILE_IMAGE_IN_EDIT",
+        payload: cid,
+      });
+    }).catch(err => {
+      console.error(err);
+    });;
   };
   reader.readAsArrayBuffer(file);
 };

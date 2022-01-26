@@ -133,8 +133,8 @@ function mapDispatchToProps(dispatch, props) {
     disableGroupMember: (groupId, address) => {
       dispatch(actions.disableGroupMember(groupId, address));
     },
-    invalidateUserCert: (userCertId) => {
-      dispatch(actions.invalidateUserCert(userCertId));
+    invalidateUserCert: (certId, userCertId) => {
+      dispatch(actions.invalidateUserCert(certId, userCertId));
     },
     signOut: () => {
       dispatch(actions.signOut());

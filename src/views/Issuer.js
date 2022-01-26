@@ -100,6 +100,7 @@ class Issuer extends React.Component {
                                   className="issuer-certificate-list-cell-invalidate"
                                   onClick={() =>
                                     this.props.invalidateUserCert(
+                                      userCert.certId,
                                       userCert.userCertId
                                     )
                                   }

@@ -6886,13 +6886,13 @@
   "version" "1.3.0"
 
 "gxcert-cache-manager@github:gaiax/gxcert-cache-manager":
-  "resolved" "git+ssh://git@github.com/gaiax/gxcert-cache-manager.git#1693660f5395ed18ae0808bbfe365c171e1f5f96"
+  "resolved" "git+ssh://git@github.com/gaiax/gxcert-cache-manager.git#d4ef1a00dceb50d76dfd4619b7d270be076760a4"
   "version" "1.0.0"
   dependencies:
     "ipfs-http-client" "^49.0.1"
 
 "gxcert-lib@github:gaiax/gxcert-lib":
-  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#1ef57406962478cbba240d27212a520c9865c0bc"
+  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#a31f072ddd37a4e07018ccc8cc68ccfe20586fea"
   "version" "1.0.0"
   dependencies:
     "axios" "^0.24.0"
@@ -6900,6 +6900,7 @@
     "ethereumjs-tx" "^2.1.2"
     "firebase" "^8.9.0"
     "ipfs-http-client" "^54.0.2"
+    "left-pad" "^1.3.0"
     "request" "^2.88.2"
     "web3" "^1.4.0"
 
@@ -8979,6 +8980,11 @@
   dependencies:
     "lodash" "^4.17.5"
     "webpack-sources" "^1.1.0"
+
+"left-pad@^1.3.0":
+  "integrity" "sha512-XI5MPzVNApjAyhQzphX8BkmKsKUxD4LdyK24iZeQGinBN9yTQT3bFlCBy/aVx2HrNcqQGsdot8ghrjyrvMCoEA=="
+  "resolved" "https://registry.npmjs.org/left-pad/-/left-pad-1.3.0.tgz"
+  "version" "1.3.0"
 
 "leven@^3.1.0":
   "integrity" "sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A=="

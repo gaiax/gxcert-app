@@ -5,7 +5,7 @@ const env = process.env;
 if (env.REACT_APP_DOTENV === "development") {
   config = {
     web3Host: "https://matic-mumbai.chainstacklabs.com",
-    contractAddress: "0xA7decdC6c8FbE55478b9184b62C910Bdb4cb5E20",
+    contractAddress: "0x2C4b3c2c22776d90934fC1A44fDc532bEf087FCF",
     gxApi: "http://127.0.0.1:5001/gxcert-21233/asia-northeast1/gxcert",
     host: "http://localhost:3000/#",
     network: {
@@ -18,11 +18,12 @@ if (env.REACT_APP_DOTENV === "development") {
       port: 5001,
       protocol: "http",
     },
+    ipfsGateway: "http://ipfs.gaiax-blockchain.com:8080/ipfs"
   };
 } else if (env.REACT_APP_DOTENV === "staging") {
   config = {
     web3Host: "https://matic-mumbai.chainstacklabs.com",
-    contractAddress: "0xA7decdC6c8FbE55478b9184b62C910Bdb4cb5E20",
+    contractAddress: "0x2C4b3c2c22776d90934fC1A44fDc532bEf087FCF",
     gxApi: "https://asia-northeast1-gxcert-21233.cloudfunctions.net/gxcert",
     host: "http://gaiax.github.io/gxcert-test/#",
     network: {
@@ -35,6 +36,7 @@ if (env.REACT_APP_DOTENV === "development") {
       port: 5001,
       protocol: "http",
     },
+    ipfsGateway: "http://ipfs.gaiax-blockchain.com:8080/ipfs"
   };
 } else if (env.REACT_APP_DOTENV === "production") {
   //TODO: Change here
@@ -54,6 +56,7 @@ if (env.REACT_APP_DOTENV === "development") {
       port: 5001,
       protocol: "http",
     },
+    ipfsGateway: "http://ipfs.gaiax-blockchain.com:8080/ipfs"
   }
 }
 

@@ -9,7 +9,9 @@ class EditProfile extends React.Component {
   render() {
     let image = null;
     let initialImageUrl = placeholder;
-    if (this.props.profile !== null) {
+    if (this.props.profileImage != null && this.props.profileImage != "") {
+      image = this.props.profileImage;
+    } else if (this.props.profile !== null) {
       image = this.props.profile.icon;
     }
     return (
