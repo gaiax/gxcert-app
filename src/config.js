@@ -16,15 +16,15 @@ if (env.REACT_APP_DOTENV === "development") {
     ipfs: {
       host: "ipfs.gaiax-blockchain.com",
       port: 5001,
-      protocol: "http",
+      protocol: "https",
     },
-    ipfsGateway: "http://ipfs.gaiax-blockchain.com:8080/ipfs"
+    ipfsGateway: "https://ipfs.gaiax-blockchain.com/ipfs"
   };
 } else if (env.REACT_APP_DOTENV === "staging") {
   config = {
     web3Host: "https://matic-mumbai.chainstacklabs.com",
     contractAddress: "0x2C4b3c2c22776d90934fC1A44fDc532bEf087FCF",
-    gxApi: "https://asia-northeast1-gxcert-21233.cloudfunctions.net/gxcert",
+    gxApi: "https://asia-northeast1-gxcert-test.cloudfunctions.net/gxcert",
     host: "http://gaiax.github.io/gxcert-test/#",
     network: {
       host: "https://matic-mumbai.chainstacklabs.com",
@@ -34,9 +34,9 @@ if (env.REACT_APP_DOTENV === "development") {
     ipfs: {
       host: "ipfs.gaiax-blockchain.com",
       port: 5001,
-      protocol: "http",
+      protocol: "https",
     },
-    ipfsGateway: "http://ipfs.gaiax-blockchain.com:8080/ipfs"
+    ipfsGateway: "https://ipfs.gaiax-blockchain.com/ipfs"
   };
 } else if (env.REACT_APP_DOTENV === "production") {
   //TODO: Change here
@@ -54,9 +54,9 @@ if (env.REACT_APP_DOTENV === "development") {
     ipfs: {
       host: "ipfs.gaiax-blockchain.com",
       port: 5001,
-      protocol: "http",
+      protocol: "https",
     },
-    ipfsGateway: "http://ipfs.gaiax-blockchain.com:8080/ipfs"
+    ipfsGateway: "https://ipfs.gaiax-blockchain.com/ipfs"
   }
 }
 
