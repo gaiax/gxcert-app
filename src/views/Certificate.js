@@ -95,9 +95,10 @@ class Certificate extends React.Component {
         ) : (
           ""
         )}
-        {!this.props.userCert || !this.props.userCert.certificate ? (
+        {this.props.isLoading ? (
           <Loader type="Puff" color="#00BFFF" height={100} width={100} />
-        ) : (
+        ) : ""}
+        {this.props.userCert && this.props.userCert.certificate && !this.props.isLoading ? (
           <div className="certificate-content" id="certificate-content">
             <p className="certificate-title">
               {this.props.userCert.certificate.title}
@@ -207,7 +208,12 @@ class Certificate extends React.Component {
               />
             </div>
           </div>
-        )}
+        ) : ""}
+        { !this.props.isLoading && !(this.props.userCert && this.props.userCert.certificate) ?(
+          <div class="not-found">
+            404 Not found
+          </div>
+        ) : ""}
       </div>
     );
   }

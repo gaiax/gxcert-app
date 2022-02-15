@@ -6,6 +6,7 @@ const initialState = {
   image: null,
   toInIssue: "",
   isLoading: false,
+  isLoadingInShow: false,
   groupId: null,
   groupInEdit: null,
   groupName: "",

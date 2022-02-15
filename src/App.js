@@ -138,6 +138,7 @@ class App extends React.Component {
                 userCert={that.props.state.certificate}
                 certificateImage={that.props.state.certificateImage}
                 fetchCertificate={that.props.fetchCertificate}
+                isLoading={that.props.state.isLoadingInShow}
               />
             )}
           />

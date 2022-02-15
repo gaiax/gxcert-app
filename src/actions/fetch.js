@@ -35,11 +35,19 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
     type: "FETCHED_CERTIFICATE",
     payload: null,
   });
+  dispatch({
+    type: "LOADING_IN_SHOW",
+    payload: true,
+  });
   let gxCert;
   try {
     gxCert = await getGxCert(false);
   } catch (err) {
     console.error(err);
+    dispatch({
+      type: "LOADING_IN_SHOW",
+      payload: false,
+    });
     return;
   }
   let userCert;
@@ -65,8 +73,16 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
     );
   } catch (err) {
     console.error(err);
+    dispatch({
+      type: "LOADING_IN_SHOW",
+      payload: false,
+    });
     return;
   }
+  dispatch({
+    type: "LOADING_IN_SHOW",
+    payload: false,
+  });
   dispatch({
     type: "FETCHED_CERTIFICATE",
     payload: userCert,

@@ -90,6 +90,10 @@ export default function Reducer(state = initialState, action) {
       return Object.assign({}, state, {
         certificate: action.payload,
       });
+    case "LOADING_IN_SHOW":
+      return Object.assign({}, state, {
+        isLoadingInShow: action.payload,
+      });
     case "FETCHED_CERTIFICATE_IN_ISSUE":
       return Object.assign({}, state, {
         certificateInIssue: action.payload,
