@@ -27,7 +27,7 @@ async function getGxCert(login) {
     console.log(web3);
     if (web3) {
       try {
-        gxCert = new GxCertClient(web3, config.contractAddress, config.gxApi, config.ipfs, config.ipfsGateway);
+        gxCert = new GxCertClient(web3, config.contractAddress, config.gxApi, config.ipfs, config.ipfsGateway, true);
         await gxCert.init();
       } catch (err) {
         console.error(err);

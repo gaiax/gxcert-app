@@ -58,7 +58,11 @@ const onChangeImage = (evt) => async (dispatch, getState) => {
       payload: reader.result,
     });
   };
-  reader.readAsArrayBuffer(file);
+  try {
+    reader.readAsArrayBuffer(file);
+  } catch(err) {
+    console.error(err);
+  }
 };
 const onChangeGroup = (evt) => async (dispatch, getState) => {
   if (evt.target.value === "new") {
@@ -149,7 +153,11 @@ const onChangeProfileImage = (evt) => async (dispatch, getState) => {
       });
     });
   };
-  reader.readAsArrayBuffer(file);
+  try {
+    reader.readAsArrayBuffer(file);
+  } catch(err) {
+    console.error(err);
+  }
 };
 const onChangeProfileNameInEdit = (evt) => async (dispatch, getState) => {
   dispatch({
@@ -185,7 +193,11 @@ const onChangeProfileImageInEdit = (evt) => async (dispatch, getState) => {
       console.error(err);
     });;
   };
-  reader.readAsArrayBuffer(file);
+  try {
+    reader.readAsArrayBuffer(file);
+  } catch(err) {
+    console.error(err);
+  }
 };
 
 const onChangeGroupMemberToInvite = (evt) => async (dispatch, getState) => {

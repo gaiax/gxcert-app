@@ -5,8 +5,8 @@ const env = process.env;
 if (env.REACT_APP_DOTENV === "development") {
   config = {
     web3Host: "https://matic-mumbai.chainstacklabs.com",
-    contractAddress: "0x2C4b3c2c22776d90934fC1A44fDc532bEf087FCF",
-    gxApi: "http://127.0.0.1:5001/gxcert-21233/asia-northeast1/gxcert",
+    contractAddress: "0xADc01B9Ca2ffb9073d44FFC9BBa7224719B0C874",
+    gxApi: "http://127.0.0.1:5001/gxcert-test/asia-northeast1/gxcert",
     host: "http://localhost:3000/#",
     network: {
       host: "https://matic-mumbai.chainstacklabs.com",
@@ -23,7 +23,7 @@ if (env.REACT_APP_DOTENV === "development") {
 } else if (env.REACT_APP_DOTENV === "staging") {
   config = {
     web3Host: "https://matic-mumbai.chainstacklabs.com",
-    contractAddress: "0x2C4b3c2c22776d90934fC1A44fDc532bEf087FCF",
+    contractAddress: "0xADc01B9Ca2ffb9073d44FFC9BBa7224719B0C874",
     gxApi: "https://asia-northeast1-gxcert-test.cloudfunctions.net/gxcert",
     host: "http://gaiax.github.io/gxcert-test/#",
     network: {
