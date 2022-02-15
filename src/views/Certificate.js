@@ -76,20 +76,14 @@ class Certificate extends React.Component {
               </table>
               <br />
 
-              <img
-                src={this.props.userCert.qr}
-                width="60"
-                height="60"
-                className="qr"
-              />
-              <a
-                id="cert-link"
-                className="cert-link"
-                download="cert.png"
-                href="/"
-              >
-                -
-              </a>
+              <div className="qr-wrapper">
+                <img
+                  src={this.props.userCert.qr}
+                  width="60"
+                  height="60"
+                  className="qr"
+                />
+              </div>
             </div>
           </div>
         ) : (

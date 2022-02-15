@@ -545,7 +545,6 @@ a:visited {
 .certificate-content-export {
   width: 600px;
   padding: 20px;
-  padding-bottom: 40px;
   background-color: white;
   margin-bottom: 40px;
 }
@@ -574,8 +573,9 @@ a:visited {
   border: 1px solid #000;
 }
 
-.certificate-content-export .qr {
-  float: right;
+.certificate-content-export .qr-wrapper {
+  display: flex;
+  justify-content: right;
 }
 
 .cert-link {
