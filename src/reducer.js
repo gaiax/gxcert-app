@@ -29,6 +29,9 @@ export default function Reducer(state = initialState, action) {
     case "ON_CHANGE_GROUP_IN_SIDEBAR":
       return Object.assign({}, state, {
         groupInSidebar: action.payload,
+        groupNameInEdit: action.payload.name,
+        groupAddressInEdit: action.payload.residence,
+        groupPhoneInEdit: action.payload.phone,
       });
     case "ON_CHANGE_GROUP_PHONE":
       return Object.assign({}, state, {
