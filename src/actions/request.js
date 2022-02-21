@@ -47,7 +47,7 @@ const write = async (dispatch, getState, signFunc, writeFunc, waitFunc, complete
     openModal("データの書き込みが失敗しました")(dispatch, getState);
     return;
   }
-  openModalOfTransactionHash("書き込みを実行しました", {
+  openModalOfTransactionHash("書き込みを実行しました。反映までに10 - 15分ほどお待ちください", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
   })(dispatch, getState);
@@ -309,12 +309,15 @@ const updateGroup = () => async (dispatch, getState) => {
     async () => {
       let groupsInSidebar = state.groupsInSidebar;
       groupsInSidebar = groupsInSidebar.map(group => {
+        console.log(group);
         if (group.groupId === groupId) {
+          newGroup.members = group.members;
           return {
             groupId,
             name,
             residence,
             phone,
+            members: group.members,
           }
         }
         return group;

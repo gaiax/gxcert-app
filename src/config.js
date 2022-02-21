@@ -41,12 +41,12 @@ if (env.REACT_APP_DOTENV === "development") {
 } else if (env.REACT_APP_DOTENV === "production") {
   //TODO: Change here
   config = {
-    web3Host: "https://rpc-mainnet.maticvigil.com",
-    contractAddress: "0x09BEb0ee0b013340C1Cd360f59e12fA7F4837B2a",
+    web3Host: "https://polygon-rpc.com",
+    contractAddress: "0x9bD662955C260B719840e1Cd20f5Ef4B3a978d5b",
     gxApi: "https://asia-northeast1-gxcert-test.cloudfunctions.net/gxcertMain",
     host: "https://gaiax.github.io/gxcert-app/#",
     network: {
-      host: "https://matic-mainnet.chainstacklabs.com",
+      host: "https://polygon-rpc.com",
       chainId: 137,
       networkId: 137,
       networkName: "matic-mainnet",
