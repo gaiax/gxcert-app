@@ -31,6 +31,7 @@ class GroupMembers extends React.Component {
                 <input
                   type="text"
                   className="group-members-invite"
+                  placeholder="Email Address"
                   onChange={this.props.onChangeGroupMemberToInvite}
                 />
                 <button

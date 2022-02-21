@@ -27,6 +27,7 @@ class ListInput extends React.Component {
         <input
           type="text"
           className="list-input-element"
+          placeholder="Email Address"
           onChange={this.props.onChangeToInIssue}
         />
         <button className="list-input-add" onClick={this.props.addTo}>
