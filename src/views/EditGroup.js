@@ -27,21 +27,21 @@ class EditGroup extends React.Component {
                 type="text"
                 className="edit-group-form-name"
                 onChange={this.props.onChangeGroupName}
-                defaultValue={this.props.groupInSidebar.name}
+                value={this.props.groupInSidebar.name}
               />
               <p className="edit-group-form-title">Address</p>
               <input
                 type="text"
                 className="edit-group-form-address"
                 onChange={this.props.onChangeGroupAddress}
-                defaultValue={this.props.groupInSidebar.residence}
+                value={this.props.groupInSidebar.residence}
               />
               <p className="edit-group-form-title">Phone</p>
               <input
                 type="text"
                 className="edit-group-form-phone"
                 onChange={this.props.onChangeGroupPhone}
-                defaultValue={this.props.groupInSidebar.phone}
+                value={this.props.groupInSidebar.phone}
               />
 
               <div className="register-button" onClick={this.props.updateGroup}>

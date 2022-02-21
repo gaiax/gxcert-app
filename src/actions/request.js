@@ -263,9 +263,9 @@ const updateGroup = () => async (dispatch, getState) => {
     return;
   }
   const groupId = state.groupInSidebar.groupId;
-  const name = state.groupNameInEdit;
-  const residence = state.groupAddressInEdit;
-  const phone = state.groupPhoneInEdit;
+  const name = state.groupInSidebar.name;
+  const residence = state.groupInSidebar.residence;
+  const phone = state.groupInSidebar.phone;
   const newGroup = {
     groupId,
     name,

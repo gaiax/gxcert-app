@@ -1,6 +1,7 @@
 import initialState from "./initialState";
 
 export default function Reducer(state = initialState, action) {
+  const groupInSidebar = state.groupInSidebar;
   switch (action.type) {
     case "ON_CHANGE_TITLE":
       return Object.assign({}, state, {
@@ -46,16 +47,19 @@ export default function Reducer(state = initialState, action) {
         groupIdInEdit: action.payload,
       });
     case "ON_CHANGE_GROUP_NAME_IN_EDIT":
+      groupInSidebar.name = action.payload;
       return Object.assign({}, state, {
-        groupNameInEdit: action.payload,
+        groupInSidebar,
       });
     case "ON_CHANGE_GROUP_ADDRESS_IN_EDIT":
+      groupInSidebar.residence = action.payload;
       return Object.assign({}, state, {
-        groupAddressInEdit: action.payload,
+        groupInSidebar,
       });
     case "ON_CHANGE_GROUP_PHONE_IN_EDIT":
+      groupInSidebar.phone = action.payload;
       return Object.assign({}, state, {
-        groupPhoneInEdit: action.payload,
+        groupInSidebar,
       });
     case "ON_CHANGE_PROFILE_NAME":
       return Object.assign({}, state, {
