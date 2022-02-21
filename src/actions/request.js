@@ -47,6 +47,14 @@ const write = async (dispatch, getState, signFunc, writeFunc, waitFunc, complete
     openModal("データの書き込みが失敗しました")(dispatch, getState);
     return;
   }
+  if (!transactionHash) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    openModal("書き込みに失敗しました。もう一度お試しください。")(dispatch, getState);
+    return;
+  }
   openModalOfTransactionHash("書き込みを実行しました。反映までに10 - 15分ほどお待ちください", {
     link: "https://polygonscan.com/tx/" + transactionHash,
     text: "TransactionHash: " + transactionHash,
@@ -499,6 +507,14 @@ const inviteMember = () => async (dispatch, getState) => {
     });
     return;
   }
+  if (!transactionHash) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    openModal("書き込みに失敗しました。もう一度お試しください。")(dispatch, getState);
+    return;
+  }
 
   openModalOfTransactionHash("書き込みを実行しました", {
     link: "https://polygonscan.com/tx/" + transactionHash,
@@ -578,6 +594,14 @@ const disableGroupMember = (groupId, address) => async (dispatch, getState) => {
     } else {
       openModal("グループメンバーの無効化を送信できませんでした")(dispatch, getState);
     }
+    return;
+  }
+  if (!transactionHash) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    openModal("書き込みに失敗しました。もう一度お試しください。")(dispatch, getState);
     return;
   }
   openModalOfTransactionHash("書き込みを実行しました", {
