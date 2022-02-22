@@ -268,11 +268,11 @@ footer .footer-message, .footer-app {
 .certificates-list-cell p, .group-members-list-cell p, .issuer-certificates-list-cell p {
   color: #49AAFC;
   word-break: break-all;
-  text-align: left !important;
+  text-align: left;
 }
 
 .certificates-list-cell-by {
-  text-align: left;
+  text-align: right !important;
   margin: 0;
 }
 

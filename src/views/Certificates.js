@@ -30,13 +30,13 @@ class Certificates extends React.Component {
                           <p className="certificates-list-cell-title">
                             {userCert.certificate.title}
                           </p>
-                          <p className="certificates-list-cell-by">
-                            {userCert.certificate.groupName}
-                          </p>
                           <p className="certificates-list-cell-date">
                             {dateToString(
                               new Date(parseInt(userCert.timestamp) * 1000)
                             )}
+                          </p>
+                          <p className="certificates-list-cell-by">
+                            {userCert.certificate.group.name}
                           </p>
                         </div>
                       </div>
