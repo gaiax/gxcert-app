@@ -247,7 +247,7 @@ footer .footer-message, .footer-app {
 }
 
 .certificates-list-cell-detail, .group-members-list-cell-detail, .issuer-certificates-list-cell-detail, .issuer-certificate-list-cell-detail {
-  width: 50%;
+  width: 80%;
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -259,7 +259,6 @@ footer .footer-message, .footer-app {
   margin-bottom: 8px;
 }
 .certificates-list-cell-date {
-  text-align: right;
   margin-top: 8px;
 }
 .group-members-list-cell-address, .issuer-certificate-list-cell-address {
@@ -269,6 +268,7 @@ footer .footer-message, .footer-app {
 .certificates-list-cell p, .group-members-list-cell p, .issuer-certificates-list-cell p {
   color: #49AAFC;
   word-break: break-all;
+  text-align: left !important;
 }
 
 .certificates-list-cell-by {
