@@ -117,8 +117,9 @@ footer .footer-message, .footer-app {
   margin-left: auto;
   margin-right: auto;
   width: 60%;
+  max-width: 500px;
   min-width: 300px;
-  padding: 20px;
+  padding: 50px;
   padding-bottom: 40px;
   background-color: white;
   margin-bottom: 40px;
@@ -222,6 +223,7 @@ footer .footer-message, .footer-app {
   display: flex;
   border-bottom: 1px #49AAFC solid;
   min-height: 120px;
+  justify-content: space-between;
 }
 
 .issuer-certificates-list-cell {
@@ -450,6 +452,8 @@ footer .footer-message, .footer-app {
   border: 0;
   border-radius: 4px;
   float:right;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 
@@ -459,7 +463,7 @@ footer .footer-message, .footer-app {
 }
 
 .issuer-certificates-list-cell-issue {
-  width: 44px;
+  width: 80px;
   height: 30px;
   line-height: 30px;
   border: none;
@@ -467,6 +471,8 @@ footer .footer-message, .footer-app {
   color: white;
   border-radius: 4px;
   margin-top: 46px;
+  font-size: 14px;
+  font-weight: bold;
 }
 .issue-form-issue {
   width: 80px;
@@ -478,6 +484,7 @@ footer .footer-message, .footer-app {
   color: white;
   border-radius: 4px;
   margin-left: 6px;
+  font-weight: bold;
 }
 
 .issue-form {
@@ -487,7 +494,7 @@ footer .footer-message, .footer-app {
 }
 
 .group-members-list-cell-disable, .issuer-certificate-list-cell-invalidate {
-  width: 64px;
+  width: 84px;
   height: 30px;
   line-height: 30px;
   border: none;
@@ -495,6 +502,8 @@ footer .footer-message, .footer-app {
   color: white;
   border-radius: 4px;
   margin-top: 46px;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .new-cert, .group-members, .edit-group, .issuer, .issue {
