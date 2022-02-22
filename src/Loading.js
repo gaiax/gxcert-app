@@ -13,6 +13,9 @@ class Loading extends React.Component {
           width={100}
           className="loading-loader"
         />
+        <p className="loading-message">
+          ブロックチェーンへの書き込み中です。数分お待ちください。
+        </p>
       </div>
     );
   }
