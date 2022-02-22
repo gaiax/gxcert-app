@@ -178,7 +178,7 @@ footer .footer-message, .footer-app {
   font-size: 18px;
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   color: #49AAFC;
   width: 240px;
 }
@@ -345,7 +345,7 @@ footer .footer-message, .footer-app {
   margin-left: 20px;
   margin-left: 20px;
 }
-.new-cert-description, .new-group-description {
+.new-cert-description, .new-group-description, .edit-group-description {
   color: #49AAFC;
   font-size: 12px;
   font-weight: normal;
