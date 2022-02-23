@@ -2884,6 +2884,11 @@
     "loader-utils" "^2.0.0"
     "regex-parser" "^2.2.11"
 
+"aes-js@^3.1.2":
+  "integrity" "sha512-e5pEa2kBnBOgR4Y/p20pskXI74UEz7de8ZGVo58asOtvSVG5YAbJeELPZxOmt+Bnz3rX753YKhfIn4X4l1PPRQ=="
+  "resolved" "https://registry.npmjs.org/aes-js/-/aes-js-3.1.2.tgz"
+  "version" "3.1.2"
+
 "agent-base@6":
   "integrity" "sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ=="
   "resolved" "https://registry.npmjs.org/agent-base/-/agent-base-6.0.2.tgz"
@@ -6064,6 +6069,17 @@
     "ethereum-cryptography" "^0.1.3"
     "rlp" "^2.2.4"
 
+"ethereumjs-util@^7.1.2":
+  "integrity" "sha512-p6KmuPCX4mZIqsQzXfmSx9Y0l2hqf+VkAiwSisW3UKUFdk8ZkAt+AYaor83z2nSi6CU2zSsXMlD80hAbNEGM0A=="
+  "resolved" "https://registry.npmjs.org/ethereumjs-util/-/ethereumjs-util-7.1.4.tgz"
+  "version" "7.1.4"
+  dependencies:
+    "@types/bn.js" "^5.1.0"
+    "bn.js" "^5.1.2"
+    "create-hash" "^1.1.2"
+    "ethereum-cryptography" "^0.1.3"
+    "rlp" "^2.2.4"
+
 "ethereumjs-util@^7.1.3":
   "integrity" "sha512-y+82tEbyASO0K0X1/SRhbJJoAlfcvq8JbrG4a5cjrOks7HS/36efU/0j2flxCPOUM++HFahk33kr/ZxyC4vNuw=="
   "resolved" "https://registry.npmjs.org/ethereumjs-util/-/ethereumjs-util-7.1.3.tgz"
@@ -6074,6 +6090,31 @@
     "create-hash" "^1.1.2"
     "ethereum-cryptography" "^0.1.3"
     "rlp" "^2.2.4"
+
+"ethereumjs-util@^7.1.4":
+  "integrity" "sha512-p6KmuPCX4mZIqsQzXfmSx9Y0l2hqf+VkAiwSisW3UKUFdk8ZkAt+AYaor83z2nSi6CU2zSsXMlD80hAbNEGM0A=="
+  "resolved" "https://registry.npmjs.org/ethereumjs-util/-/ethereumjs-util-7.1.4.tgz"
+  "version" "7.1.4"
+  dependencies:
+    "@types/bn.js" "^5.1.0"
+    "bn.js" "^5.1.2"
+    "create-hash" "^1.1.2"
+    "ethereum-cryptography" "^0.1.3"
+    "rlp" "^2.2.4"
+
+"ethereumjs-wallet@^1.0.2":
+  "integrity" "sha512-CCWV4RESJgRdHIvFciVQFnCHfqyhXWchTPlkfp28Qc53ufs+doi5I/cV2+xeK9+qEo25XCWfP9MiL+WEPAZfdA=="
+  "resolved" "https://registry.npmjs.org/ethereumjs-wallet/-/ethereumjs-wallet-1.0.2.tgz"
+  "version" "1.0.2"
+  dependencies:
+    "aes-js" "^3.1.2"
+    "bs58check" "^2.1.2"
+    "ethereum-cryptography" "^0.1.3"
+    "ethereumjs-util" "^7.1.2"
+    "randombytes" "^2.1.0"
+    "scrypt-js" "^3.0.1"
+    "utf8" "^3.0.0"
+    "uuid" "^8.3.2"
 
 "ethjs-unit@0.1.6":
   "integrity" "sha1-xmWSHkduh7ziqdWIpv4EBbLEFpk="
@@ -6911,18 +6952,20 @@
     "ipfs-http-client" "^49.0.1"
 
 "gxcert-lib@github:gaiax/gxcert-lib":
-  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#e2b10f67129909ee069a0a3f0b8ea63100cc26e0"
+  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#fc1ad838ff4c964a48842c2ccb9c58ce616f45a4"
   "version" "1.0.0"
   dependencies:
     "axios" "^0.24.0"
     "bl" "^4.1.0"
     "ethereumjs-tx" "^2.1.2"
+    "ethereumjs-util" "^7.1.4"
+    "ethereumjs-wallet" "^1.0.2"
     "firebase" "^8.9.0"
     "ipfs-http-client" "^54.0.2"
     "ipfs-keeper" "github:gaiax/ipfs-keeper"
     "left-pad" "^1.3.0"
     "request" "^2.88.2"
-    "web3" "^1.4.0"
+    "web3" "^1.7.0"
 
 "gzip-size@5.1.1":
   "integrity" "sha512-FNHi6mmoHvs1mxZAds4PpdCS6QG8B4C1krxJsMutgxl5t3+GlRTzzI3NEkifXx2pVsOvJdOGSmIgDhQ55FwdPA=="
@@ -14221,7 +14264,7 @@
   dependencies:
     "node-gyp-build" "^4.3.0"
 
-"utf8@3.0.0":
+"utf8@^3.0.0", "utf8@3.0.0":
   "integrity" "sha512-E8VjFIQ/TyQgp+TZfS6l8yp/xWppSAHzidGiRrqe4bK4XP9pTRyKFgGJpO3SN7zdX4DeomTrwaseCHovfpFcqQ=="
   "resolved" "https://registry.npmjs.org/utf8/-/utf8-3.0.0.tgz"
   "version" "3.0.0"
@@ -14633,7 +14676,7 @@
     "randombytes" "^2.1.0"
     "utf8" "3.0.0"
 
-"web3@^1.4.0":
+"web3@^1.7.0":
   "integrity" "sha512-n39O7QQNkpsjhiHMJ/6JY6TaLbdX+2FT5iGs8tb3HbIWOhPm4+a7UDbr5Lkm+gLa9aRKWesZs5D5hWyEvg4aJA=="
   "resolved" "https://registry.npmjs.org/web3/-/web3-1.7.0.tgz"
   "version" "1.7.0"
