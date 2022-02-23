@@ -254,6 +254,14 @@ const updateProfile = () => async (dispatch, getState) => {
       return false;
     },
     async () => {
+      dispatch({
+        type: "ON_CHANGE_PROFILE_NAME_IN_EDIT",
+        payload: newProfile.name,
+      });
+      dispatch({
+        type: "ON_CHANGE_PROFILE_IMAGE_IN_EDIT",
+        payload: newProfile.icon,
+      });
       history.push("/");
     });
 };

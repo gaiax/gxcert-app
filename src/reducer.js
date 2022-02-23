@@ -136,6 +136,8 @@ export default function Reducer(state = initialState, action) {
     case "FETCHED_PROFILE_IN_EDIT":
       return Object.assign({}, state, {
         profileInEdit: action.payload,
+        profileNameInEdit: action.payload.name,
+        profileImageInEdit: action.payload.icon,
       });
     case "FETCHED_PROFILE_IN_SHOW":
       return Object.assign({}, state, {

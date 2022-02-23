@@ -37,6 +37,9 @@ class EditProfile extends React.Component {
               defaultValue={
                 this.props.profile !== null ? this.props.profile.name : ""
               }
+              value={
+                this.props.profileName
+              }
             />
             <div className="register-button" onClick={this.props.updateProfile}>
               更新
