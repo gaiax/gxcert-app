@@ -28,52 +28,54 @@ class Certificate extends React.Component {
                 src={ipfsUrl(this.props.userCert.certificate.image)}
                 className="certificate-icon"
               />
-              <table className="certificate-detail">
-                <tr>
-                  <td>発行日: </td>
-                  <td>
-                    {dateToString(
-                      new Date(parseInt(this.props.userCert.timestamp * 1000))
-                    )}
-                  </td>
-                </tr>
-                <tr>
-                  <td>発行先: </td>
-                  <td>{this.props.userCert.to}</td>
-                </tr>
-                <tr>
-                  <td>証明書名: </td>
-                  <td>{this.props.userCert.certificate.title}</td>
-                </tr>
-                <tr>
-                  <td>説明: </td>
-                  <td>{this.props.userCert.certificate.description}</td>
-                </tr>
-                <tr>
-                  <td>発行元: </td>
-                  <td>
-                    {!this.props.userCert.certificate.group
-                      ? ""
-                      : this.props.userCert.certificate.group.name}
-                  </td>
-                </tr>
-                <tr>
-                  <td>発行元住所: </td>
-                  <td>
-                    {!this.props.userCert.certificate.group
-                      ? ""
-                      : this.props.userCert.certificate.group.residence}
-                  </td>
-                </tr>
-                <tr>
-                  <td>発行元電話番号: </td>
-                  <td>
-                    {!this.props.userCert.certificate.group
-                      ? ""
-                      : this.props.userCert.certificate.group.phone}
-                  </td>
-                </tr>
-              </table>
+              <div className="certificate-detail">
+                <table>
+                  <tr>
+                    <td>発行日: </td>
+                    <td>
+                      {dateToString(
+                        new Date(parseInt(this.props.userCert.timestamp * 1000))
+                      )}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>発行先: </td>
+                    <td>{this.props.userCert.to}</td>
+                  </tr>
+                  <tr>
+                    <td>証明書名: </td>
+                    <td>{this.props.userCert.certificate.title}</td>
+                  </tr>
+                  <tr>
+                    <td>説明: </td>
+                    <td>{this.props.userCert.certificate.description}</td>
+                  </tr>
+                  <tr>
+                    <td>発行元: </td>
+                    <td>
+                      {!this.props.userCert.certificate.group
+                        ? ""
+                        : this.props.userCert.certificate.group.name}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>発行元住所: </td>
+                    <td>
+                      {!this.props.userCert.certificate.group
+                        ? ""
+                        : this.props.userCert.certificate.group.residence}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>発行元電話番号: </td>
+                    <td>
+                      {!this.props.userCert.certificate.group
+                        ? ""
+                        : this.props.userCert.certificate.group.phone}
+                    </td>
+                  </tr>
+                </table>
+              </div>
               <br />
 
               <div className="qr-wrapper">
@@ -101,62 +103,64 @@ class Certificate extends React.Component {
               src={ipfsUrl(this.props.userCert.certificate.image)}
               className="certificate-icon"
             />
-            <table className="certificate-detail">
-              <tr>
-                <td>発行日: </td>
-                <td>
-                  {dateToString(
-                    new Date(parseInt(this.props.userCert.timestamp * 1000))
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <td>発行先: </td>
-                <td>{this.props.userCert.to}</td>
-              </tr>
-              <tr>
-                <td>証明書名: </td>
-                <td>{this.props.userCert.certificate.title}</td>
-              </tr>
-              <tr>
-                <td>説明: </td>
-                <td>{this.props.userCert.certificate.description}</td>
-              </tr>
-              <tr>
-                <td>発行元: </td>
-                <td>
-                  {!this.props.userCert.certificate.group ? (
-                    ""
-                  ) : (
-                    <a
-                      href={
-                        config.host +
-                        "/group/" +
-                        this.props.userCert.certificate.group.groupId
-                      }
-                    >
-                      {this.props.userCert.certificate.group.name}
-                    </a>
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <td>発行元住所: </td>
-                <td>
-                  {!this.props.userCert.certificate.group
-                    ? ""
-                    : this.props.userCert.certificate.group.residence}
-                </td>
-              </tr>
-              <tr>
-                <td>発行元電話番号: </td>
-                <td>
-                  {!this.props.userCert.certificate.group
-                    ? ""
-                    : this.props.userCert.certificate.group.phone}
-                </td>
-              </tr>
-            </table>
+            <div className="certificate-detail">
+              <table>
+                <tr>
+                  <td>発行日: </td>
+                  <td>
+                    {dateToString(
+                      new Date(parseInt(this.props.userCert.timestamp * 1000))
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td>発行先: </td>
+                  <td>{this.props.userCert.to}</td>
+                </tr>
+                <tr>
+                  <td>証明書名: </td>
+                  <td>{this.props.userCert.certificate.title}</td>
+                </tr>
+                <tr>
+                  <td>説明: </td>
+                  <td>{this.props.userCert.certificate.description}</td>
+                </tr>
+                <tr>
+                  <td>発行元: </td>
+                  <td>
+                    {!this.props.userCert.certificate.group ? (
+                      ""
+                    ) : (
+                      <a
+                        href={
+                          config.host +
+                          "/group/" +
+                          this.props.userCert.certificate.group.groupId
+                        }
+                      >
+                        {this.props.userCert.certificate.group.name}
+                      </a>
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td>発行元住所: </td>
+                  <td>
+                    {!this.props.userCert.certificate.group
+                      ? ""
+                      : this.props.userCert.certificate.group.residence}
+                  </td>
+                </tr>
+                <tr>
+                  <td>発行元電話番号: </td>
+                  <td>
+                    {!this.props.userCert.certificate.group
+                      ? ""
+                      : this.props.userCert.certificate.group.phone}
+                  </td>
+                </tr>
+              </table>
+            </div>
             <a
               id="cert-link"
               className="cert-link"
