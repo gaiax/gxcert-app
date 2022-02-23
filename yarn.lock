@@ -6952,7 +6952,7 @@
     "ipfs-http-client" "^49.0.1"
 
 "gxcert-lib@github:gaiax/gxcert-lib":
-  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#fc1ad838ff4c964a48842c2ccb9c58ce616f45a4"
+  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#1cd2890e2c7398f17d6c5a242b524cd59ae4bae5"
   "version" "1.0.0"
   dependencies:
     "axios" "^0.24.0"
