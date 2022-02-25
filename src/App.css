@@ -189,6 +189,7 @@ footer .footer-message, .footer-app {
   color: white;
   border: 1px solid white;
   font-weight: bold;
+  width: 80%;
 }
 .group-members-invite-button, .list-input-remove, .list-input-add {
   width: 60px;
