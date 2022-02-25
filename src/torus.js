@@ -12,13 +12,38 @@ class TorusClient {
       enableLogging: true,
       network: config.network,
       showTorusButton: true,
-      enabledVerifiers: {
-        google: true,
-        facebook: false,
-        reddit: false,
-        twitch: false,
-        discord: false,
-      },
+      loginConfig: {
+        "google": {
+          showOnModal: true, // whether to show or not
+          mainOption: true, // big button
+          showOnDesktop: true, // desktop only
+          showOnMobile: true, // mobile only
+        },
+        "torus-auth0-twitter": {
+          showOnModal: true,
+          mainOption: false,
+          showOnDesktop: true,
+          showOnMobile: true,
+        },
+        "facebook": {
+          showOnModal: false,
+          mainOption: false,
+          showOnDesktop: false,
+          showOnMobile: false,
+        },
+        "discord": {
+          showOnModal: false,
+          mainOption: false,
+          showOnDesktop: false,
+          showOnMobile: false,
+        },
+        "torus-auth0-email-passwordless": {
+          showOnModal: false,
+          mainOption: false,
+          showOnDesktop: false,
+          showOnMobile: false,
+        }
+      }
     });
     /*
     await this.torus.init({
