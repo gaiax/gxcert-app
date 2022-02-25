@@ -12,6 +12,7 @@
     "connected-react-router": "^6.9.1",
     "dom-to-image": "^2.6.0",
     "dotenv-cli": "^4.0.0",
+    "exifremove": "^1.0.1",
     "gh-pages": "^3.2.3",
     "gxcert-cache-manager": "github:gaiax/gxcert-cache-manager",
     "gxcert-lib": "github:gaiax/gxcert-lib",

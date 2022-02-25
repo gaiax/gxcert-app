@@ -6200,6 +6200,11 @@
   "resolved" "https://registry.npmjs.org/exenv/-/exenv-1.2.2.tgz"
   "version" "1.2.2"
 
+"exifremove@^1.0.1":
+  "integrity" "sha512-a4VrNsSgpKBo9dHFsRi098XYm/X8dHP2NPA4N/3WAIxInQ8VHOfic/F8uAMIlWk4QRurTFwClFUb0QkMj4nqHg=="
+  "resolved" "https://registry.npmjs.org/exifremove/-/exifremove-1.0.1.tgz"
+  "version" "1.0.1"
+
 "exit-on-epipe@~1.0.1":
   "integrity" "sha512-h2z5mrROTxce56S+pnvAV890uu7ls7f1kEvVGJbw1OlFH3/mlJ5bkXu0KRyW94v37zzHPiUd55iLn3DA7TjWpw=="
   "resolved" "https://registry.npmjs.org/exit-on-epipe/-/exit-on-epipe-1.0.1.tgz"
@@ -6952,7 +6957,7 @@
     "ipfs-http-client" "^49.0.1"
 
 "gxcert-lib@github:gaiax/gxcert-lib":
-  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#1cd2890e2c7398f17d6c5a242b524cd59ae4bae5"
+  "resolved" "git+ssh://git@github.com/gaiax/gxcert-lib.git#52d4bb20cf9d521c81066842f30738d795d32578"
   "version" "1.0.0"
   dependencies:
     "axios" "^0.24.0"
@@ -6960,6 +6965,7 @@
     "ethereumjs-tx" "^2.1.2"
     "ethereumjs-util" "^7.1.4"
     "ethereumjs-wallet" "^1.0.2"
+    "exifremove" "^1.0.1"
     "firebase" "^8.9.0"
     "ipfs-http-client" "^54.0.2"
     "ipfs-keeper" "github:gaiax/ipfs-keeper"

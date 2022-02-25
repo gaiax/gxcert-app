@@ -675,7 +675,7 @@ const invalidateUserCert = (certId, userCertId) => async (dispatch, getState) =>
   for (let i = 0; i < state.certificatesInIssuer.length; i++) {
     if (parseInt(state.certificatesInIssuer[i].certId) === certId) {
       certIndex = i;
-      continue;
+      break;
     }
   }
   if (certIndex === null || !state.certificatesInIssuer[certIndex].userCerts) {
