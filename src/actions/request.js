@@ -16,6 +16,43 @@ const openModalOfTransactionHash = (message, link) => async (dispatch, getState)
   }, 10 * 1000);
 }
 
+const retryWriting = async (writeFunc, times, dispatch, getState) => {
+  if (times <= 0) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    openModal("書き込みに失敗しました。もう一度お試しください。")(dispatch, getState);
+    return;
+  }
+  let transactionHash;
+  try {
+    transactionHash = await writeFunc();
+  } catch(err) {
+    console.error(err);
+    if (err.message === "insufficient funds") {
+      dispatch({
+        type: "LOADING",
+        payload: false,
+      });
+      openModal(
+        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
+      )(dispatch, getState);
+      return;
+    }
+    await retryWriting(writeFunc, times - 1, dispatch, getState);
+    return;
+  }
+  if (!transactionHash) {
+    await retryWriting(writeFunc, times - 1, dispatch, getState);
+    return;
+  }
+  openModalOfTransactionHash("書き込みを実行しました。反映までに10 - 15分ほどお待ちください", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
+}
+
 
 const write = async (dispatch, getState, signFunc, writeFunc, waitFunc, completeFunc) => {
   dispatch({
@@ -35,31 +72,7 @@ const write = async (dispatch, getState, signFunc, writeFunc, waitFunc, complete
     return;
   }
 
-  let transactionHash;
-  try {
-    transactionHash = await writeFunc();
-  } catch(err) {
-    console.error(err);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    openModal("データの書き込みが失敗しました")(dispatch, getState);
-    return;
-  }
-  if (!transactionHash) {
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    openModal("書き込みに失敗しました。もう一度お試しください。")(dispatch, getState);
-    return;
-  }
-  openModalOfTransactionHash("書き込みを実行しました。反映までに10 - 15分ほどお待ちください", {
-    link: "https://polygonscan.com/tx/" + transactionHash,
-    text: "TransactionHash: " + transactionHash,
-  })(dispatch, getState);
-
+  await retryWriting(writeFunc, 2, dispatch, getState);
   await (() => {
     return new Promise((resolve, reject) => {
       const timer = setInterval(async () => {
