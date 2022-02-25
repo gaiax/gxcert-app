@@ -554,6 +554,10 @@ a:visited {
   color: white;
 }
 
+a:link {
+  color: white;
+}
+
 .header-right-links {
   display:flex;
 }
