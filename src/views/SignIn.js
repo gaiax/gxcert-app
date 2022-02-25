@@ -1,4 +1,4 @@
-import signInImage from "../images/btn_google_signin_dark_normal_web@2x@2x.png";
+import signInImage from "../images/btn_google_signin_dark_normal_web@2x.png";
 
 function SignIn(props) {
   return (
