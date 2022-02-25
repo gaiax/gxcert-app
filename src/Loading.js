@@ -14,7 +14,8 @@ class Loading extends React.Component {
           className="loading-loader"
         />
         <p className="loading-message">
-          ブロックチェーンへの書き込み中です。数分お待ちください。
+          ブロックチェーンへの書き込み中です。<br/>
+          書き込みには数分かかる場合があります。
         </p>
       </div>
     );
