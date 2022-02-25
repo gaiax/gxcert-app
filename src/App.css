@@ -316,6 +316,11 @@ footer .footer-message, .footer-app {
   height: 20px;
   border-bottom: solid 1px #49AAFC;
 }
+
+.certificate-detail tr:last-child td {
+  border-bottom: 0px;  
+}
+
 .certificate-detail td, .group-detail td {
   font-size: 12px;
   color: #49AAFC;
