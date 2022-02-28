@@ -135,7 +135,7 @@ class App extends React.Component {
               <Certificate
                 {...routeProps}
                 alert={that.props.alert}
-                userCert={that.props.state.certificate}
+                userCert={that.props.state.userCert}
                 certificateImage={that.props.state.certificateImage}
                 fetchCertificate={that.props.fetchCertificate}
                 isLoading={that.props.state.isLoadingInShow}

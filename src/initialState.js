@@ -21,7 +21,7 @@ const initialState = {
   groupInIssuer: null,
   groupInSidebar: null,
   groupsInSidebar: [],
-  certificate: {},
+  userCert: {},
   certificateImage: "",
   userCerts: [],
   certificatesInIssuer: [],

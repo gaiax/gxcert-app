@@ -32,7 +32,7 @@ const fetchCertificateInIssue = (certId) => async (dispatch) => {
 
 const fetchCertificate = (userCertId) => async (dispatch, getState) => {
   dispatch({
-    type: "FETCHED_CERTIFICATE",
+    type: "FETCHED_USER_CERTIFICATE",
     payload: null,
   });
   dispatch({
@@ -84,7 +84,7 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
     payload: false,
   });
   dispatch({
-    type: "FETCHED_CERTIFICATE",
+    type: "FETCHED_USER_CERTIFICATE",
     payload: userCert,
   });
   QRCode.toDataURL(
@@ -92,7 +92,7 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
     (err, url) => {
       userCert.qr = url;
       dispatch({
-        type: "FETCHED_CERTIFICATE",
+        type: "FETCHED_USER_CERTIFICATE",
         payload: userCert,
       });
     }
