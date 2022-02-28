@@ -15,7 +15,7 @@ class Certificates extends React.Component {
           <p className="certificates-title">取得証明書</p>
           <div className="certificates-list">
             {this.props.userCerts !== null && this.props.userCerts.length !== 0
-              ? this.props.userCerts.map((userCert, index) => {
+              && this.props.userCerts.map((userCert, index) => {
                   if (!userCert.certificate) {
                     return <p></p>;
                   }
@@ -42,18 +42,13 @@ class Certificates extends React.Component {
                       </div>
                     </Link>
                   );
-                })
-              : ""}
+                })}
             {this.props.userCerts !== null &&
-            this.props.userCerts.length === 0 ? (
+            this.props.userCerts.length === 0 && (
               <p>証明書がありません</p>
-            ) : (
-              ""
             )}
-            {this.props.userCerts === null ? (
+            {this.props.userCerts === null && (
               <Loader type="Puff" color="#00BFFF" height={100} width={100} />
-            ) : (
-              ""
             )}
           </div>
         </div>

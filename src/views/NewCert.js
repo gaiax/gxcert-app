@@ -27,8 +27,8 @@ class NewCert extends React.Component {
         <div className="new-cert-content">
           <p className="new-cert-title">
             {this.props.groupInSidebar !== null
-              ? this.props.groupInSidebar.name + "の"
-              : ""}
+              && this.props.groupInSidebar.name + "の"
+              }
             証明書の登録
           </p>
           <p className="new-cert-description">

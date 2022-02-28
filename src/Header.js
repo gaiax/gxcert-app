@@ -8,19 +8,15 @@ function Header(props) {
         <Link to="/top" className="logo">
           GxCert
         </Link>
-        {props.isLoggedIn ? (
+        {props.isLoggedIn && (
           <Link to="/" className="header-left-link">
             取得証明書
           </Link>
-        ) : (
-          ""
         )}
-        {props.isLoggedIn ? (
+        {props.isLoggedIn && (
           <Link to="/issue" className="header-left-link">
             証明書発行
           </Link>
-        ) : (
-          ""
         )}
       </div>
       {!props.isLoggedIn ? (

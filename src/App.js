@@ -242,13 +242,11 @@ class App extends React.Component {
           <Route component={NotFound} />
         </Switch>
         <Footer />
-        {this.props.state.isLoading && !this.props.state.modalMessage ? (
+        {this.props.state.isLoading && !this.props.state.modalMessage && (
           <Loading />
-        ) : (
-          ""
         )}
         {this.props.state.modalMessage ||
-        (this.props.state.modalLinkText && this.props.state.modalLink) ? (
+        (this.props.state.modalLinkText && this.props.state.modalLink) && (
           <GxModal
             isOpen={true}
             message={this.props.state.modalMessage}
@@ -256,8 +254,6 @@ class App extends React.Component {
             linkText={this.props.state.modalLinkText}
             closeModal={this.props.closeModal}
           />
-        ) : (
-          ""
         )}
         <div></div>
       </div>
