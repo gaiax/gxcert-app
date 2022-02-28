@@ -225,8 +225,8 @@ const updateProfile = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
-  const name = state.profileNameInEdit !== "" ? state.profileNameInEdit : state.profileInEdit.name;
-  const icon = state.profileImageInEdit !== "" ? state.profileImageInEdit : state.profileInEdit.icon;
+  const name = state.profileInEdit.name;
+  const icon = state.profileInEdit.icon;
 
   const address = gxCert.address();
 

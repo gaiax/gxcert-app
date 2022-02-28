@@ -225,11 +225,8 @@ class App extends React.Component {
             render={(routeProps) => (
               <EditProfile
                 {...routeProps}
-                image={that.props.state.profileImageInEdit}
                 updateProfile={that.props.updateProfile}
                 profile={that.props.state.profileInEdit}
-                profileName={that.props.state.profileNameInEdit}
-                profileImage={that.props.state.profileImageInEdit}
                 onChangeProfileName={that.props.onChangeProfileNameInEdit}
                 onChangeProfileImage={that.props.onChangeProfileImageInEdit}
                 fetchProfile={that.props.fetchProfile}

@@ -2,6 +2,7 @@ import initialState from "./initialState";
 
 export default function Reducer(state = initialState, action) {
   const groupInSidebar = state.groupInSidebar;
+  const profileInEdit = state.profileInEdit;
   switch (action.type) {
     case "ON_CHANGE_TITLE":
       return Object.assign({}, state, {
@@ -70,12 +71,14 @@ export default function Reducer(state = initialState, action) {
         profileImage: action.payload,
       });
     case "ON_CHANGE_PROFILE_NAME_IN_EDIT":
+      profileInEdit.name = action.payload;
       return Object.assign({}, state, {
-        profileNameInEdit: action.payload,
+        profileInEdit,
       });
     case "ON_CHANGE_PROFILE_IMAGE_IN_EDIT":
+      profileInEdit.icon = action.payload;
       return Object.assign({}, state, {
-        profileImageInEdit: action.payload,
+        profileInEdit,
       });
     case "ON_CHANGE_TO_IN_ISSUE":
       return Object.assign({}, state, {
@@ -128,8 +131,6 @@ export default function Reducer(state = initialState, action) {
     case "FETCHED_PROFILE_IN_EDIT":
       return Object.assign({}, state, {
         profileInEdit: action.payload,
-        profileNameInEdit: action.payload.name,
-        profileImageInEdit: action.payload.icon,
       });
     case "FETCHED_PROFILE_IN_SHOW":
       return Object.assign({}, state, {
