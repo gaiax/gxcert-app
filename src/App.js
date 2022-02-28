@@ -45,7 +45,7 @@ class App extends React.Component {
               return (
                 <Certificates
                   {...routeProps}
-                  userCerts={that.props.state.certificates}
+                  userCerts={that.props.state.userCerts}
                   fetchCertificates={that.props.fetchCertificates}
                 />
               );

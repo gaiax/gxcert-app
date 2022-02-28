@@ -23,7 +23,7 @@ const initialState = {
   groupsInSidebar: [],
   certificate: {},
   certificateImage: "",
-  certificates: [],
+  userCerts: [],
   certificatesInIssuer: [],
   certificateInIssue: null,
   group: null,

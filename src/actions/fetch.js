@@ -102,7 +102,7 @@ const fetchCertificate = (userCertId) => async (dispatch, getState) => {
 const fetchCertificates = () => async (dispatch, getState) => {
   console.log("fetch");
   dispatch({
-    type: "FETCHED_CERTIFICATES",
+    type: "FETCHED_USER_CERTIFICATES",
     payload: null,
   });
   let gxCert;
@@ -111,7 +111,7 @@ const fetchCertificates = () => async (dispatch, getState) => {
   } catch (err) {
     console.error(err);
     dispatch({
-      type: "FETCHED_CERTIFICATES",
+      type: "FETCHED_USER_CERTIFICATES",
       payload: [],
     });
     return;
@@ -145,13 +145,13 @@ const fetchCertificates = () => async (dispatch, getState) => {
   } catch (err) {
     console.error(err);
     dispatch({
-      type: "FETCHED_CERTIFICATES",
+      type: "FETCHED_USER_CERTIFICATES",
       payload: [],
     });
     return;
   }
   dispatch({
-    type: "FETCHED_CERTIFICATES",
+    type: "FETCHED_USER_CERTIFICATES",
     payload: userCerts,
   });
 };

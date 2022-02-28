@@ -100,9 +100,9 @@ export default function Reducer(state = initialState, action) {
       return Object.assign({}, state, {
         certificateInIssue: action.payload,
       });
-    case "FETCHED_CERTIFICATES":
+    case "FETCHED_USER_CERTIFICATES":
       return Object.assign({}, state, {
-        certificates: action.payload,
+        userCerts: action.payload,
       });
     case "FETCHED_CERTIFICATE_IMAGE":
       return Object.assign({}, state, {
