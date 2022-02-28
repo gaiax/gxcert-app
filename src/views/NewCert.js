@@ -6,7 +6,6 @@ import Sidebar from "./Sidebar";
 
 class NewCert extends React.Component {
   componentDidMount() {
-    this.props.fetchGroupsInSidebar();
   }
   render() {
     let imageUrl = placeholder;

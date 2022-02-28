@@ -105,17 +105,21 @@ const fetchCertificates = () => async (dispatch, getState) => {
     type: "FETCHED_CERTIFICATES",
     payload: null,
   });
-  const state = getState().state;
-  const address = state.from;
-  if (address === "" || !address) {
-    history.push("/top");
-    return;
-  }
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
+    dispatch({
+      type: "FETCHED_CERTIFICATES",
+      payload: [],
+    });
+    return;
+  }
+  let address;
+  address = await gxCert.clients[0].address;
+  if (address === "" || !address) {
+    history.push("/top");
     return;
   }
   let userCerts;
@@ -140,6 +144,10 @@ const fetchCertificates = () => async (dispatch, getState) => {
     ]);
   } catch (err) {
     console.error(err);
+    dispatch({
+      type: "FETCHED_CERTIFICATES",
+      payload: [],
+    });
     return;
   }
   dispatch({
@@ -288,6 +296,9 @@ const fetchCertificatesInIssuer = () => async (dispatch, getState) => {
   const state = getState().state;
   let certificates = [];
   const group = state.groupInSidebar;
+  if (!group) {
+    return;
+  }
   const groupId = group.groupId;
   try {
     certificates = await gxCert.getGroupCerts(groupId, dispatch, [

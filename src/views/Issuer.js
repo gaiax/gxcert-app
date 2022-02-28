@@ -7,7 +7,9 @@ import noCertImage from "../images/Video-1@2x.png";
 import { ipfsUrl } from "../util/ipfs";
 
 class Issuer extends React.Component {
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.fetchCertificates();
+  }
   render() {
     return (
       <div className="issuer">
