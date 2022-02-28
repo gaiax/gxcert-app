@@ -108,17 +108,9 @@ export default function Reducer(state = initialState, action) {
       return Object.assign({}, state, {
         certificateImage: action.payload,
       });
-    case "FETCHED_GROUPS":
-      return Object.assign({}, state, {
-        groups: action.payload,
-      });
     case "FETCHED_GROUPS_IN_SIDEBAR":
       return Object.assign({}, state, {
         groupsInSidebar: action.payload,
-      });
-    case "FETCHED_GROUP":
-      return Object.assign({}, state, {
-        group: action.payload,
       });
     case "FETCHED_GROUP_IN_EDIT":
       return Object.assign({}, state, {

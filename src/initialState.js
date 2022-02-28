@@ -26,8 +26,6 @@ const initialState = {
   userCerts: [],
   certificatesInIssuer: [],
   certificateInIssue: null,
-  group: null,
-  groups: [],
   profileInEdit: {},
   profileInShow: null,
   profileName: "",
