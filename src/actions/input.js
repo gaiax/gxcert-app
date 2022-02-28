@@ -3,6 +3,7 @@ import torusClient from "../torus";
 import history from "../history";
 import QRCode from "qrcode";
 import config from "../config";
+import piexif from "piexifjs";
 
 import { fetchCertificatesInIssuer } from "./fetch";
 const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
@@ -52,14 +53,20 @@ const onChangeDescription = (evt) => async (dispatch, getState) => {
 const onChangeImage = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
   const reader = new FileReader();
-  reader.onload = () => {
+  reader.onload = (e) => {
+    let image = e.target.result;
+    if (file.type === "image/jpeg") {
+      console.log(e.target.result);
+      image = piexif.remove(e.target.result);
+    }
+    image = Buffer.from(image.split(",")[1], "base64");
     dispatch({
       type: "ON_CHANGE_IMAGE",
-      payload: reader.result,
+      payload: image,
     });
   };
   try {
-    reader.readAsArrayBuffer(file);
+    reader.readAsDataURL(file);
   } catch(err) {
     console.error(err);
   }
@@ -145,8 +152,14 @@ const onChangeProfileImage = (evt) => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  reader.onload = () => {
-    gxCert.client.uploadImageToIpfs(reader.result).then(cid => {
+  reader.onload = (e) => {
+    let image = e.target.result;
+    if (file.type === "image/jpeg") {
+      console.log(e.target.result);
+      image = piexif.remove(e.target.result);
+    }
+    image = Buffer.from(image.split(",")[1], "base64");
+    gxCert.client.uploadImageToIpfs(image).then(cid => {
       dispatch({
         type: "ON_CHANGE_PROFILE_IMAGE",
         payload: cid,
@@ -154,7 +167,7 @@ const onChangeProfileImage = (evt) => async (dispatch, getState) => {
     });
   };
   try {
-    reader.readAsArrayBuffer(file);
+    reader.readAsDataURL(file);
   } catch(err) {
     console.error(err);
   }
@@ -183,8 +196,14 @@ const onChangeProfileImageInEdit = (evt) => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  reader.onload = () => {
-    gxCert.client.uploadImageToIpfs(reader.result).then(cid => {
+  reader.onload = (e) => {
+    let image = e.target.result;
+    if (file.type === "image/jpeg") {
+      console.log(e.target.result);
+      image = piexif.remove(e.target.result);
+    }
+    image = Buffer.from(image.split(",")[1], "base64");
+    gxCert.client.uploadImageToIpfs(image).then(cid => {
       dispatch({
         type: "ON_CHANGE_PROFILE_IMAGE_IN_EDIT",
         payload: cid,
@@ -194,7 +213,7 @@ const onChangeProfileImageInEdit = (evt) => async (dispatch, getState) => {
     });;
   };
   try {
-    reader.readAsArrayBuffer(file);
+    reader.readAsDataURL(file);
   } catch(err) {
     console.error(err);
   }
