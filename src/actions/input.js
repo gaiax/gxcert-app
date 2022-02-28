@@ -53,6 +53,13 @@ const onChangeDescription = (evt) => async (dispatch, getState) => {
 const onChangeImage = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
   const reader = new FileReader();
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
   reader.onload = (e) => {
     let image = e.target.result;
     if (file.type === "image/jpeg") {
@@ -60,9 +67,11 @@ const onChangeImage = (evt) => async (dispatch, getState) => {
       image = piexif.remove(e.target.result);
     }
     image = Buffer.from(image.split(",")[1], "base64");
-    dispatch({
-      type: "ON_CHANGE_IMAGE",
-      payload: image,
+    gxCert.client.uploadImageToIpfs(image).then(cid => {
+      dispatch({
+        type: "ON_CHANGE_IMAGE",
+        payload: cid,
+      });
     });
   };
   try {

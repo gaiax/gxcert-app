@@ -56,36 +56,13 @@ const sign = () => async (dispatch, getState) => {
     });
     return;
   }
-  let imageCid;
-  try {
-    imageCid = await gxCert.client.uploadImageToIpfs(image);
-  } catch (err) {
-    console.error(err);
-    modal.openModal("画像をIPFSにアップロードできませんでした")(
-      dispatch,
-      getState
-    );
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
+  let imageCid = image;
   const certificate = {
-    context: {},
     title: state.title,
     description: state.description,
     image: imageCid,
     groupId: state.groupInSidebar.groupId,
   };
-  if (!gxCert.client.isCertificate(certificate)) {
-    modal.openModal("Invalid Certificate.")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-    return;
-  }
   let signed = null;
   try {
     signed = await gxCert.client.signCertificate(certificate, {
