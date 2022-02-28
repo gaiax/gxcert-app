@@ -22,10 +22,8 @@ class Issuer extends React.Component {
         <div className="issuer-certificates-wrapper">
           <div className="issuer-certificates">
             <Link to="/new">
-              {this.props.groupInSidebar ? (
+              {this.props.groupInSidebar && (
                 <div className="issuer-certificates-new">証明書登録</div>
-              ) : (
-                ""
               )}
             </Link>
             <br />
@@ -64,7 +62,7 @@ class Issuer extends React.Component {
             )}
           </div>
           {this.props.certificates !== null
-            ? this.props.certificates.map((certificate) => {
+            && this.props.certificates.map((certificate) => {
                 return (
                   <div className="issuer-certificate">
                     <p className="issuer-certificate-title">
@@ -116,8 +114,7 @@ class Issuer extends React.Component {
                     </div>
                   </div>
                 );
-              })
-            : ""}
+              })}
         </div>
       </div>
     );

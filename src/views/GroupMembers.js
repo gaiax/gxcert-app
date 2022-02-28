@@ -54,7 +54,7 @@ class GroupMembers extends React.Component {
                           </p>
                         </div>
                         {this.props.groupInSidebar.members.length > 1 &&
-                        index !== 0 && this.props.address !== member.address ? (
+                        index !== 0 && this.props.address !== member.address && (
                           <div
                             className="group-members-list-cell-disable"
                             onClick={() =>
@@ -66,8 +66,6 @@ class GroupMembers extends React.Component {
                           >
                             削除
                           </div>
-                        ) : (
-                          ""
                         )}
                       </div>
                     );

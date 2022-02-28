@@ -15,7 +15,7 @@ class Sidebar extends React.Component {
         >
           <option hidden>発行元を選択</option>
           {this.props.groupsInSidebar
-            ? this.props.groupsInSidebar.map((group) => {
+            && this.props.groupsInSidebar.map((group) => {
                 if (
                   this.props.groupInSidebar &&
                   group.groupId === this.props.groupInSidebar.groupId
@@ -29,11 +29,10 @@ class Sidebar extends React.Component {
                 return (
                   <option value={group.groupId.toString()}>{group.name}</option>
                 );
-              })
-            : ""}
+              })}
           <option value="new">発行元の登録</option>
         </select>
-        {this.props.groupInSidebar ? (
+        {this.props.groupInSidebar && (
           <ul>
             <li>
               <Link to="/issue">証明書</Link>
@@ -45,8 +44,6 @@ class Sidebar extends React.Component {
               <Link to="/group/edit/">発行元設定</Link>
             </li>
           </ul>
-        ) : (
-          ""
         )}
       </div>
     );
