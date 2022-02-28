@@ -215,7 +215,6 @@ class App extends React.Component {
                 image={that.props.state.profileImage}
                 registerProfile={that.props.registerProfile}
                 onChangeProfileName={that.props.onChangeProfileName}
-                onChangeProfileEmail={that.props.onChangeProfileEmail}
                 onChangeProfileImage={that.props.onChangeProfileImage}
               />
             )}
@@ -230,10 +229,8 @@ class App extends React.Component {
                 updateProfile={that.props.updateProfile}
                 profile={that.props.state.profileInEdit}
                 profileName={that.props.state.profileNameInEdit}
-                profileEmail={that.props.state.profileEmailInEdit}
                 profileImage={that.props.state.profileImageInEdit}
                 onChangeProfileName={that.props.onChangeProfileNameInEdit}
-                onChangeProfileEmail={that.props.onChangeProfileEmailInEdit}
                 onChangeProfileImage={that.props.onChangeProfileImageInEdit}
                 fetchProfile={that.props.fetchProfile}
               />

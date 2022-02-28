@@ -135,12 +135,6 @@ const onChangeProfileName = (evt) => async (dispatch, getState) => {
   });
 };
 
-const onChangeProfileEmail = (evt) => async (dispatch, getState) => {
-  dispatch({
-    type: "ON_CHANGE_PROFILE_EMAIL",
-    payload: evt.target.value,
-  });
-};
 
 const onChangeProfileImage = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
@@ -179,12 +173,6 @@ const onChangeProfileNameInEdit = (evt) => async (dispatch, getState) => {
   });
 };
 
-const onChangeProfileEmailInEdit = (evt) => async (dispatch, getState) => {
-  dispatch({
-    type: "ON_CHANGE_PROFILE_EMAIL_IN_EDIT",
-    payload: evt.target.value,
-  });
-};
 
 const onChangeProfileImageInEdit = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
@@ -246,10 +234,8 @@ export {
   onChangeGroupAddress,
   onChangeGroupPhone,
   onChangeProfileName,
-  onChangeProfileEmail,
   onChangeProfileImage,
   onChangeProfileNameInEdit,
-  onChangeProfileEmailInEdit,
   onChangeProfileImageInEdit,
   onChangeGroupMemberToInvite,
   onChangeToList,

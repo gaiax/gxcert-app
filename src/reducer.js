@@ -65,10 +65,6 @@ export default function Reducer(state = initialState, action) {
       return Object.assign({}, state, {
         profileName: action.payload,
       });
-    case "ON_CHANGE_PROFILE_EMAIL":
-      return Object.assign({}, state, {
-        profileEmail: action.payload,
-      });
     case "ON_CHANGE_PROFILE_IMAGE":
       return Object.assign({}, state, {
         profileImage: action.payload,
@@ -76,10 +72,6 @@ export default function Reducer(state = initialState, action) {
     case "ON_CHANGE_PROFILE_NAME_IN_EDIT":
       return Object.assign({}, state, {
         profileNameInEdit: action.payload,
-      });
-    case "ON_CHANGE_PROFILE_EMAIL_IN_EDIT":
-      return Object.assign({}, state, {
-        profileEmailInEdit: action.payload,
       });
     case "ON_CHANGE_PROFILE_IMAGE_IN_EDIT":
       return Object.assign({}, state, {
