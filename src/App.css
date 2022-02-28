@@ -657,7 +657,7 @@ a:link {
   text-align: center;
   margin-top: 50px;
   word-break: break-all;
-  color: #333;
+  color: #333 !important;
 }
 
 .modal-message:visited {

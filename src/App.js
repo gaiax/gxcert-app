@@ -239,8 +239,7 @@ class App extends React.Component {
         {this.props.state.isLoading && !this.props.state.modalMessage && (
           <Loading />
         )}
-        {this.props.state.modalMessage ||
-        (this.props.state.modalLinkText && this.props.state.modalLink) && (
+        {(this.props.state.modalMessage || (this.props.state.modalLinkText && this.props.state.modalLink)) && (
           <GxModal
             isOpen={true}
             message={this.props.state.modalMessage}
