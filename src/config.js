@@ -42,7 +42,7 @@ if (env.REACT_APP_DOTENV === "development") {
   //TODO: Change here
   config = {
     web3Host: "https://polygon-rpc.com",
-    contractAddress: "0x45b72dCBe80524688C1F80c38F9C5d5717e6d4fD",
+    contractAddress: "0xa882d0f7D3ac1C8e897C30Fa459dd41b36536619",
     gxApi: "https://asia-northeast1-gxcert-test.cloudfunctions.net/gxcertMain",
     host: "https://gaiax.github.io/gxcert-app/#",
     network: {
