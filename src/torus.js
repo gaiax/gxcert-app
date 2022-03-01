@@ -5,11 +5,13 @@ import config from "./config";
 class TorusClient {
   constructor() {
     this.torus = new Torus();
+    this.progress = false;
   }
   async init() {
-    if (this.torus.isInitialized) {
+    if (this.torus.isInitialized || this.progress) {
       return;
     }
+    this.progress = true;
     try {
       await this.torus.init({
         buildEnv: "production",
@@ -51,16 +53,27 @@ class TorusClient {
       });
     } catch(err) {
       if (err.message !== "Already initialized") {
+        this.progress = false;
         throw err;
       }
     }
+    this.progress = false;
   }
   async login() {
-    if (this.torus.isLoggedIn) {
-      return this.web3;
+    if (this.progress) {
+      return;
     }
-    await this.torus.login();
+    this.progress = true;
+    if (!this.torus.isLoggedIn) {
+      try {
+      await this.torus.login();
+      } catch(err) {
+        this.progress = false;
+        throw err;
+      }
+    }
     this.web3 = new Web3(this.torus.provider);
+    this.progress = false;
     return this.web3;
   }
   async getPublicAddressByGoogle(gmail) {
