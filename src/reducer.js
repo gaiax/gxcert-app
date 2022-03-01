@@ -2,6 +2,7 @@ import initialState from "./initialState";
 
 export default function Reducer(state = initialState, action) {
   const groupInSidebar = state.groupInSidebar;
+  const profileInEdit = state.profileInEdit;
   switch (action.type) {
     case "ON_CHANGE_TITLE":
       return Object.assign({}, state, {
@@ -65,25 +66,19 @@ export default function Reducer(state = initialState, action) {
       return Object.assign({}, state, {
         profileName: action.payload,
       });
-    case "ON_CHANGE_PROFILE_EMAIL":
-      return Object.assign({}, state, {
-        profileEmail: action.payload,
-      });
     case "ON_CHANGE_PROFILE_IMAGE":
       return Object.assign({}, state, {
         profileImage: action.payload,
       });
     case "ON_CHANGE_PROFILE_NAME_IN_EDIT":
+      profileInEdit.name = action.payload;
       return Object.assign({}, state, {
-        profileNameInEdit: action.payload,
-      });
-    case "ON_CHANGE_PROFILE_EMAIL_IN_EDIT":
-      return Object.assign({}, state, {
-        profileEmailInEdit: action.payload,
+        profileInEdit,
       });
     case "ON_CHANGE_PROFILE_IMAGE_IN_EDIT":
+      profileInEdit.icon = action.payload;
       return Object.assign({}, state, {
-        profileImageInEdit: action.payload,
+        profileInEdit,
       });
     case "ON_CHANGE_TO_IN_ISSUE":
       return Object.assign({}, state, {
@@ -93,9 +88,9 @@ export default function Reducer(state = initialState, action) {
       return Object.assign({}, state, {
         from: action.payload,
       });
-    case "FETCHED_CERTIFICATE":
+    case "FETCHED_USER_CERTIFICATE":
       return Object.assign({}, state, {
-        certificate: action.payload,
+        userCert: action.payload,
       });
     case "LOADING_IN_SHOW":
       return Object.assign({}, state, {
@@ -105,25 +100,17 @@ export default function Reducer(state = initialState, action) {
       return Object.assign({}, state, {
         certificateInIssue: action.payload,
       });
-    case "FETCHED_CERTIFICATES":
+    case "FETCHED_USER_CERTIFICATES":
       return Object.assign({}, state, {
-        certificates: action.payload,
+        userCerts: action.payload,
       });
     case "FETCHED_CERTIFICATE_IMAGE":
       return Object.assign({}, state, {
         certificateImage: action.payload,
       });
-    case "FETCHED_GROUPS":
-      return Object.assign({}, state, {
-        groups: action.payload,
-      });
     case "FETCHED_GROUPS_IN_SIDEBAR":
       return Object.assign({}, state, {
         groupsInSidebar: action.payload,
-      });
-    case "FETCHED_GROUP":
-      return Object.assign({}, state, {
-        group: action.payload,
       });
     case "FETCHED_GROUP_IN_EDIT":
       return Object.assign({}, state, {
@@ -136,8 +123,6 @@ export default function Reducer(state = initialState, action) {
     case "FETCHED_PROFILE_IN_EDIT":
       return Object.assign({}, state, {
         profileInEdit: action.payload,
-        profileNameInEdit: action.payload.name,
-        profileImageInEdit: action.payload.icon,
       });
     case "FETCHED_PROFILE_IN_SHOW":
       return Object.assign({}, state, {

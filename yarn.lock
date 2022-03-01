@@ -2220,10 +2220,10 @@
     "keccak" "^3.0.2"
     "randombytes" "^2.1.0"
 
-"@toruslabs/torus-embed@^1.12.1":
-  "integrity" "sha512-+HCoDFXP2XPl4Qf82LwjNvu2lQEQd5OiRs8KupDIlTFv2qh8i+42erP4A+VuLDrJGEYmdSwc2ERulzA5FOYsmQ=="
-  "resolved" "https://registry.npmjs.org/@toruslabs/torus-embed/-/torus-embed-1.20.2.tgz"
-  "version" "1.20.2"
+"@toruslabs/torus-embed@^1.20.4":
+  "integrity" "sha512-s5mxLA2ZIY4YeadS4EQReXK1oKnJgVmdaZjJAprnDzSAIOLJnd5GRdbHgq5wNH1pBk+T5hrppv6fWBR1pXNlXw=="
+  "resolved" "https://registry.npmjs.org/@toruslabs/torus-embed/-/torus-embed-1.20.4.tgz"
+  "version" "1.20.4"
   dependencies:
     "@metamask/obs-store" "^7.0.0"
     "@toruslabs/fetch-node-details" "^4.0.2"

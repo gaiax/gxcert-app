@@ -1,5 +1,4 @@
 import { getGxCert } from "../gxcert-client";
-import torusClient from "../torus";
 import history from "../history";
 import QRCode from "qrcode";
 import config from "../config";
@@ -53,6 +52,13 @@ const onChangeDescription = (evt) => async (dispatch, getState) => {
 const onChangeImage = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
   const reader = new FileReader();
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch(err) {
+    console.error(err);
+    return;
+  }
   reader.onload = (e) => {
     let image = e.target.result;
     if (file.type === "image/jpeg") {
@@ -60,9 +66,11 @@ const onChangeImage = (evt) => async (dispatch, getState) => {
       image = piexif.remove(e.target.result);
     }
     image = Buffer.from(image.split(",")[1], "base64");
-    dispatch({
-      type: "ON_CHANGE_IMAGE",
-      payload: image,
+    gxCert.client.uploadImageToIpfs(image).then(cid => {
+      dispatch({
+        type: "ON_CHANGE_IMAGE",
+        payload: cid,
+      });
     });
   };
   try {
@@ -135,12 +143,6 @@ const onChangeProfileName = (evt) => async (dispatch, getState) => {
   });
 };
 
-const onChangeProfileEmail = (evt) => async (dispatch, getState) => {
-  dispatch({
-    type: "ON_CHANGE_PROFILE_EMAIL",
-    payload: evt.target.value,
-  });
-};
 
 const onChangeProfileImage = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
@@ -179,12 +181,6 @@ const onChangeProfileNameInEdit = (evt) => async (dispatch, getState) => {
   });
 };
 
-const onChangeProfileEmailInEdit = (evt) => async (dispatch, getState) => {
-  dispatch({
-    type: "ON_CHANGE_PROFILE_EMAIL_IN_EDIT",
-    payload: evt.target.value,
-  });
-};
 
 const onChangeProfileImageInEdit = (evt) => async (dispatch, getState) => {
   const file = evt.target.files[0];
@@ -246,10 +242,8 @@ export {
   onChangeGroupAddress,
   onChangeGroupPhone,
   onChangeProfileName,
-  onChangeProfileEmail,
   onChangeProfileImage,
   onChangeProfileNameInEdit,
-  onChangeProfileEmailInEdit,
   onChangeProfileImageInEdit,
   onChangeGroupMemberToInvite,
   onChangeToList,

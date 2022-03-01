@@ -55,17 +55,11 @@ function mapDispatchToProps(dispatch, props) {
     onChangeProfileName: (evt) => {
       dispatch(actions.onChangeProfileName(evt));
     },
-    onChangeProfileEmail: (evt) => {
-      dispatch(actions.onChangeProfileEmail(evt));
-    },
     onChangeProfileImage: (evt) => {
       dispatch(actions.onChangeProfileImage(evt));
     },
     onChangeProfileNameInEdit: (evt) => {
       dispatch(actions.onChangeProfileNameInEdit(evt));
-    },
-    onChangeProfileEmailInEdit: (evt) => {
-      dispatch(actions.onChangeProfileEmailInEdit(evt));
     },
     onChangeProfileImageInEdit: (evt) => {
       dispatch(actions.onChangeProfileImageInEdit(evt));

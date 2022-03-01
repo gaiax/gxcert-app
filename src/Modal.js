@@ -37,7 +37,7 @@ class GxModal extends React.Component {
         {this.props.message && (
           <p className="modal-message">{this.props.message}</p>
         )}
-        {this.props.link && this.props.linkText && (
+        {(this.props.link && this.props.linkText) && (
           <a target="_blank" className="modal-message" href={this.props.link}>
             {this.props.linkText}
           </a>

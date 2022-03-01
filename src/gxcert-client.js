@@ -22,7 +22,7 @@ async function getGxCert(login) {
       web3 = await torusClient.login();
     } catch (err) {
       console.error(err);
-      throw new Error("Please log in using torus.");
+      throw new Error("Please login with torus.");
     }
     console.log(web3);
     if (web3) {

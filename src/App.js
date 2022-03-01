@@ -45,7 +45,7 @@ class App extends React.Component {
               return (
                 <Certificates
                   {...routeProps}
-                  userCerts={that.props.state.certificates}
+                  userCerts={that.props.state.userCerts}
                   fetchCertificates={that.props.fetchCertificates}
                 />
               );
@@ -135,7 +135,7 @@ class App extends React.Component {
               <Certificate
                 {...routeProps}
                 alert={that.props.alert}
-                userCert={that.props.state.certificate}
+                userCert={that.props.state.userCert}
                 certificateImage={that.props.state.certificateImage}
                 fetchCertificate={that.props.fetchCertificate}
                 isLoading={that.props.state.isLoadingInShow}
@@ -215,7 +215,6 @@ class App extends React.Component {
                 image={that.props.state.profileImage}
                 registerProfile={that.props.registerProfile}
                 onChangeProfileName={that.props.onChangeProfileName}
-                onChangeProfileEmail={that.props.onChangeProfileEmail}
                 onChangeProfileImage={that.props.onChangeProfileImage}
               />
             )}
@@ -226,14 +225,9 @@ class App extends React.Component {
             render={(routeProps) => (
               <EditProfile
                 {...routeProps}
-                image={that.props.state.profileImageInEdit}
                 updateProfile={that.props.updateProfile}
                 profile={that.props.state.profileInEdit}
-                profileName={that.props.state.profileNameInEdit}
-                profileEmail={that.props.state.profileEmailInEdit}
-                profileImage={that.props.state.profileImageInEdit}
                 onChangeProfileName={that.props.onChangeProfileNameInEdit}
-                onChangeProfileEmail={that.props.onChangeProfileEmailInEdit}
                 onChangeProfileImage={that.props.onChangeProfileImageInEdit}
                 fetchProfile={that.props.fetchProfile}
               />
@@ -245,8 +239,7 @@ class App extends React.Component {
         {this.props.state.isLoading && !this.props.state.modalMessage && (
           <Loading />
         )}
-        {this.props.state.modalMessage ||
-        (this.props.state.modalLinkText && this.props.state.modalLink) && (
+        {(this.props.state.modalMessage || (this.props.state.modalLinkText && this.props.state.modalLink)) && (
           <GxModal
             isOpen={true}
             message={this.props.state.modalMessage}

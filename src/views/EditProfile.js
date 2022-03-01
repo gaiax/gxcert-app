@@ -7,13 +7,8 @@ class EditProfile extends React.Component {
     this.props.fetchProfile();
   }
   render() {
-    let image = null;
+    let image = this.props.profile.icon;
     let initialImageUrl = placeholder;
-    if (this.props.profileImage != null && this.props.profileImage != "") {
-      image = this.props.profileImage;
-    } else if (this.props.profile !== null) {
-      image = this.props.profile.icon;
-    }
     return (
       <div className="edit-profile">
         <div className="edit-profile-content">
@@ -34,11 +29,8 @@ class EditProfile extends React.Component {
               type="text"
               className="edit-profile-form-name"
               onChange={this.props.onChangeProfileName}
-              defaultValue={
-                this.props.profile !== null ? this.props.profile.name : ""
-              }
               value={
-                this.props.profileName
+                this.props.profile.name ? this.props.profile.name : ""
               }
             />
             <div className="register-button" onClick={this.props.updateProfile}>

@@ -3,19 +3,12 @@ import { createImageUrlFromUint8Array } from "../util/ipfs";
 import { Link } from "react-router-dom";
 import placeholder from "../images/Video-1@2x.png";
 import Sidebar from "./Sidebar";
+import { ipfsUrl } from "../util/ipfs";
 
 class NewCert extends React.Component {
   componentDidMount() {
   }
   render() {
-    let imageUrl = placeholder;
-    if (this.props.image) {
-      try {
-        imageUrl = createImageUrlFromUint8Array(this.props.image);
-      } catch (err) {
-        console.error(err);
-      }
-    }
     return (
       <div className="new-cert">
         <Sidebar
@@ -47,7 +40,7 @@ class NewCert extends React.Component {
               onChange={this.props.onChangeDescription}
             ></textarea>
             <p className="new-cert-form-title">証明書画像</p>
-            <img src={imageUrl} className="new-cert-form-image" />
+            <img src={this.props.image ? ipfsUrl(this.props.image) : placeholder} className="new-cert-form-image" />
             <div className="new-cert-form-image-file-div">
               <label className="new-cert-form-image-file-label">
                 <input

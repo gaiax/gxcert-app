@@ -1,5 +1,4 @@
 import { getGxCert } from "../gxcert-client";
-import torusClient from "../torus";
 import history from "../history";
 import QRCode from "qrcode";
 import config from "../config";
