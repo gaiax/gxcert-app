@@ -113,7 +113,7 @@ const sign = () => async (dispatch, getState) => {
     });
   } catch (err) {
     console.error(err);
-    openModal("証明書データに署名できませんでした")(dispatch, getState);
+    openModal("署名が必要です")(dispatch, getState);
     dispatch({
       type: "LOADING",
       payload: false,

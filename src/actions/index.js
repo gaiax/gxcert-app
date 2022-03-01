@@ -43,11 +43,6 @@ const addTo = () => async (dispatch, getState) => {
         type: "profile",
         refresh: true,
       },
-      {
-        type: "profileImage",
-        refresh: false,
-        wait: true,
-      },
     ]);
   } catch (err) {
     console.error(err);
