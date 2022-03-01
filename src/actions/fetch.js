@@ -198,7 +198,7 @@ const fetchGroupInShow = (groupId) => async (dispatch, getState) => {
   });
   let gxCert;
   try {
-    gxCert = await getGxCert();
+    gxCert = await getGxCert(false);
   } catch (err) {
     console.error(err);
     return;
