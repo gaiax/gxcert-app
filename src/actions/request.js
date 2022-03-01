@@ -53,6 +53,138 @@ const retryWriting = async (writeFunc, times, dispatch, getState) => {
   })(dispatch, getState);
 }
 
+const sign = () => async (dispatch, getState) => {
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
+  let gxCert;
+  try {
+    gxCert = await getGxCert();
+  } catch (err) {
+    console.error(err);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
+  }
+  if (
+    !window.confirm(
+      "グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。"
+    )
+  ) {
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
+  }
+  const state = getState().state;
+  const certificates = state.certificatesInIssuer;
+  if (state.groupInSidebar === null) {
+    openModal("Please set group on sidebar.")(dispatch, getState);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
+  }
+  const image = state.image;
+  if (!image) {
+    openModal("Image not set.")(dispatch, getState);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
+  }
+  let imageCid = image;
+  const certificate = {
+    title: state.title,
+    description: state.description,
+    image: imageCid,
+    groupId: state.groupInSidebar.groupId,
+  };
+  let signed = null;
+  try {
+    signed = await gxCert.client.signCertificate(certificate, {
+      address: gxCert.address(),
+    });
+  } catch (err) {
+    console.error(err);
+    openModal("証明書データに署名できませんでした")(dispatch, getState);
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
+  }
+  let transactionHash;
+  try {
+    transactionHash = await gxCert.client.createCert(signed);
+  } catch (err) {
+    console.error(err);
+    if (err.message === "insufficient funds") {
+      openModal(
+        "書き込み用のMATICが足りません。寄付をすれば書き込みができます。"
+      )(dispatch, getState);
+    } else {
+      openModal("証明書を書き込むことができませんでした")(
+        dispatch,
+        getState
+      );
+    }
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
+    return;
+  }
+  openModal("書き込みを実行しました", {
+    link: "https://polygonscan.com/tx/" + transactionHash,
+    text: "TransactionHash: " + transactionHash,
+  })(dispatch, getState);
+  let prevLength = certificates.length;
+  await (() => {
+    return new Promise((resolve, reject) => {
+      const timer = setInterval(async () => {
+        let certificates;
+        try {
+          certificates = await gxCert.getGroupCerts(
+            certificate.groupId,
+            dispatch,
+            [
+              {
+                type: "certificate",
+                refresh: true,
+              },
+              {
+                type: "certificateImage",
+                refresh: false,
+                wait: false,
+              },
+            ]
+          );
+        } catch (err) {
+          console.error(err);
+          return;
+        }
+        if (prevLength < certificates.length) {
+          clearInterval(timer);
+          resolve();
+        }
+      }, 21000);
+    });
+  })();
+  await fetchCertificatesInIssuer()(dispatch, getState);
+  dispatch({
+    type: "LOADING",
+    payload: false,
+  });
+
+  history.push("/issue");
+};
 
 const write = async (dispatch, getState, signFunc, writeFunc, waitFunc, completeFunc) => {
   dispatch({
@@ -727,4 +859,5 @@ export {
   updateProfile,
   disableGroupMember,
   invalidateUserCert,
+  sign,
 };
