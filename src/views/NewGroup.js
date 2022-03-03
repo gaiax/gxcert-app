@@ -1,4 +1,5 @@
 import React from "react";
+import validation from "../validation";
 
 class NewGroup extends React.Component {
   render() {
@@ -15,33 +16,36 @@ class NewGroup extends React.Component {
               type="text"
               className="new-group-form-name"
               onChange={this.props.onChangeGroupName}
+              value={this.props.groupName}
             />
             { this.props.groupNameValidation.status === "valid" ? (
-              <p className="validation">{ this.props.groupNameValidation.message }</p>
+              <p className="validation">{ this.props.groupName.length + " / " + validation.groupName }</p>
             ) : (
-              <p className="validation-error">{ this.props.groupNameValidation.message }</p>
+              <p className="validation-error">{ this.props.groupName.length + " / " + validation.groupName }</p>
             )}
             <p className="new-group-form-title">発行元住所</p>
             <input
               type="text"
               className="new-group-form-address"
               onChange={this.props.onChangeGroupAddress}
+              value={this.props.groupAddress}
             />
             { this.props.groupAddressValidation.status === "valid" ? (
-              <p className="validation">{ this.props.groupAddressValidation.message }</p>
+              <p className="validation">{ this.props.groupAddress.length + " / " + validation.groupAddress }</p>
             ) : (
-              <p className="validation-error">{ this.props.groupAddressValidation.message }</p>
+              <p className="validation-error">{ this.props.groupAddress.length + " / " + validation.groupAddress }</p>
             )}
             <p className="new-group-form-title">発行元電話番号</p>
             <input
               type="text"
               className="new-group-form-phone"
               onChange={this.props.onChangeGroupPhone}
+              value={this.props.groupPhone}
             />
             { this.props.groupPhoneValidation.status === "valid" ? (
-              <p className="validation">{ this.props.groupPhoneValidation.message }</p>
+              <p className="validation">{ this.props.groupPhone.length + " / " + validation.groupPhone }</p>
             ) : (
-              <p className="validation-error">{ this.props.groupPhoneValidation.message }</p>
+              <p className="validation-error">{ this.props.groupPhone.length + " / " + validation.groupPhone }</p>
             )}
 
             <div className="register-button" onClick={this.props.registerGroup}>

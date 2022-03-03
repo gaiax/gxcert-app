@@ -157,6 +157,9 @@ class App extends React.Component {
                 onChangeGroupName={that.props.onChangeGroupName}
                 onChangeGroupAddress={that.props.onChangeGroupAddress}
                 onChangeGroupPhone={that.props.onChangeGroupPhone}
+                groupName={that.props.state.groupName}
+                groupAddress={that.props.state.groupAddress}
+                groupPhone={that.props.state.groupPhone}
                 groupNameValidation={that.props.state.groupNameValidation}
                 groupAddressValidation={that.props.state.groupAddressValidation}
                 groupPhoneValidation={that.props.state.groupPhoneValidation}
