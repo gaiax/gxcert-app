@@ -37,7 +37,11 @@ export default function Reducer(state = initialState, action) {
         groupId: action.payload,
       });
     case "ON_CHANGE_GROUP_NAME":
-      if (action.payload.length > validation.groupName) {
+      if (
+        action.payload.length > validation.groupName
+        ||
+        action.payload.length === 0
+      ) {
         status = "invalid";
       }
       return Object.assign({}, state, {
@@ -48,7 +52,11 @@ export default function Reducer(state = initialState, action) {
         }
       });
     case "ON_CHANGE_GROUP_ADDRESS":
-      if (action.payload.length > validation.groupAddress) {
+      if (
+        action.payload.length > validation.groupAddress
+        ||
+        action.payload.length === 0
+      ) {
         status = "invalid";
       }
       return Object.assign({}, state, {
@@ -66,7 +74,11 @@ export default function Reducer(state = initialState, action) {
         groupPhoneInEdit: action.payload.phone,
       });
     case "ON_CHANGE_GROUP_PHONE":
-      if (action.payload.length > validation.groupPhone) {
+      if (
+        action.payload.length > validation.groupPhone
+        ||
+        action.payload.length === 0
+      ) {
         status = "invalid";
       }
       return Object.assign({}, state, {

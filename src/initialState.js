@@ -19,18 +19,18 @@ const initialState = {
   groupInEdit: null,
   groupName: "",
   groupNameValidation: {
-    status: "valid",
+    status: "invalid",
     message: "0 / 50",
   },
   groupMemberToInvite: "",
   groupAddress: "",
   groupAddressValidation: {
-    status: "valid",
+    status: "invalid",
     message: "0 / 100",
   },
   groupPhone: "",
   groupPhoneValidation: {
-    status: "valid",
+    status: "invalid",
     message: "0 / 11",
   },
   groupIdInEdit: "",
