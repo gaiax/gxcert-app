@@ -346,6 +346,18 @@ const registerGroup = () => async (dispatch, getState) => {
         type: "ON_CHANGE_GROUP_IN_SIDEBAR",
         payload: group,
       });
+      dispatch({
+        type: "ON_CHANGE_GROUP_NAME_IN_EDIT",
+        payload: group.name,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_ADDRESS_IN_EDIT",
+        payload: group.residence,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_PHONE_IN_EDIT",
+        payload: group.phone,
+      });
       await fetchGroupsInSidebar()(dispatch, getState);
       dispatch({
         type: "LOADING",
