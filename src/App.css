@@ -184,6 +184,11 @@ footer .footer-message, .footer-app {
   width: 240px;
 }
 
+
+.edit-profile-form-name, .new-profile-form-name {
+  margin-bottom: 50px;
+}
+
 .sidebar-group {
   background-color: #49AAFC;
   color: white;
