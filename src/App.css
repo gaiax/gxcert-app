@@ -426,7 +426,7 @@ footer .footer-message, .footer-app {
   padding: 8px;
 }
 
-.new-group-form-title, .new-profile-form-title, .issue-form-title, .edit-group-form-title, .edit-profile-form-title {
+.new-group-form-title, .new-profile-form-title, .edit-group-form-title, .edit-profile-form-title {
   text-align: left;
   font-weight: bold;
   color: #49AAFC;
@@ -435,6 +435,14 @@ footer .footer-message, .footer-app {
   margin-right: auto;
   margin-bottom: 4px;
   margin-top: 0;
+}
+.issue-form-title {
+  text-align: left;
+  font-weight: bold;
+  color: #49AAFC;
+  width: 324px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .new-group-form, .new-profile-form, .edit-group-form, .edit-profile-form {
   width: 60%;
