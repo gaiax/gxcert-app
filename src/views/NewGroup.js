@@ -11,7 +11,7 @@ class NewGroup extends React.Component {
             証明書の発行には発行元となる団体（企業、教育機関、NPO法人など）の登録が必要です。
           </p>
           <div className="new-group-form">
-            <p className="new-group-form-title">発行元名</p>
+            <p className="new-group-form-title">団体名</p>
             <input
               type="text"
               className="new-group-form-name"
@@ -23,7 +23,7 @@ class NewGroup extends React.Component {
             ) : (
               <p className="validation-error">{ this.props.groupName.length + " / " + validation.groupName }</p>
             )}
-            <p className="new-group-form-title">発行元住所</p>
+            <p className="new-group-form-title">住所</p>
             <input
               type="text"
               className="new-group-form-address"
@@ -35,7 +35,7 @@ class NewGroup extends React.Component {
             ) : (
               <p className="validation-error">{ this.props.groupAddress.length + " / " + validation.groupAddress }</p>
             )}
-            <p className="new-group-form-title">発行元電話番号</p>
+            <p className="new-group-form-title">電話番号</p>
             <input
               type="text"
               className="new-group-form-phone"
