@@ -8,7 +8,7 @@ function Top() {
         <p className="concept-large">
           ブロックチェーン技術による、改ざんされない確かな証明書を簡単に発行、受け取りすることができます。
         </p>
-        <Link to="/signup">
+        <Link to="/signin">
           <div className="sign-up">SIGN UP</div>
         </Link>
       </div>

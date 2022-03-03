@@ -20,7 +20,7 @@ function Header(props) {
         )}
       </div>
       {!props.isLoggedIn ? (
-        <div className="sign-in-button" onClick={() => history.push("/signup")}>
+        <div className="sign-in-button" onClick={() => history.push("/signin")}>
           Sign in
         </div>
       ) : (
