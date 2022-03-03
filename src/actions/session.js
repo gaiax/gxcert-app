@@ -9,7 +9,6 @@ const signIn = () => async (dispatch) => {
     gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
-    openModal("Googleでログインしてください")(dispatch);
     return;
   }
   if (!gxCert.address()) {
