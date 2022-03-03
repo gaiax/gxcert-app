@@ -3,12 +3,12 @@ const initialState = {
   to: "",
   title: "",
   titleValidation: {
-    status: "valid",
+    status: "invalid",
     message: "0 / 50"
   },
   description: "",
   descriptionValidation: {
-    status: "valid",
+    status: "invalid",
     message: "0 / 200"
   },
   image: null,

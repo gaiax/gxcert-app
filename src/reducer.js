@@ -7,7 +7,11 @@ export default function Reducer(state = initialState, action) {
   let status = "valid";
   switch (action.type) {
     case "ON_CHANGE_TITLE":
-      if (action.payload.length > validation.certificateTitle) {
+      if (
+        action.payload.length > validation.certificateTitle
+        ||
+        action.payload.length === 0
+      ) {
         status = "invalid";
       }
       return Object.assign({}, state, {
@@ -18,7 +22,11 @@ export default function Reducer(state = initialState, action) {
         }
       });
     case "ON_CHANGE_DESCRIPTION":
-      if (action.payload.length > validation.certificateDescription) {
+      if (
+        action.payload.length > validation.certificateDescription
+        ||
+        action.payload.length === 0
+      ) {
         status = "invalid";
       }
       return Object.assign({}, state, {
