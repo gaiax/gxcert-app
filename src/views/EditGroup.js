@@ -23,7 +23,7 @@ class EditGroup extends React.Component {
               証明書の発行には発行元となる団体（企業、教育機関、NPO法人など）の登録が必要です。
             </p>
             <div className="edit-group-form">
-              <p className="edit-group-form-title">Name</p>
+              <p className="edit-group-form-title">団体名</p>
               <input
                 type="text"
                 className="edit-group-form-name"
@@ -35,7 +35,7 @@ class EditGroup extends React.Component {
               ) : (
                 <p className="validation-error">{ this.props.groupInSidebar.name.length + " / " + validation.groupName }</p>
               )}
-              <p className="edit-group-form-title">Address</p>
+              <p className="edit-group-form-title">住所</p>
               <input
                 type="text"
                 className="edit-group-form-address"
@@ -47,7 +47,7 @@ class EditGroup extends React.Component {
               ) : (
                 <p className="validation-error">{ this.props.groupInSidebar.residence.length + " / " + validation.groupAddress }</p>
               )}
-              <p className="edit-group-form-title">Phone</p>
+              <p className="edit-group-form-title">電話番号</p>
               <input
                 type="text"
                 className="edit-group-form-phone"
