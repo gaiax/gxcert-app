@@ -56,6 +56,7 @@ class NewCert extends React.Component {
                 <input
                   type="file"
                   className="new-cert-form-image-file"
+                  accept="image/*"
                   onChange={this.props.onChangeImage}
                 />
                 画像選択

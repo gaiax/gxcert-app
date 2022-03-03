@@ -20,6 +20,7 @@ class NewProfile extends React.Component {
               <input
                 id="new-profile-form-image-file"
                 type="file"
+                accept="image/*"
                 onChange={this.props.onChangeProfileImage}
               />
             </div>

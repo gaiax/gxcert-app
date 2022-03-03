@@ -21,6 +21,7 @@ class EditProfile extends React.Component {
               <input
                 id="edit-profile-form-image-file"
                 type="file"
+                accept="image/*"
                 onChange={this.props.onChangeProfileImage}
               />
             </div>
