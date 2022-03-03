@@ -1,5 +1,5 @@
 import React from "react";
-import placeholder from "../images/User-1@2x.png";
+import placeholder from "../images/person.svg";
 import { ipfsUrl } from "../util/ipfs";
 
 class EditProfile extends React.Component {

@@ -1,9 +1,10 @@
-import React from "react";
+import React from "react"; 
+import placeholder from "../images/person.svg";
 import { createImageUrlFromUint8Array, ipfsUrl } from "../util/ipfs";
 
 class NewProfile extends React.Component {
   render() {
-    let image = "";
+    let image = placeholder;
     if (this.props.image) {
       image = ipfsUrl(this.props.image);
     }
