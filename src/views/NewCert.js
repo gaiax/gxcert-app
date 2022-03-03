@@ -33,6 +33,7 @@ class NewCert extends React.Component {
               type="text"
               className="new-cert-form-name"
               onChange={this.props.onChangeTitle}
+              value={this.props.title}
             />
             { this.props.titleValidation.status === "valid" ? (
               <p className="validation">{ this.props.titleValidation.message }</p>
@@ -43,6 +44,7 @@ class NewCert extends React.Component {
             <textarea
               className="new-cert-form-description"
               onChange={this.props.onChangeDescription}
+              value={this.props.description}
             ></textarea>
             { this.props.descriptionValidation.status === "valid" ? (
               <p className="validation">{ this.props.descriptionValidation.message }</p>

@@ -88,6 +88,8 @@ class App extends React.Component {
                 onChangeGroup={that.props.onChangeGroup}
                 sign={that.props.sign}
                 from={that.props.state.from}
+                title={that.props.state.title}
+                description={that.props.state.description}
                 image={that.props.state.image}
                 groups={that.props.state.groups}
               />
