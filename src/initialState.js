@@ -37,17 +37,17 @@ const initialState = {
   groupInShow: null,
   groupNameInEdit: "",
   groupNameValidationInEdit: {
-    status: "valid",
+    status: "invalid",
     message: "0 / 50",
   },
   groupAddressInEdit: "",
   groupAddressValidationInEdit: {
-    status: "valid",
+    status: "invalid",
     message: "0 / 100",
   },
   groupPhoneInEdit: "",
   groupPhoneValidationInEdit: {
-    status: "valid",
+    status: "invalid",
     message: "0 / 11",
   },
   groupInIssuer: null,

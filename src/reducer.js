@@ -105,7 +105,11 @@ export default function Reducer(state = initialState, action) {
         groupIdInEdit: action.payload,
       });
     case "ON_CHANGE_GROUP_NAME_IN_EDIT":
-      if (action.payload.length > validation.groupName) {
+      if (
+        action.payload.length > validation.groupName
+        ||
+        action.payload.length === 0
+      ) {
         status = "invalid";
       }
       groupInSidebar.name = action.payload;
@@ -118,7 +122,11 @@ export default function Reducer(state = initialState, action) {
         }
       });
     case "ON_CHANGE_GROUP_ADDRESS_IN_EDIT":
-      if (action.payload.length > validation.groupAddress) {
+      if (
+        action.payload.length > validation.groupAddress
+        ||
+        action.payload.length === 0
+      ) {
         status = "invalid";
       }
       groupInSidebar.residence = action.payload;
@@ -130,7 +138,11 @@ export default function Reducer(state = initialState, action) {
         }
       });
     case "ON_CHANGE_GROUP_PHONE_IN_EDIT":
-      if (action.payload.length > validation.groupPhone) {
+      if (
+        action.payload.length > validation.groupPhone
+        ||
+        action.payload.length === 0
+      ) {
         status = "invalid";
       }
       groupInSidebar.phone = action.payload;
