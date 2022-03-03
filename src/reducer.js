@@ -36,12 +36,26 @@ export default function Reducer(state = initialState, action) {
         groupId: action.payload,
       });
     case "ON_CHANGE_GROUP_NAME":
+      if (action.payload.length > 50) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         groupName: action.payload,
+        groupNameValidation: {
+          status,
+          message: action.payload.length + " / 50",
+        }
       });
     case "ON_CHANGE_GROUP_ADDRESS":
+      if (action.payload.length > 100) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         groupAddress: action.payload,
+        groupAddressValidation: {
+          status,
+          message: action.payload.length + " / 100",
+        }
       });
     case "ON_CHANGE_GROUP_IN_SIDEBAR":
       return Object.assign({}, state, {
@@ -51,8 +65,15 @@ export default function Reducer(state = initialState, action) {
         groupPhoneInEdit: action.payload.phone,
       });
     case "ON_CHANGE_GROUP_PHONE":
+      if (action.payload.length > 11) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         groupPhone: action.payload,
+        groupPhoneValidation: {
+          status,
+          message: action.payload.length + " / 11",
+        }
       });
     case "ON_CHANGE_GROUP_MEMBER_TO_INVITE":
       return Object.assign({}, state, {
