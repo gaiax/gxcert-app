@@ -1,6 +1,7 @@
 import React from "react";
 import Loader from "react-loader-spinner";
 import Sidebar from "./Sidebar";
+import validation from "../validation";
 
 class EditGroup extends React.Component {
   componentDidMount() {}
@@ -29,6 +30,11 @@ class EditGroup extends React.Component {
                 onChange={this.props.onChangeGroupName}
                 value={this.props.groupInSidebar.name}
               />
+              { this.props.groupNameValidation.status === "valid" ? (
+                <p className="validation">{ this.props.groupInSidebar.name.length + " / " + validation.groupName }</p>
+              ) : (
+                <p className="validation-error">{ this.props.groupInSidebar.name.length + " / " + validation.groupName }</p>
+              )}
               <p className="edit-group-form-title">Address</p>
               <input
                 type="text"
@@ -36,6 +42,11 @@ class EditGroup extends React.Component {
                 onChange={this.props.onChangeGroupAddress}
                 value={this.props.groupInSidebar.residence}
               />
+              { this.props.groupAddressValidation.status === "valid" ? (
+                <p className="validation">{ this.props.groupInSidebar.residence.length + " / " + validation.groupAddress }</p>
+              ) : (
+                <p className="validation-error">{ this.props.groupInSidebar.residence.length + " / " + validation.groupAddress }</p>
+              )}
               <p className="edit-group-form-title">Phone</p>
               <input
                 type="text"
@@ -43,7 +54,11 @@ class EditGroup extends React.Component {
                 onChange={this.props.onChangeGroupPhone}
                 value={this.props.groupInSidebar.phone}
               />
-
+              { this.props.groupPhoneValidation.status === "valid" ? (
+                <p className="validation">{ this.props.groupInSidebar.phone.length + " / " + validation.groupPhone }</p>
+              ) : (
+                <p className="validation-error">{ this.props.groupInSidebar.phone.length + " / " + validation.groupPhone }</p>
+              )}
               <div className="register-button" onClick={this.props.updateGroup}>
                 更新
               </div>
