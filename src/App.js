@@ -60,6 +60,7 @@ class App extends React.Component {
             exact={true}
             path="/top"
             render={(routeProps) => {
+              window.location.href = "/#/";
               return <Top />;
             }}
           />

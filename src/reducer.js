@@ -205,10 +205,7 @@ export default function Reducer(state = initialState, action) {
         modalLinkText: action.payload.text,
       });
     case "SIGN_OUT":
-      return Object.assign({}, state, {
-        from: null,
-        myProfile: null,
-      });
+      return initialState;
     default:
       return state;
   }
