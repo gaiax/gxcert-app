@@ -180,7 +180,6 @@ footer .footer-message, .footer-app {
   font-size: 18px;
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 50px;
   color: #49AAFC;
   width: 240px;
 }
@@ -667,4 +666,21 @@ a:link {
 
 a.modal-message {
   text-decoration: underline;
+}
+
+.validation {
+  color: black;
+  margin-bottom: 50px;
+  text-align: right;
+  width: 260px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.validation-error {
+  color: red;
+  margin-bottom: 50px;
+  text-align: right;
+  width: 260px;
+  margin-left: auto;
+  margin-right: auto;
 }

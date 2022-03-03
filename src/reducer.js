@@ -3,14 +3,29 @@ import initialState from "./initialState";
 export default function Reducer(state = initialState, action) {
   const groupInSidebar = state.groupInSidebar;
   const profileInEdit = state.profileInEdit;
+  let status = "valid";
   switch (action.type) {
     case "ON_CHANGE_TITLE":
+      if (action.payload.length > 50) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         title: action.payload,
+        titleValidation: {
+          status,
+          message: action.payload.length + " / 50",
+        }
       });
     case "ON_CHANGE_DESCRIPTION":
+      if (action.payload.length > 200) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         description: action.payload,
+        descriptionValidation: {
+          status,
+          message: action.payload.length + " / 200",
+        }
       });
     case "ON_CHANGE_IMAGE":
       return Object.assign({}, state, {

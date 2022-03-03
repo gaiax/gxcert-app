@@ -34,11 +34,21 @@ class NewCert extends React.Component {
               className="new-cert-form-name"
               onChange={this.props.onChangeTitle}
             />
+            { this.props.titleValidation.status === "valid" ? (
+              <p className="validation">{ this.props.titleValidation.message }</p>
+            ) : (
+              <p className="validation-error">{ this.props.titleValidation.message }</p>
+            )}
             <p className="new-cert-form-title">説明</p>
             <textarea
               className="new-cert-form-description"
               onChange={this.props.onChangeDescription}
             ></textarea>
+            { this.props.descriptionValidation.status === "valid" ? (
+              <p className="validation">{ this.props.descriptionValidation.message }</p>
+            ) : (
+              <p className="validation-error">{ this.props.descriptionValidation.message }</p>
+            )}
             <p className="new-cert-form-title">証明書画像</p>
             <img src={this.props.image ? ipfsUrl(this.props.image) : placeholder} className="new-cert-form-image" />
             <div className="new-cert-form-image-file-div">

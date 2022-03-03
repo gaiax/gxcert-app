@@ -78,6 +78,8 @@ class App extends React.Component {
                 fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
                 groupsInSidebar={that.props.state.groupsInSidebar}
                 groupInSidebar={that.props.state.groupInSidebar}
+                titleValidation={that.props.state.titleValidation}
+                descriptionValidation={that.props.state.descriptionValidation}
                 onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
                 onChangeTitle={that.props.onChangeTitle}
                 onChangeDescription={that.props.onChangeDescription}
@@ -152,6 +154,9 @@ class App extends React.Component {
                 onChangeGroupName={that.props.onChangeGroupName}
                 onChangeGroupAddress={that.props.onChangeGroupAddress}
                 onChangeGroupPhone={that.props.onChangeGroupPhone}
+                groupNameValidation={that.props.state.groupNameValidation}
+                groupAddressValidation={that.props.state.groupAddressValidation}
+                groupPhoneValidation={that.props.state.groupPhoneValidation}
               />
             )}
           />
@@ -171,6 +176,10 @@ class App extends React.Component {
                 onChangeGroupName={that.props.onChangeGroupNameInEdit}
                 onChangeGroupAddress={that.props.onChangeGroupAddressInEdit}
                 onChangeGroupPhone={that.props.onChangeGroupPhoneInEdit}
+                groupNameValidation={that.props.state.groupNameValidationInEdit}
+                groupAddressValidation={that.props.state.groupAddressValidationInEdit}
+                groupPhoneValidation={that.props.state.groupPhoneValidationInEdit}
+
               />
             )}
           />
