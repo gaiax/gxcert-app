@@ -108,7 +108,8 @@ footer .footer-message, .footer-app {
 }
 
 .sign-in, .registration, .certificates, .certificate, .new-group, .new-profile, .edit-profile, .group, .not-found, .donation{
-  padding: 20px;
+  padding-top: 40px;
+  padding-bottom: 20px;
   background-color: #F1F9FF;
   min-height: 1000px;
 }
@@ -116,8 +117,8 @@ footer .footer-message, .footer-app {
 .sign-in-content, .registration-content, .certificates-content, .certificate-content, .new-cert-content, .new-group-content, .new-profile-content, .group-members-content, .issuer-certificates, .issue-content, .edit-group-content, .edit-profile-content, .issuer-certificate, .group-content, .not-found-content, .donation-content{
   margin-left: auto;
   margin-right: auto;
-  width: 60%;
-  max-width: 500px;
+  width: 80%;
+  max-width: 800px;
   min-width: 300px;
   padding: 20px;
   padding-bottom: 40px;
