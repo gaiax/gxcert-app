@@ -45,7 +45,7 @@ class NewGroup extends React.Component {
             { this.props.groupPhoneValidation.status === "valid" ? (
               <p className="validation">{ this.props.groupPhone.length + " / " + validation.groupPhone }</p>
             ) : (
-              <p className="validation-error">{ this.props.groupPhone.length + " / " + validation.groupPhone }</p>
+              <p className="validation-error">{ validation.onlyNumbers(this.props.groupPhone) ? this.props.groupPhone.length + " / " + validation.groupPhone : "電話番号は半角英数字で、ハイフンは使えません。" }</p>
             )}
 
             <div className="register-button" onClick={this.props.registerGroup}>

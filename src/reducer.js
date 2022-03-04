@@ -89,6 +89,9 @@ export default function Reducer(state = initialState, action) {
       ) {
         status = "invalid";
       }
+      if (!validation.onlyNumbers(action.payload)) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         groupPhone: action.payload,
         groupPhoneValidation: {
@@ -143,6 +146,9 @@ export default function Reducer(state = initialState, action) {
         ||
         action.payload.length === 0
       ) {
+        status = "invalid";
+      }
+      if (!validation.onlyNumbers(action.payload)) {
         status = "invalid";
       }
       groupInSidebar.phone = action.payload;

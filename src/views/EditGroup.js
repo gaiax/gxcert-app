@@ -57,7 +57,7 @@ class EditGroup extends React.Component {
               { this.props.groupPhoneValidation.status === "valid" ? (
                 <p className="validation">{ this.props.groupInSidebar.phone.length + " / " + validation.groupPhone }</p>
               ) : (
-                <p className="validation-error">{ this.props.groupInSidebar.phone.length + " / " + validation.groupPhone }</p>
+                <p className="validation-error">{ validation.onlyNumbers(this.props.groupInSidebar.phone) ? this.props.groupInSidebar.phone.length + " / " + validation.groupPhone : "電話番号は半角英数字で、ハイフンは使えません。"}</p>
               )}
               <div className="register-button" onClick={this.props.updateGroup}>
                 更新
