@@ -238,6 +238,7 @@ footer .footer-message, .footer-app {
   border-bottom: 1px var(--main-color) solid;
   min-height: 120px;
   justify-content: space-between;
+  align-items: center;
 }
 
 .issuer-certificates-list-cell {
@@ -246,8 +247,7 @@ footer .footer-message, .footer-app {
 }
 
 .certificates-list-cell-icon, .group-members-list-cell-icon, .issuer-certificates-list-cell-icon, .issuer-certificate-list-cell-icon {
-  margin-top: 20px;
-  width: 80px;
+  width: 120px;
   height: 80px;
   object-fit: cover;
 }
@@ -262,18 +262,23 @@ footer .footer-message, .footer-app {
 
 .certificates-list-cell-detail, .group-members-list-cell-detail, .issuer-certificates-list-cell-detail, .issuer-certificate-list-cell-detail {
   width: 80%;
+  height: 80px;
   margin-left: 20px;
   margin-right: 20px;
 }
 
 .certificates-list-cell-title, .group-members-list-cell-name, .issuer-certificates-list-cell-title, .issuer-certificate-list-cell-name {
   font-size: 18px;
+  height: 18px;
   font-weight: bold;
   text-align: left;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  margin-top: 0;
 }
 .certificates-list-cell-date {
-  margin-top: 8px;
+  margin-top: 0;
+  margin-bottom: 17px;
+  font-size: 14px;
 }
 .group-members-list-cell-address, .issuer-certificate-list-cell-address {
   font-size: 16px;
@@ -498,7 +503,6 @@ footer .footer-message, .footer-app {
 
 
 .issuer-certificates-list-cell-title {
-  padding-top: 34px;
 }
 
 .issuer-certificates-list-cell-issue {
@@ -509,7 +513,6 @@ footer .footer-message, .footer-app {
   background-color: var(--main-color);
   color: white;
   border-radius: 4px;
-  margin-top: 46px;
   font-size: 14px;
   font-weight: bold;
 }
@@ -540,7 +543,6 @@ footer .footer-message, .footer-app {
   background-color: var(--main-color);
   color: white;
   border-radius: 4px;
-  margin-top: 46px;
   font-size: 14px;
   font-weight: bold;
 }
