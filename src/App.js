@@ -247,6 +247,7 @@ class App extends React.Component {
                 onChangeProfileName={that.props.onChangeProfileNameInEdit}
                 onChangeProfileImage={that.props.onChangeProfileImageInEdit}
                 fetchProfile={that.props.fetchProfile}
+                profileNameValidation={that.props.state.profileNameValidationInEdit}
               />
             )}
           />

@@ -371,6 +371,11 @@ const registerGroup = () => async (dispatch, getState) => {
     });
 };
 const updateProfile = () => async (dispatch, getState) => {
+  const state = getState().state;
+  if (state.profileNameValidationInEdit.status !== "valid") {
+    openModal("入力項目の字数を確認してください")(dispatch, getState);
+    return;
+  }
   let gxCert;
   try {
     gxCert = await getGxCert();
@@ -378,7 +383,6 @@ const updateProfile = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  const state = getState().state;
   const name = state.profileInEdit.name;
   const icon = state.profileInEdit.icon;
 

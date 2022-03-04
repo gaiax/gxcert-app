@@ -179,9 +179,20 @@ export default function Reducer(state = initialState, action) {
         profileImage: action.payload,
       });
     case "ON_CHANGE_PROFILE_NAME_IN_EDIT":
+      if (
+        action.payload.length > validation.profileName
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
       profileInEdit.name = action.payload;
       return Object.assign({}, state, {
         profileInEdit,
+        profileNameValidationInEdit: {
+          status,
+          message: action.payload.length + " / " + validation.profileName,
+        }
       });
     case "ON_CHANGE_PROFILE_IMAGE_IN_EDIT":
       profileInEdit.icon = action.payload;

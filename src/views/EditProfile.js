@@ -2,6 +2,7 @@ import React from "react";
 import placeholder from "../images/person.svg";
 import { ipfsUrl } from "../util/ipfs";
 import photo from "../images/photo.svg";
+import validation from "../validation";
 
 class EditProfile extends React.Component {
   componentDidMount() {
@@ -36,6 +37,11 @@ class EditProfile extends React.Component {
                 this.props.profile.name ? this.props.profile.name : ""
               }
             />
+            { this.props.profileNameValidation.status === "valid" ? (
+              <p className="validation">{ (this.props.profile.name !== undefined) && this.props.profile.name.length + " / " + validation.profileName }</p>
+            ) : (
+              <p className="validation-error">{ this.props.profile.name !== undefined && this.props.profile.name.length + " / " + validation.profileName }</p>
+            )}
             <div className="register-button" onClick={this.props.updateProfile}>
               更新
             </div>
