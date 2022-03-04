@@ -107,6 +107,10 @@ export default function Reducer(state = initialState, action) {
       return Object.assign({}, state, {
         groupIdInEdit: action.payload,
       });
+    case "ON_CHANGE_GROUP_NAME_OF_TITLE_IN_EDIT":
+      return Object.assign({}, state, {
+        groupNameInEdit: action.payload,
+      });
     case "ON_CHANGE_GROUP_NAME_IN_EDIT":
       if (
         action.payload.length > validation.groupName

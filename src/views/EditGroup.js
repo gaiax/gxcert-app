@@ -17,7 +17,7 @@ class EditGroup extends React.Component {
         {this.props.groupInSidebar !== null ? (
           <div className="edit-group-content">
             <p className="edit-group-title">
-              発行元 {this.props.groupInSidebar.name}の更新
+              発行元 {this.props.groupNameOfTitle}の更新
             </p>
             <p className="edit-group-description">
               証明書の発行には発行元となる団体（企業、教育機関、NPO法人など）の登録が必要です。

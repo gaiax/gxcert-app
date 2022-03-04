@@ -177,6 +177,7 @@ class App extends React.Component {
                 groupInSidebar={that.props.state.groupInSidebar}
                 onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
                 group={that.props.state.groupInEdit}
+                groupNameOfTitle={that.props.state.groupNameInEdit}
                 updateGroup={that.props.updateGroup}
                 onChangeGroupId={that.props.onChangeGroupIdInEdit}
                 onChangeGroupName={that.props.onChangeGroupNameInEdit}

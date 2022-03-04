@@ -21,6 +21,10 @@ const onChangeGroupInSidebar = (evt) => async (dispatch, getState) => {
         payload: group,
       });
       dispatch({
+        type: "ON_CHANGE_GROUP_NAME_OF_TITLE_IN_EDIT",
+        payload: group.name,
+      });
+      dispatch({
         type: "ON_CHANGE_GROUP_NAME_IN_EDIT",
         payload: group.name,
       });
