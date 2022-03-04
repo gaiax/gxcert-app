@@ -231,6 +231,8 @@ class App extends React.Component {
                 registerProfile={that.props.registerProfile}
                 onChangeProfileName={that.props.onChangeProfileName}
                 onChangeProfileImage={that.props.onChangeProfileImage}
+                profileName={that.props.state.profileName}
+                profileNameValidation={that.props.state.profileNameValidation}
               />
             )}
           />

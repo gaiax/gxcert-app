@@ -61,7 +61,15 @@ const initialState = {
   profileInEdit: {},
   profileInShow: null,
   profileName: "",
+  profileNameValidation: {
+    status: "invalid",
+    message: "0 / 20",
+  },
   profileImage: "",
+  profileNameValidationInEdit: {
+    status: "invalid",
+    message: "0 / 20",
+  },
   imageCache: {},
   profileCache: {},
   usersToIssue: [],

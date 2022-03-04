@@ -10,6 +10,7 @@ function onlyNumbers(str) {
 }
 
 export default {
+  profileName: 20,
   certificateTitle: 50,
   certificateDescription: 200,
   groupName: 50,

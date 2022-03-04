@@ -160,8 +160,19 @@ export default function Reducer(state = initialState, action) {
         }
       });
     case "ON_CHANGE_PROFILE_NAME":
+      if (
+        action.payload.length > validation.profileName
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         profileName: action.payload,
+        profileNameValidation: {
+          status,
+          message: action.payload.length + " / " + validation.profileName,
+        }
       });
     case "ON_CHANGE_PROFILE_IMAGE":
       return Object.assign({}, state, {

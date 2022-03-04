@@ -218,6 +218,11 @@ const write = async (dispatch, getState, signFunc, writeFunc, waitFunc, complete
   await completeFunc();
 }
 const registerProfile = () => async (dispatch, getState) => {
+  const state = getState().state;
+  if (state.profileNameValidation.status !== "valid") {
+    openModal("入力項目の字数を確認してください")(dispatch, getState);
+    return;
+  }
   let gxCert;
   try {
     gxCert = await getGxCert();
@@ -225,7 +230,6 @@ const registerProfile = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  const state = getState().state;
   const name = state.profileName;
   const address = state.from;
   const icon = state.profileImage;

@@ -2,6 +2,7 @@ import React from "react";
 import placeholder from "../images/person.svg";
 import { createImageUrlFromUint8Array, ipfsUrl } from "../util/ipfs";
 import photo from "../images/photo.svg";
+import validation from "../validation";
 
 class NewProfile extends React.Component {
   render() {
@@ -32,7 +33,13 @@ class NewProfile extends React.Component {
               className="new-profile-form-name"
               onChange={this.props.onChangeProfileName}
               placeholder="John Doe"
+              value={this.props.profileName}
             />
+            { this.props.profileNameValidation.status === "valid" ? (
+              <p className="validation">{ this.props.profileName.length + " / " + validation.profileName }</p>
+            ) : (
+              <p className="validation-error">{ this.props.profileName.length + " / " + validation.profileName }</p>
+            )}
             <div
               className="register-button"
               onClick={this.props.registerProfile}
