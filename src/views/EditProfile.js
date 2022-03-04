@@ -1,6 +1,7 @@
 import React from "react";
 import placeholder from "../images/person.svg";
 import { ipfsUrl } from "../util/ipfs";
+import photo from "../images/photo.svg";
 
 class EditProfile extends React.Component {
   componentDidMount() {
@@ -17,6 +18,7 @@ class EditProfile extends React.Component {
             <div className="edit-profile-form-image">
               <label for="edit-profile-form-image-file">
                 <img src={!image ? initialImageUrl : ipfsUrl(image)} className="edit-profile-form-image" />
+                <img src={photo} className="camera-mark" />
               </label>
               <input
                 id="edit-profile-form-image-file"

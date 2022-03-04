@@ -471,6 +471,7 @@ footer .footer-message, .footer-app {
   background-color: var(--sub-color);
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
 
 #new-profile-form-image-file, #edit-profile-form-image-file {
@@ -710,4 +711,14 @@ a.modal-message {
   width: 260px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.camera-mark {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #FFD;
+  padding: 8px;
+  border-radius: 50%;
+  border: 1px solid #000;
 }
