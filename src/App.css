@@ -1,3 +1,10 @@
+
+:root {
+  --main-color: #002554;
+  --link-color: #449a95;
+  --gray-color: #abb8c3;
+}
+
 .App {
   text-align: center;
 }
@@ -21,7 +28,7 @@ html, body {
 }
 
 .App-header {
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   padding: 10px;
   padding-left: 20px;
   padding-right: 20px;
@@ -30,7 +37,7 @@ html, body {
 }
 
 footer {
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   height: 80px;
   width: 100%;
   padding: 3px;
@@ -65,9 +72,9 @@ footer .footer-message, .footer-app {
   height: 40px;
   line-height: 40px;
   border: 2px solid #ccc;
-  border-color: #49AAFC;
+  border-color: var(--main-color);
   border-radius: 4px;
-  color: #49AAFC;
+  color: var(--main-color);
   font-weight: bold;
 }
 
@@ -101,7 +108,7 @@ footer .footer-message, .footer-app {
 }
 
 .concept-large {
-  color: #49AAFC;
+  color: var(--main-color);
   font-weight: normal;
   text-align: left;
   font-size: 24px;
@@ -138,13 +145,13 @@ footer .footer-message, .footer-app {
 }
 
 .sign-in-message {
-  color: #49AAFC;
+  color: var(--main-color);
   font-size: 12px;
   font-weight: bold;
 }
 
 .registration-title, .new-cert-title, .new-group-title, .new-profile-title, .issuer-certificates-title, .issue-title, .edit-group-title, .edit-profile-title, .issuer-certificate-title, .group-title, .donation-title{
-  color: #49AAFC;
+  color: var(--main-color);
   font-weight: bold;
 }
 
@@ -166,7 +173,7 @@ footer .footer-message, .footer-app {
 .registration-form-title {
   text-align: left;
   font-weight: bold;
-  color: #49AAFC;
+  color: var(--main-color);
   padding-left: 10px;
   padding-right: 10px;
   margin-bottom: 4px;
@@ -175,12 +182,12 @@ footer .footer-message, .footer-app {
 .registration-form-name, .registration-form-email , .sidebar-group, .new-cert-form-to, .new-cert-form-name, .new-group-form-name, .new-group-form-address, .new-group-form-phone, .new-profile-form-name, .new-profile-form-email, .group-members-invite, .issue-form-to, .edit-group-form-name, .edit-group-form-address, .edit-group-form-phone, .edit-profile-form-name, .edit-profile-form-email, .list-input-element {
   height: 34px;
   border-radius: 4px;
-  border: 1px solid #49AAFC;
+  border: 1px solid var(--main-color);
   background: #F1F9FF;
   font-size: 18px;
   padding-left: 10px;
   padding-right: 10px;
-  color: #49AAFC;
+  color: var(--main-color);
   width: 240px;
 }
 
@@ -190,7 +197,7 @@ footer .footer-message, .footer-app {
 }
 
 .sidebar-group {
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   color: white;
   border: 1px solid white;
   font-weight: bold;
@@ -201,14 +208,14 @@ footer .footer-message, .footer-app {
   height: 36px;
   background-color: #F1F9FF;
   font-weight: bold;
-  color: #49AAFC;
-  border: #49AAFC solid 1px;
+  color: var(--main-color);
+  border: var(--main-color) solid 1px;
   border-radius: 6px;
   margin-left: 6px;
 }
 
 .register-button {
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   height: 34px;
   width: 260px;
   line-height: 34px;
@@ -221,13 +228,13 @@ footer .footer-message, .footer-app {
 
 
 .certificates-title, .group-members-title {
-  color: #49AAFC;
+  color: var(--main-color);
   font-weight: bold;
 }
 
 .certificates-list-cell, .group-members-list-cell, .issuer-certificates-list-cell {
   display: flex;
-  border-bottom: 1px #49AAFC solid;
+  border-bottom: 1px var(--main-color) solid;
   min-height: 120px;
   justify-content: space-between;
 }
@@ -272,7 +279,7 @@ footer .footer-message, .footer-app {
   text-align: left;
 }
 .certificates-list-cell p, .group-members-list-cell p, .issuer-certificates-list-cell p {
-  color: #49AAFC;
+  color: var(--main-color);
   word-break: break-all;
   text-align: left;
 }
@@ -283,7 +290,7 @@ footer .footer-message, .footer-app {
 }
 
 .certificate-title {
-  color: #49AAFC;
+  color: var(--main-color);
   font-weight: bold;
   margin-bottom: 30px;
   font-size: 22px;
@@ -297,15 +304,15 @@ footer .footer-message, .footer-app {
 
 .certificate-detail {
   width: 100%;
-  border: solid 1px #49AAFC;
+  border: solid 1px var(--main-color);
   border-radius: 4px;
   border-collapse: collapse;
   margin-bottom: 10px;
-  box-shadow: 1px 1px 4px 1px #79DAFF;
+  box-shadow: 1px 1px 4px 1px #49AACF;
 }
 .group-detail {
   width: 60%;
-  border: solid 1px #49AAFC;
+  border: solid 1px var(--main-color);
   border-radius: 4px;
   border-collapse: collapse;
   margin-bottom: 30px;
@@ -320,7 +327,7 @@ footer .footer-message, .footer-app {
 }
 .certificate-detail tr, .group-detail tr{
   height: 20px;
-  border-bottom: solid 1px #49AAFC;
+  border-bottom: solid 1px var(--main-color);
 }
 
 .certificate-detail tr:last-child td {
@@ -329,16 +336,16 @@ footer .footer-message, .footer-app {
 
 .certificate-detail td, .group-detail td {
   font-size: 12px;
-  color: #49AAFC;
+  color: var(--main-color);
   text-align: left;
-  border-bottom: solid 1px #49AAFC;
+  border-bottom: solid 1px var(--main-color);
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
 .certificate-detail td a{
   font-size: 12px;
-  color: #49AAFC;
+  color: var(--main-color);
   text-align: left;
 }
 
@@ -355,7 +362,7 @@ footer .footer-message, .footer-app {
   width: auto;
   height: 34px;
   line-height: 34px;
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   color: white;
   font-weight: bold;
   font-size: 12px;
@@ -370,7 +377,7 @@ footer .footer-message, .footer-app {
   margin-left: 20px;
 }
 .new-cert-description, .new-group-description, .edit-group-description {
-  color: #49AAFC;
+  color: var(--main-color);
   font-size: 12px;
   font-weight: normal;
 }
@@ -383,7 +390,7 @@ footer .footer-message, .footer-app {
 .new-cert-form-title {
   text-align: left;
   font-weight: bold;
-  color: #49AAFC;
+  color: var(--main-color);
   width: 260px;
   margin-left: auto;
   margin-right: auto;
@@ -394,11 +401,11 @@ footer .footer-message, .footer-app {
   height: 200px;
   width: 260px;
   border-radius: 4px;
-  border: 1px solid #49AAFC;
+  border: 1px solid var(--main-color);
   background: #F1F9FF;
   font-size: 18px;
   padding: 4px;
-  color: #49AAFC;
+  color: var(--main-color);
 }
 .new-cert-form-image {
   width: 260px;
@@ -412,11 +419,11 @@ footer .footer-message, .footer-app {
   display: none;
 }
 .new-cert-form-image-file-div {
-  color: #49AAFC;
+  color: var(--main-color);
   margin-bottom: 30px;
 }
 .new-cert-form-image-file-label {
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   width: 120px;
   height: 34px;
   line-height: 34px;
@@ -429,7 +436,7 @@ footer .footer-message, .footer-app {
 .new-group-form-title, .new-profile-form-title, .edit-group-form-title, .edit-profile-form-title {
   text-align: left;
   font-weight: bold;
-  color: #49AAFC;
+  color: var(--main-color);
   width: 260px;
   margin-left: auto;
   margin-right: auto;
@@ -439,7 +446,7 @@ footer .footer-message, .footer-app {
 .issue-form-title {
   text-align: left;
   font-weight: bold;
-  color: #49AAFC;
+  color: var(--main-color);
   width: 324px;
   margin-left: auto;
   margin-right: auto;
@@ -464,7 +471,7 @@ footer .footer-message, .footer-app {
   display: none;
 }
 .new-cert-button {
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   height: 34px;
   line-height: 34px;
   width: 100px;
@@ -475,7 +482,7 @@ footer .footer-message, .footer-app {
 }
 
 .issuer-certificates-new {
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   height: 34px;
   line-height: 34px;
   width: 100px;
@@ -498,7 +505,7 @@ footer .footer-message, .footer-app {
   height: 30px;
   line-height: 30px;
   border: none;
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   color: white;
   border-radius: 4px;
   margin-top: 46px;
@@ -511,7 +518,7 @@ footer .footer-message, .footer-app {
   line-height: 30px;
   border: none;
   margin-top: 30px;
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   color: white;
   border-radius: 4px;
   margin-left: 6px;
@@ -529,7 +536,7 @@ footer .footer-message, .footer-app {
   height: 30px;
   line-height: 30px;
   border: none;
-  background-color: #49AAFC;
+  background-color: var(--main-color);
   color: white;
   border-radius: 4px;
   margin-top: 46px;
@@ -543,7 +550,7 @@ footer .footer-message, .footer-app {
 }
 .sidebar {
   width: 240px;
-  background-color: #2699FB;
+  background-color: var(--main-color);
 }
 
 .sidebar .sidebar-title {
@@ -602,7 +609,7 @@ a:link {
 }
 .certificate-content-export .certificate-detail {
   width: 500px;
-  border: solid 1px #49AAFC;
+  border: solid 1px var(--main-color);
   border-radius: 4px;
   border-collapse: collapse;
   margin-bottom: 10px;
@@ -632,10 +639,10 @@ a:link {
 
 .donation-address {
   font-size: 12px;
-  color: #49AAFC;
+  color: var(--main-color);
   font-weight: bold;
   border-radius: 4px;
-  border: 2px solid #49AAFC;
+  border: 2px solid var(--main-color);
   padding: 6px;
   margin: 0;
 }
@@ -648,11 +655,11 @@ a:link {
 }
 
 .donation-address-container > span {
-  color: #49AAFC;
+  color: var(--main-color);
 }
 
 .donation-description > p {
-  color: #49AAFC;
+  color: var(--main-color);
 }
 
 .donation-address-title {
@@ -662,7 +669,7 @@ a:link {
 
 .close-modal {
   float:right;
-  color: #49AAFC;
+  color: var(--main-color);
   font-size: 20px;
 }
 
