@@ -51,7 +51,7 @@ const signOut = () => async (dispatch) => {
     type: "SIGN_OUT",
     payload: null,
   });
-  history.push("/top");
+  history.push("/");
 };
 
 export { signIn, signOut };

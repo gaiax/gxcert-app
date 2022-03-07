@@ -22,6 +22,7 @@ import { Switch, Route } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { withAlert } from "react-alert";
 import GxModal from "./Modal";
+import history from "./history";
 
 class App extends React.Component {
   render() {
@@ -60,7 +61,7 @@ class App extends React.Component {
             exact={true}
             path="/top"
             render={(routeProps) => {
-              window.location.href = "/#/";
+              history.push("/");
               return <Top />;
             }}
           />
