@@ -61,7 +61,9 @@ class App extends React.Component {
             exact={true}
             path="/top"
             render={(routeProps) => {
-              history.push("/");
+              if (that.props.state.from !== "") {
+                history.push("/");
+              }
               return <Top />;
             }}
           />
