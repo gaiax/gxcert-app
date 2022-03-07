@@ -119,7 +119,7 @@ class Certificate extends React.Component {
                 </tr>
                 <tr>
                   <td>発行元: </td>
-                  <td>
+                  <td className="certificate-from">
                     {this.props.userCert.certificate.group && (
                       <a
                         href={

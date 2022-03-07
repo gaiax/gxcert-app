@@ -719,3 +719,7 @@ a.modal-message {
   border-radius: 50%;
   border: 1px solid #000;
 }
+
+.certificate-from a {
+  color: #449a95!important;
+}
