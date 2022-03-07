@@ -28,7 +28,7 @@ class EditProfile extends React.Component {
                 onChange={this.props.onChangeProfileImage}
               />
             </div>
-            <p className="edit-profile-form-title">Name</p>
+            <p className="edit-profile-form-title">名前</p>
             <input
               type="text"
               className="edit-profile-form-name"
