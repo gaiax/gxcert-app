@@ -21,7 +21,7 @@ function Header(props) {
       </div>
       {!props.isLoggedIn ? (
         <div className="sign-in-button" onClick={() => history.push("/signin")}>
-          Sign in
+          SIGN IN
         </div>
       ) : (
         <div className="header-right-links">
