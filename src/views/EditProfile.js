@@ -19,7 +19,9 @@ class EditProfile extends React.Component {
             <div className="edit-profile-form-image">
               <label for="edit-profile-form-image-file">
                 <img src={!image ? initialImageUrl : ipfsUrl(image)} className="edit-profile-form-image" />
-                <img src={photo} className="camera-mark" />
+                <div className="camera-mark"> 
+                  <img src={photo} className="camera-mark-image" />
+                </div>
               </label>
               <input
                 id="edit-profile-form-image-file"

@@ -18,7 +18,9 @@ class NewProfile extends React.Component {
             <div className="new-profile-form-image">
               <label for="new-profile-form-image-file">
                 <img src={image} className="new-profile-form-image" />
-                <img src={photo} className="camera-mark" />
+                <div className="camera-mark">
+                  <img src={photo} className="camera-mark-image" />
+                </div>
               </label>
               <input
                 id="new-profile-form-image-file"

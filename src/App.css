@@ -716,8 +716,14 @@ a.modal-message {
   right: 0;
   background-color: #FFD;
   padding: 8px;
-  border-radius: 50%;
   border: 1px solid #000;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+.camera-mark-image {
+  height: 30px;
+  width: 30px;
 }
 
 .certificate-from a {
