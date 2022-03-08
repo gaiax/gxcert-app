@@ -59,7 +59,7 @@ footer .footer-message, .footer-app {
 
 .sign-in-button, .sign-out-button {
   background: transparent;
-  width: 80px;
+  width: 100px;
   height: 40px;
   line-height: 40px;
   border: 2px solid #ccc;
