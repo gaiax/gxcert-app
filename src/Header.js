@@ -29,7 +29,7 @@ function Header(props) {
             プロフィール
           </Link>
           <div className="sign-out-button" onClick={props.signOut}>
-            Sign out
+            SIGN OUT
           </div>
         </div>
       )}
