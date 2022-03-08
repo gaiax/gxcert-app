@@ -216,17 +216,6 @@ class App extends React.Component {
           />
           <Route
             exact={true}
-            path="/group/:groupId"
-            render={(routeProps) => (
-              <Group
-                {...routeProps}
-                group={that.props.state.groupInShow}
-                fetchGroup={that.props.fetchGroupInShow}
-              />
-            )}
-          />
-          <Route
-            exact={true}
             path="/profile/new"
             render={(routeProps) => (
               <NewProfile
