@@ -119,18 +119,10 @@ class Certificate extends React.Component {
                 </tr>
                 <tr>
                   <td>発行元: </td>
-                  <td>
-                    {this.props.userCert.certificate.group && (
-                      <a
-                        href={
-                          config.host +
-                          "/group/" +
-                          this.props.userCert.certificate.group.groupId
-                        }
-                      >
-                        {this.props.userCert.certificate.group.name}
-                      </a>
-                    )}
+                  <td className="certificate-from">
+                    {this.props.userCert.certificate.group && 
+                      this.props.userCert.certificate.group.name
+                    }
                   </td>
                 </tr>
                 <tr>

@@ -1,6 +1,8 @@
 import React from "react";
-import placeholder from "../images/User-1@2x.png";
+import placeholder from "../images/person.svg";
 import { ipfsUrl } from "../util/ipfs";
+import photo from "../images/photo.svg";
+import validation from "../validation";
 
 class EditProfile extends React.Component {
   componentDidMount() {
@@ -17,14 +19,18 @@ class EditProfile extends React.Component {
             <div className="edit-profile-form-image">
               <label for="edit-profile-form-image-file">
                 <img src={!image ? initialImageUrl : ipfsUrl(image)} className="edit-profile-form-image" />
+                <div className="camera-mark"> 
+                  <img src={photo} className="camera-mark-image" />
+                </div>
               </label>
               <input
                 id="edit-profile-form-image-file"
                 type="file"
+                accept="image/*"
                 onChange={this.props.onChangeProfileImage}
               />
             </div>
-            <p className="edit-profile-form-title">Name</p>
+            <p className="edit-profile-form-title">名前</p>
             <input
               type="text"
               className="edit-profile-form-name"
@@ -33,6 +39,11 @@ class EditProfile extends React.Component {
                 this.props.profile.name ? this.props.profile.name : ""
               }
             />
+            { this.props.profileNameValidation.status === "valid" ? (
+              <p className="validation">{ (this.props.profile.name !== undefined) && this.props.profile.name.length + " / " + validation.profileName }</p>
+            ) : (
+              <p className="validation-error">{ this.props.profile.name !== undefined && this.props.profile.name.length + " / " + validation.profileName }</p>
+            )}
             <div className="register-button" onClick={this.props.updateProfile}>
               更新
             </div>

@@ -9,7 +9,6 @@ const signIn = () => async (dispatch) => {
     gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
-    openModal("Googleでログインしてください")(dispatch);
     return;
   }
   if (!gxCert.address()) {
@@ -52,7 +51,7 @@ const signOut = () => async (dispatch) => {
     type: "SIGN_OUT",
     payload: null,
   });
-  history.push("/top");
+  history.push("/");
 };
 
 export { signIn, signOut };

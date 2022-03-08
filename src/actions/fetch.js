@@ -249,6 +249,10 @@ const fetchProfile = () => async (dispatch, getState) => {
     type: "FETCHED_PROFILE_IN_EDIT",
     payload: profile,
   });
+  dispatch({
+    type: "ON_CHANGE_PROFILE_NAME_IN_EDIT",
+    payload: profile.name,
+  });
 };
 const fetchProfileInShow = (address) => async (dispatch, getState) => {
   dispatch({

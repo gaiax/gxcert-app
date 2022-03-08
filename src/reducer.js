@@ -1,16 +1,40 @@
 import initialState from "./initialState";
+import validation from "./validation";
 
 export default function Reducer(state = initialState, action) {
   const groupInSidebar = state.groupInSidebar;
   const profileInEdit = state.profileInEdit;
+  let status = "valid";
   switch (action.type) {
     case "ON_CHANGE_TITLE":
+      if (
+        action.payload.length > validation.certificateTitle
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         title: action.payload,
+        titleValidation: {
+          status,
+          message: action.payload.length + " / " + validation.certificateTitle,
+        }
       });
     case "ON_CHANGE_DESCRIPTION":
+      if (
+        action.payload.length > validation.certificateDescription
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         description: action.payload,
+        descriptionValidation: {
+          status,
+          message: action.payload.length + " / " + validation.certificateDescription,
+        }
       });
     case "ON_CHANGE_IMAGE":
       return Object.assign({}, state, {
@@ -21,12 +45,34 @@ export default function Reducer(state = initialState, action) {
         groupId: action.payload,
       });
     case "ON_CHANGE_GROUP_NAME":
+      if (
+        action.payload.length > validation.groupName
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         groupName: action.payload,
+        groupNameValidation: {
+          status,
+          message: action.payload.length + " / " + validation.groupName,
+        }
       });
     case "ON_CHANGE_GROUP_ADDRESS":
+      if (
+        action.payload.length > validation.groupAddress
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         groupAddress: action.payload,
+        groupAddressValidation: {
+          status,
+          message: action.payload.length + " / " + validation.groupAddress,
+        }
       });
     case "ON_CHANGE_GROUP_IN_SIDEBAR":
       return Object.assign({}, state, {
@@ -36,8 +82,22 @@ export default function Reducer(state = initialState, action) {
         groupPhoneInEdit: action.payload.phone,
       });
     case "ON_CHANGE_GROUP_PHONE":
+      if (
+        action.payload.length > validation.groupPhone
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
+      if (!validation.onlyNumbers(action.payload)) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         groupPhone: action.payload,
+        groupPhoneValidation: {
+          status,
+          message: action.payload.length + " / " + validation.groupPhone,
+        }
       });
     case "ON_CHANGE_GROUP_MEMBER_TO_INVITE":
       return Object.assign({}, state, {
@@ -47,33 +107,96 @@ export default function Reducer(state = initialState, action) {
       return Object.assign({}, state, {
         groupIdInEdit: action.payload,
       });
+    case "ON_CHANGE_GROUP_NAME_OF_TITLE_IN_EDIT":
+      return Object.assign({}, state, {
+        groupNameInEdit: action.payload,
+      });
     case "ON_CHANGE_GROUP_NAME_IN_EDIT":
+      if (
+        action.payload.length > validation.groupName
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
       groupInSidebar.name = action.payload;
+
       return Object.assign({}, state, {
         groupInSidebar,
+        groupNameValidationInEdit: {
+          status,
+          message: action.payload.length + " / " + validation.groupName,
+        }
       });
     case "ON_CHANGE_GROUP_ADDRESS_IN_EDIT":
+      if (
+        action.payload.length > validation.groupAddress
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
       groupInSidebar.residence = action.payload;
       return Object.assign({}, state, {
         groupInSidebar,
+        groupAddressValidationInEdit: {
+          status,
+          message: action.payload.length + " / " + validation.groupAddress,
+        }
       });
     case "ON_CHANGE_GROUP_PHONE_IN_EDIT":
+      if (
+        action.payload.length > validation.groupPhone
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
+      if (!validation.onlyNumbers(action.payload)) {
+        status = "invalid";
+      }
       groupInSidebar.phone = action.payload;
       return Object.assign({}, state, {
         groupInSidebar,
+        groupPhoneValidationInEdit: {
+          status,
+          message: action.payload.length + " / " + validation.groupPhone,
+        }
       });
     case "ON_CHANGE_PROFILE_NAME":
+      if (
+        action.payload.length > validation.profileName
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
       return Object.assign({}, state, {
         profileName: action.payload,
+        profileNameValidation: {
+          status,
+          message: action.payload.length + " / " + validation.profileName,
+        }
       });
     case "ON_CHANGE_PROFILE_IMAGE":
       return Object.assign({}, state, {
         profileImage: action.payload,
       });
     case "ON_CHANGE_PROFILE_NAME_IN_EDIT":
+      if (
+        action.payload.length > validation.profileName
+        ||
+        action.payload.length === 0
+      ) {
+        status = "invalid";
+      }
       profileInEdit.name = action.payload;
       return Object.assign({}, state, {
         profileInEdit,
+        profileNameValidationInEdit: {
+          status,
+          message: action.payload.length + " / " + validation.profileName,
+        }
       });
     case "ON_CHANGE_PROFILE_IMAGE_IN_EDIT":
       profileInEdit.icon = action.payload;
@@ -190,10 +313,7 @@ export default function Reducer(state = initialState, action) {
         modalLinkText: action.payload.text,
       });
     case "SIGN_OUT":
-      return Object.assign({}, state, {
-        from: null,
-        myProfile: null,
-      });
+      return initialState;
     default:
       return state;
   }

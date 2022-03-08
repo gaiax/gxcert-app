@@ -22,6 +22,7 @@ import { Switch, Route } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { withAlert } from "react-alert";
 import GxModal from "./Modal";
+import history from "./history";
 
 class App extends React.Component {
   render() {
@@ -60,12 +61,15 @@ class App extends React.Component {
             exact={true}
             path="/top"
             render={(routeProps) => {
+              if (that.props.state.from !== "") {
+                history.push("/");
+              }
               return <Top />;
             }}
           />
           <Route
             exact={true}
-            path="/signup"
+            path="/signin"
             render={(routeProps) => (
               <SignIn {...routeProps} signIn={that.props.signIn} />
             )}
@@ -78,6 +82,8 @@ class App extends React.Component {
                 fetchGroupsInSidebar={that.props.fetchGroupsInSidebar}
                 groupsInSidebar={that.props.state.groupsInSidebar}
                 groupInSidebar={that.props.state.groupInSidebar}
+                titleValidation={that.props.state.titleValidation}
+                descriptionValidation={that.props.state.descriptionValidation}
                 onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
                 onChangeTitle={that.props.onChangeTitle}
                 onChangeDescription={that.props.onChangeDescription}
@@ -85,6 +91,8 @@ class App extends React.Component {
                 onChangeGroup={that.props.onChangeGroup}
                 sign={that.props.sign}
                 from={that.props.state.from}
+                title={that.props.state.title}
+                description={that.props.state.description}
                 image={that.props.state.image}
                 groups={that.props.state.groups}
               />
@@ -152,6 +160,12 @@ class App extends React.Component {
                 onChangeGroupName={that.props.onChangeGroupName}
                 onChangeGroupAddress={that.props.onChangeGroupAddress}
                 onChangeGroupPhone={that.props.onChangeGroupPhone}
+                groupName={that.props.state.groupName}
+                groupAddress={that.props.state.groupAddress}
+                groupPhone={that.props.state.groupPhone}
+                groupNameValidation={that.props.state.groupNameValidation}
+                groupAddressValidation={that.props.state.groupAddressValidation}
+                groupPhoneValidation={that.props.state.groupPhoneValidation}
               />
             )}
           />
@@ -166,11 +180,16 @@ class App extends React.Component {
                 groupInSidebar={that.props.state.groupInSidebar}
                 onChangeGroupInSidebar={that.props.onChangeGroupInSidebar}
                 group={that.props.state.groupInEdit}
+                groupNameOfTitle={that.props.state.groupNameInEdit}
                 updateGroup={that.props.updateGroup}
                 onChangeGroupId={that.props.onChangeGroupIdInEdit}
                 onChangeGroupName={that.props.onChangeGroupNameInEdit}
                 onChangeGroupAddress={that.props.onChangeGroupAddressInEdit}
                 onChangeGroupPhone={that.props.onChangeGroupPhoneInEdit}
+                groupNameValidation={that.props.state.groupNameValidationInEdit}
+                groupAddressValidation={that.props.state.groupAddressValidationInEdit}
+                groupPhoneValidation={that.props.state.groupPhoneValidationInEdit}
+
               />
             )}
           />
@@ -197,17 +216,6 @@ class App extends React.Component {
           />
           <Route
             exact={true}
-            path="/group/:groupId"
-            render={(routeProps) => (
-              <Group
-                {...routeProps}
-                group={that.props.state.groupInShow}
-                fetchGroup={that.props.fetchGroupInShow}
-              />
-            )}
-          />
-          <Route
-            exact={true}
             path="/profile/new"
             render={(routeProps) => (
               <NewProfile
@@ -216,6 +224,8 @@ class App extends React.Component {
                 registerProfile={that.props.registerProfile}
                 onChangeProfileName={that.props.onChangeProfileName}
                 onChangeProfileImage={that.props.onChangeProfileImage}
+                profileName={that.props.state.profileName}
+                profileNameValidation={that.props.state.profileNameValidation}
               />
             )}
           />
@@ -230,6 +240,7 @@ class App extends React.Component {
                 onChangeProfileName={that.props.onChangeProfileNameInEdit}
                 onChangeProfileImage={that.props.onChangeProfileImageInEdit}
                 fetchProfile={that.props.fetchProfile}
+                profileNameValidation={that.props.state.profileNameValidationInEdit}
               />
             )}
           />

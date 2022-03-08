@@ -38,8 +38,26 @@ if (env.REACT_APP_DOTENV === "development") {
     },
     ipfsGateway: "https://ipfs.gaiax-blockchain.com/ipfs"
   };
+} else if (env.REACT_APP_DOTENV === "alpha") {
+  config = {
+    web3Host: "https://polygon-rpc.com",
+    contractAddress: "0xa882d0f7D3ac1C8e897C30Fa459dd41b36536619",
+    gxApi: "https://asia-northeast1-gxcert-test.cloudfunctions.net/gxcertMain",
+    host: "https://gaiax.github.io/gxcert-alpha/#",
+    network: {
+      host: "https://polygon-rpc.com",
+      chainId: 137,
+      networkId: 137,
+      networkName: "matic-mainnet",
+    },
+    ipfs: {
+      host: "ipfs.gaiax-blockchain.com",
+      port: 5001,
+      protocol: "https",
+    },
+    ipfsGateway: "https://ipfs.gaiax-blockchain.com/ipfs"
+  }
 } else if (env.REACT_APP_DOTENV === "production") {
-  //TODO: Change here
   config = {
     web3Host: "https://polygon-rpc.com",
     contractAddress: "0xa882d0f7D3ac1C8e897C30Fa459dd41b36536619",

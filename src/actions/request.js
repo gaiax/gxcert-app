@@ -54,19 +54,20 @@ const retryWriting = async (writeFunc, times, dispatch, getState) => {
 }
 
 const sign = () => async (dispatch, getState) => {
-  dispatch({
-    type: "LOADING",
-    payload: true,
-  });
   let gxCert;
   try {
     gxCert = await getGxCert();
   } catch (err) {
     console.error(err);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
+    return;
+  }
+  const state = getState().state;
+  if (
+    state.titleValidation.status !== "valid"
+    ||
+    state.descriptionValidation.status !== "valid"
+  ) {
+    openModal("入力項目の字数を確認してください")(dispatch, getState);
     return;
   }
   if (
@@ -80,23 +81,14 @@ const sign = () => async (dispatch, getState) => {
     });
     return;
   }
-  const state = getState().state;
   const certificates = state.certificatesInIssuer;
   if (state.groupInSidebar === null) {
     openModal("Please set group on sidebar.")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
     return;
   }
   const image = state.image;
   if (!image) {
-    openModal("Image not set.")(dispatch, getState);
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
+    openModal("画像を選択してください")(dispatch, getState);
     return;
   }
   let imageCid = image;
@@ -107,6 +99,10 @@ const sign = () => async (dispatch, getState) => {
     groupId: state.groupInSidebar.groupId,
   };
   let signed = null;
+  dispatch({
+    type: "LOADING",
+    payload: true,
+  });
   try {
     signed = await gxCert.client.signCertificate(certificate, {
       address: gxCert.address(),
@@ -222,6 +218,11 @@ const write = async (dispatch, getState, signFunc, writeFunc, waitFunc, complete
   await completeFunc();
 }
 const registerProfile = () => async (dispatch, getState) => {
+  const state = getState().state;
+  if (state.profileNameValidation.status !== "valid") {
+    openModal("入力項目の字数を確認してください")(dispatch, getState);
+    return;
+  }
   let gxCert;
   try {
     gxCert = await getGxCert();
@@ -229,7 +230,6 @@ const registerProfile = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  const state = getState().state;
   const name = state.profileName;
   const address = state.from;
   const icon = state.profileImage;
@@ -284,6 +284,17 @@ const registerGroup = () => async (dispatch, getState) => {
     });
     return;
   }
+  const state = getState().state;
+  if (
+    state.groupNameValidation.status !== "valid"
+    ||
+    state.groupAddressValidation.status !== "valid"
+    ||
+    state.groupPhoneValidation.status !== "valid"
+  ) {
+    openModal("入力項目の字数を確認してください")(dispatch, getState);
+    return;
+  }
   if (
     !window.confirm(
       "グループの作成、証明書の発行には、ブロックチェーンへの書き込み手数料がかかります。書き込み手数料は寄付によって賄われています。ご理解・ご協力賜りますようよろしくお願い申し上げます。"
@@ -291,7 +302,6 @@ const registerGroup = () => async (dispatch, getState) => {
   ) {
     return;
   }
-  const state = getState().state;
   const from = state.from;
 
   let signedGroup;
@@ -340,6 +350,18 @@ const registerGroup = () => async (dispatch, getState) => {
         type: "ON_CHANGE_GROUP_IN_SIDEBAR",
         payload: group,
       });
+      dispatch({
+        type: "ON_CHANGE_GROUP_NAME_IN_EDIT",
+        payload: group.name,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_ADDRESS_IN_EDIT",
+        payload: group.residence,
+      });
+      dispatch({
+        type: "ON_CHANGE_GROUP_PHONE_IN_EDIT",
+        payload: group.phone,
+      });
       await fetchGroupsInSidebar()(dispatch, getState);
       dispatch({
         type: "LOADING",
@@ -349,6 +371,11 @@ const registerGroup = () => async (dispatch, getState) => {
     });
 };
 const updateProfile = () => async (dispatch, getState) => {
+  const state = getState().state;
+  if (state.profileNameValidationInEdit.status !== "valid") {
+    openModal("入力項目の字数を確認してください")(dispatch, getState);
+    return;
+  }
   let gxCert;
   try {
     gxCert = await getGxCert();
@@ -356,7 +383,6 @@ const updateProfile = () => async (dispatch, getState) => {
     console.error(err);
     return;
   }
-  const state = getState().state;
   const name = state.profileInEdit.name;
   const icon = state.profileInEdit.icon;
 
@@ -419,6 +445,16 @@ const updateGroup = () => async (dispatch, getState) => {
     return;
   }
   const state = getState().state;
+  if (
+    state.groupNameValidationInEdit.status !== "valid"
+    ||
+    state.groupAddressValidationInEdit.status !== "valid"
+    ||
+    state.groupPhoneValidationInEdit.status !== "valid"
+  ) {
+    openModal("入力項目の字数を確認してください")(dispatch, getState);
+    return;
+  }
   if (state.groupInSidebar === null) {
     openModal("Please choose group on sidebar.")(dispatch, getState);
     return;
