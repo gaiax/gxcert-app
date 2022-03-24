@@ -60,9 +60,9 @@ if (env.REACT_APP_DOTENV === "development") {
 } else if (env.REACT_APP_DOTENV === "production") {
   config = {
     web3Host: "https://polygon-rpc.com",
-    contractAddress: "0xa882d0f7D3ac1C8e897C30Fa459dd41b36536619",
-    gxApi: "https://asia-northeast1-gxcert-test.cloudfunctions.net/gxcertMain",
-    host: "https://gaiax.github.io/gxcert-app/#",
+    contractAddress: "0xdadb5b5735B7064855db747E0A280552b701D760",
+    gxApi: "https://asia-northeast1-gxcert-release.cloudfunctions.net/gxcertMain",
+    host: "https://gaiax.github.io/gxcert/#",
     network: {
       host: "https://polygon-rpc.com",
       chainId: 137,

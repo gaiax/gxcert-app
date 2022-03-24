@@ -729,3 +729,8 @@ a.modal-message {
 .certificate-from a {
   color: #449a95!important;
 }
+
+.donate-link {
+  text-decoration: underline!important;
+  font-weight: bold;
+}
